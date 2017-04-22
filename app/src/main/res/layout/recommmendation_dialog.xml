@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/event_dialog"
+        android:layout_width="300dp"
+        android:layout_height="450dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_rectangle"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:text="Recomendaciones"
+            android:id="@+id/recommendation_dialog_title"/>
+        <android.support.v4.view.ViewPager
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:id="@+id/recommendation_dialog_viewpager">
+            <!-- todo lo que ocupa cada Recomendación @Esteban-->
+        </android.support.v4.view.ViewPager>
+        </LinearLayout>
+    </RelativeLayout>
