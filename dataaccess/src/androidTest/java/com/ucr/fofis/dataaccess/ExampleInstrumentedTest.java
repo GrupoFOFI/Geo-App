@@ -1,4 +1,4 @@
-package com.ucr.fofis.geoapp;
+package com.ucr.fofis.dataaccess;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -7,9 +7,6 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 /**
@@ -24,9 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.ucr.fofis.geoapp", appContext.getPackageName());
-
-        onView(withText("Fofi")).perform(click());
-
+        assertEquals("com.ucr.fofis.dataaccess.test", appContext.getPackageName());
     }
 }
