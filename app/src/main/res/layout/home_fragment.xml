@@ -42,8 +42,8 @@
                 android:layout_weight="15"
                 android:background="@android:color/holo_green_light"
                 android:shadowColor="@android:color/black"
-                android:shadowDx=""
-                android:shadowRadius="5dp"
+                android:shadowDx="5"
+                android:shadowRadius="5"
                 android:text="sobo" />
         </LinearLayout>
 
