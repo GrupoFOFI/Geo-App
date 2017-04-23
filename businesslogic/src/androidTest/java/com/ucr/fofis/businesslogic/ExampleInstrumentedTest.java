@@ -1,4 +1,4 @@
-package net.symbiotic.businesslogic;
+package com.ucr.fofis.businesslogic;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

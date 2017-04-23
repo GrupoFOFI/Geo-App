@@ -1,4 +1,4 @@
-package net.symbiotic.businesslogic;
+package com.ucr.fofis.businesslogic;
 
 import org.junit.Test;
 
