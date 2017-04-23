@@ -10,18 +10,34 @@ import android.content.Context;
 public final class DataAccessor {
     private static Context context;
 
-    public void init(Context context) {
-        this.context = context;
+    /**
+     * Initializes the context for this class.
+     *
+     * @param c the context.
+     */
+    public static void init(Context c) {
+        context = c;
     }
 
     /**
      * Returns the audio id associated to the file name.
      *
-     * @param name the file name
-     * @return the resource id for the raw file
+     * @param name the file name.
+     * @return the resource id for the raw file.
      */
     public static int getRawId(String name) {
         int resourceId = context.getResources().getIdentifier("name", "raw", "com.ucr.fofis.dataaccess");
+        return resourceId;
+    }
+
+    /**
+     * Returns the image id associated to the file name.
+     *
+     * @param name the file name.
+     * @return the resource id for the raw file.
+     */
+    public static int getImageId(String name) {
+        int resourceId = context.getResources().getIdentifier("name", "drawable", "com.ucr.fofis.dataaccess");
         return resourceId;
     }
 }
