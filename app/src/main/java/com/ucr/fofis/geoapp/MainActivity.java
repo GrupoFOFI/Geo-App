@@ -1,5 +1,7 @@
 package com.ucr.fofis.geoapp;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -54,6 +56,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Autoplay intro audio
+        MediaPlayer introMediaPlayer = new MediaPlayer();
+        introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
+        introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        introMediaPlayer.setLooping(false);
+        introMediaPlayer.start();
+
     }
 
     @Override
