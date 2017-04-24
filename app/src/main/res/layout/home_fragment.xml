@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,6 +14,7 @@
 
 
         <LinearLayout
+            android:id="@+id/layoutcarousel"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.45"
@@ -71,10 +72,19 @@
             <!--android:shadowColor="@android:color/black"-->
             </LinearLayout>
     </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="25dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:src="@android:drawable/ic_menu_send"
+        app:layout_anchor="@id/layoutcarousel"
+        app:layout_anchorGravity="bottom|right|end"/>
 
 
-</LinearLayout>
-
+</android.support.design.widget.CoordinatorLayout>
 
 
 
