@@ -37,7 +37,7 @@ public class RecommendationDialog extends Dialog implements View.OnClickListener
     /**
      * El numero de páginas de las recomendaciones.
      */
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 5;
 
     /**
      * Viewpager para moverse entre recomendaciones
