@@ -26,7 +26,6 @@
             android:layout_height="0dp"
             android:layout_weight="0.3"
             android:id="@+id/recommendation_dialog_viewpager">
-            <!-- todo lo que ocupa cada Recomendación @Esteban-->
         </android.support.v4.view.ViewPager>
         </LinearLayout>
     </RelativeLayout>

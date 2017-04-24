@@ -13,5 +13,5 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/recommendation_fragment_imagen"/>
+        android:id="@+id/recommendation_fragment_image"/>
 </LinearLayout>

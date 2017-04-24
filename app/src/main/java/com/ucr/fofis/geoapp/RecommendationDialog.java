@@ -32,11 +32,6 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
     private TextView title;
 
     /**
-     * El numero de páginas de las recomendaciones.
-     */
-    private static final int NUM_PAGES = 5;
-
-    /**
      * Viewpager para moverse entre recomendaciones
      */
 
@@ -102,7 +97,8 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = recomendaciones.size();
+        //**Cantidad de paginas. Cuando lista de recomendaciones este implementada deberia recomendaciones.size() deberia ir aqui.
+        private static int NUM_ITEMS = 3;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -116,14 +112,15 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
 
         // Returns the fragment to display for that page
         @Override
-        public FirstFragment getItem(int position) {
-            return FirstFragment.newInstance(recomendaciones.get(position));
+        public RecommendationCards getItem(int position) {
+            RecommendationCards rc = new RecommendationCards();
+            return rc;
         }
 
         // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Page " + position;
+            return "Pagina " + position;
         }
 
     }
