@@ -1,21 +1,18 @@
 package com.ucr.fofis.geoapp;
 
-import android.app.Activity;
+import android.app.*;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.DialogFragment;
 
 import com.ucr.fofis.dataaccess.database.Datos;
 import com.ucr.fofis.dataaccess.entity.Recomendacion;
@@ -27,7 +24,7 @@ import java.util.List;
  * Clase para mostrar el diálogo de las Recomendaciones de seguridad.
  * @author rapuc
  */
-public class RecommendationDialog extends Dialog implements View.OnClickListener{
+public class RecommendationDialog extends DialogFragment implements View.OnClickListener{
 
     /**
      * Título del diálogo
@@ -58,31 +55,45 @@ public class RecommendationDialog extends Dialog implements View.OnClickListener
     /**
      * Lista de {@link Recomendacion Recomendaciones} para llenar el ViewPager
      */
-    private List<Recomendacion> recomendaciones = new ArrayList<>(0);
+    public static List<Recomendacion> recomendaciones = new ArrayList<>(0);
 
     /**
      * índice de la lista de {@link Recomendacion Recomendaciones} que corresponde a la Recomendación actualmente mostrada.
      */
     private int index;
 
-    public RecommendationDialog(Activity activity) {
-        super(activity);
-        this.mActivity = activity;
+    public RecommendationDialog() {
     }
 
-    /**
-     * Inicializa todos los componentes del diálogo
-     * @param dialog the created dialog.
-     */
+    @NonNull
     @Override
-    protected void onCreateDialog(final android.app.Dialog dialog) {
-        title = (TextView) dialog.findViewById(R.id.recommendation_dialog_title);
+    public android.app.Dialog onCreateDialog(Bundle savedInstanceState) {
+        return super.onCreateDialog(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.recommmendation_dialog, container);
+        android.support.v4.app.FragmentManager fm = getChildFragmentManager();
+
+        title = (TextView) view.findViewById(R.id.recommendation_dialog_title);
+        viewPager = (ViewPager)view.findViewById(R.id.recommendation_dialog_viewpager);
+        mPagerAdapter = new MyPagerAdapter(fm);
+        viewPager.setAdapter(mPagerAdapter);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         title.setText("Recomendaciones");
-        viewPager = (ViewPager)dialog.findViewById(R.id.recommendation_dialog_viewpager);
         recomendaciones = Datos.RECOMENDACIONES;
 
-        viewPager = (ViewPager) dialog.findViewById(R.id.recommendation_dialog_viewpager);
-        viewPager.setAdapter(mPagerAdapter);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -91,7 +102,7 @@ public class RecommendationDialog extends Dialog implements View.OnClickListener
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 3;
+        private static int NUM_ITEMS = recomendaciones.size();
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -106,14 +117,7 @@ public class RecommendationDialog extends Dialog implements View.OnClickListener
         // Returns the fragment to display for that page
         @Override
         public FirstFragment getItem(int position) {
-            switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment
-                    return FirstFragment.newInstance(0, "Page # 1");
-                case 1: // Fragment # 0 - This will show FirstFragment different title
-                    return FirstFragment.newInstance(0, "Page # 1");
-                default:
-                    return null;
-            }
+            return FirstFragment.newInstance(recomendaciones.get(position));
         }
 
         // Returns the page title for the top indicator

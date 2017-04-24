@@ -25,4 +25,12 @@ public class Recomendacion {
     public void setImagen(int imagen) {
         this.imagen = imagen;
     }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
 }

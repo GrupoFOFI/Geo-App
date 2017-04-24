@@ -5,7 +5,7 @@
     android:gravity="center">
 
     <LinearLayout
-        android:id="@+id/event_dialog"
+        android:id="@+id/fofi"
         android:layout_width="300dp"
         android:layout_height="450dp"
         android:layout_gravity="center"

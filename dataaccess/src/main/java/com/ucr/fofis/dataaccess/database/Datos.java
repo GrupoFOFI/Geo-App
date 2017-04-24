@@ -1,5 +1,6 @@
 package com.ucr.fofis.dataaccess.database;
 
+import com.ucr.fofis.dataaccess.R;
 import com.ucr.fofis.dataaccess.entity.Punto;
 import com.ucr.fofis.dataaccess.entity.Recomendacion;
 
@@ -20,7 +21,8 @@ public class Datos {
 
     public final static ArrayList<Recomendacion> RECOMENDACIONES = new ArrayList<Recomendacion>() {
         {
-            add(new Recomendacion("Manitos Adentro",3));
+            add(new Recomendacion("Manitos Adentro", R.drawable.crgobierno));
+            add(new Recomendacion("Manitos Adentro", R.drawable.crgobierno));
         }
     };
 }
