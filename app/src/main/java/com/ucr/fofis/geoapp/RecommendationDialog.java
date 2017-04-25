@@ -1,6 +1,6 @@
 package com.ucr.fofis.geoapp;
 
-import android.app.*;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,9 +16,6 @@ import android.widget.TextView;
 
 import com.ucr.fofis.dataaccess.database.Datos;
 import com.ucr.fofis.dataaccess.entity.Recomendacion;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Clase para mostrar el diálogo de las Recomendaciones de seguridad.
@@ -48,11 +45,6 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
     private Activity mActivity;
 
     /**
-     * Lista de {@link Recomendacion Recomendaciones} para llenar el ViewPager
-     */
-    public static List<Recomendacion> recomendaciones = new ArrayList<>(0);
-
-    /**
      * índice de la lista de {@link Recomendacion Recomendaciones} que corresponde a la Recomendación actualmente mostrada.
      */
     private int index;
@@ -72,6 +64,7 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
         android.support.v4.app.FragmentManager fm = getChildFragmentManager();
 
         title = (TextView) view.findViewById(R.id.recommendation_dialog_title);
+        title.setText("Recomendaciones de Seguridad");
         viewPager = (ViewPager)view.findViewById(R.id.recommendation_dialog_viewpager);
         mPagerAdapter = new MyPagerAdapter(fm);
         viewPager.setAdapter(mPagerAdapter);
@@ -81,9 +74,6 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        title.setText("Recomendaciones");
-        recomendaciones = Datos.RECOMENDACIONES;
-
     }
 
     @Override
@@ -98,8 +88,8 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
         //**Cantidad de paginas. Cuando lista de recomendaciones este implementada deberia recomendaciones.size() deberia ir aqui.
-        private static int NUM_ITEMS = 3;
-
+//        private static int NUM_ITEMS = 3;
+        private static int NUM_ITEMS = Datos.RECOMENDACIONES.size();
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
         }
@@ -113,8 +103,17 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
         // Returns the fragment to display for that page
         @Override
         public RecommendationCards getItem(int position) {
-            RecommendationCards rc = new RecommendationCards();
-            return rc;
+            if(NUM_ITEMS ==0 ){
+                return null;
+            }else {
+                Recomendacion r = Datos.RECOMENDACIONES.get(position);
+                RecommendationCards rc = new RecommendationCards();
+                Bundle args = new Bundle();
+                args.putString("title", r.getTexto());
+                args.putInt("imageId", r.getImagen());
+                rc.setArguments(args);
+                return rc;
+            }
         }
 
         // Returns the page title for the top indicator

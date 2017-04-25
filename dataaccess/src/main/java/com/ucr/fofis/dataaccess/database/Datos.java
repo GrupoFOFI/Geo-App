@@ -21,8 +21,12 @@ public class Datos {
 
     public final static ArrayList<Recomendacion> RECOMENDACIONES = new ArrayList<Recomendacion>() {
         {
-            add(new Recomendacion("Manitos Adentro", R.drawable.crgobierno));
-            add(new Recomendacion("Manitos Adentro", R.drawable.crgobierno));
+            add(new Recomendacion("Fofi", R.drawable.crgobierno));
+            add(new Recomendacion("Fofi", R.drawable.crgobierno));
+            add(new Recomendacion("Fofi", R.drawable.crgobierno));
+            add(new Recomendacion("Fofi", R.drawable.crgobierno));
+            add(new Recomendacion("Fofi", R.drawable.crgobierno));
+            add(new Recomendacion("Fofi", R.drawable.crgobierno));
         }
     };
 }
