@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="exposed-instrumentation-api-publish-0.5">
     <CLASSES>
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.android/build-cache/e5dbf3f39dd92b06d78d660d83d99fe3b6e39e95/output/res" />
       <root url="jar://$USER_HOME$/.android/build-cache/e5dbf3f39dd92b06d78d660d83d99fe3b6e39e95/output/jars/classes.jar!/" />
     </CLASSES>
@@ -8,6 +9,15 @@
     <SOURCES>
       <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/test/exposed-instrumentation-api-publish/0.5/exposed-instrumentation-api-publish-0.5-sources.jar!/" />
       <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/test/exposed-instrumentation-api-publish/0.5/exposed-instrumentation-api-publish-0.5-sources.jar!/" />
+=======
+      <root url="file://$USER_HOME$/.android/build-cache/6fb5d88c8c739b0bdd57c14f5a94107fb00fab8d/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/6fb5d88c8c739b0bdd57c14f5a94107fb00fab8d/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/test/exposed-instrumentation-api-publish/0.5/exposed-instrumentation-api-publish-0.5-sources.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/test/exposed-instrumentation-api-publish/0.5/exposed-instrumentation-api-publish-0.5-sources.jar!/" />
+>>>>>>> origin/MainActivity
     </SOURCES>
   </library>
 </component>

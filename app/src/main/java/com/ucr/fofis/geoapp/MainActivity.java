@@ -1,5 +1,7 @@
 package com.ucr.fofis.geoapp;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -51,7 +53,15 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+<<<<<<< HEAD
         this.showRecommentdationDialog();
+=======
+
+        //autoplay Intro Sound
+        autoplayIntro();
+
+
+>>>>>>> origin/MainActivity
     }
 
     @Override
@@ -129,8 +139,17 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+<<<<<<< HEAD
     public void showRecommentdationDialog(){
         RecommendationDialog rd = new RecommendationDialog();
         rd.show(getSupportFragmentManager(), "fofi");
+=======
+    private void autoplayIntro() {
+        MediaPlayer introMediaPlayer = new MediaPlayer();
+        introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
+        introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        introMediaPlayer.setLooping(false);
+        introMediaPlayer.start();
+>>>>>>> origin/MainActivity
     }
 }

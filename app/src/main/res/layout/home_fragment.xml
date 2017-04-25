@@ -1,57 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="100"
+        android:weightSum="1"
         android:orientation="vertical">
 
+
+
         <LinearLayout
+            android:id="@+id/layoutcarousel"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="45"
+            android:layout_weight="0.45"
             android:orientation="vertical">
 
-
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/carouselView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:fillColor="#FFFFFFFF"
+                app:pageColor="#00000000"
+                app:radius="6dp"
+                app:slideInterval="3000"
+                app:strokeColor="#FF777777"
+                app:strokeWidth="1dp"/>
 
         </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="55"
+            android:layout_weight="0.55"
             android:orientation="vertical"
             android:background="@android:color/holo_orange_dark"
-            android:weightSum="100">
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="85"
-                android:padding="20dp"
-                android:text="LOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRA"/>
-
-            <Button
+                android:layout_weight="0.75"
+                android:paddingTop="20dp"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:text="LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM LOREM IPSUMLOREM IPSUM "
+                />
+            <LinearLayout
+                android:orientation="vertical"
                 android:id="@+id/button"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:layout_weight="15"
-                android:background="@android:color/holo_green_light"
-                android:shadowColor="@android:color/black"
-                android:shadowDx="5"
-                android:shadowRadius="5"
-                android:text="sobo" />
-        </LinearLayout>
+                android:gravity="center"
+                android:layout_weight="0.25" >
 
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/holo_green_light"
+                    android:text="asdasdasdasd"
+                    />
 
+                </LinearLayout>
+
+            <!--android:shadowColor="@android:color/black"-->
+            </LinearLayout>
     </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="25dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:src="@android:drawable/ic_menu_send"
+        app:layout_anchor="@id/layoutcarousel"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+
+</android.support.design.widget.CoordinatorLayout>
 
 
 
 
-
-</LinearLayout>
