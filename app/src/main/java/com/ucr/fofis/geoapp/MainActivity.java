@@ -5,13 +5,10 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -53,6 +50,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+<<<<<<< HEAD
+        this.showRecommentdationDialog();
+=======
 
         SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
         if(prefs.contains("firsttime")){
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+>>>>>>> origin/MainActivity
     }
 
 
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
-
+            this.showRecommentdationDialog();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -145,11 +146,17 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+<<<<<<< HEAD
+    public void showRecommentdationDialog(){
+        RecommendationDialog rd = new RecommendationDialog();
+        rd.show(getSupportFragmentManager(), "fofi");
+=======
     private void autoplayIntro() {
         MediaPlayer introMediaPlayer = new MediaPlayer();
         introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
         introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         introMediaPlayer.setLooping(false);
         introMediaPlayer.start();
+>>>>>>> origin/MainActivity
     }
 }
