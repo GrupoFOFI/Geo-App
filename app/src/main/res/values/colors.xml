@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimaryWhite">#FFFFFF</color>
     <color name="colorPrimaryYellow">#FFE06a</color>
-    <color name="colorPrimaryLightBlue">#00c0f3</color>
-    <color name="colorPrimaryBlue">#005da4</color>
+    <color name="colorPrimary">#00c0f3</color>
+    <color name="colorPrimaryDark">#005da4</color>
     <color name="colorPrimaryGreen">#6dc067</color>
 
 
@@ -19,7 +19,7 @@
     <color name="colorSecondaryBrown2">#7b3400</color>
     <color name="colorSecondaryBrown3">#670000</color>
 
-    <color name="colorSecondaryLightBlue2">#8ed8f8</color>
+    <color name="colorAccent">#8ed8f8</color>
     <color name="colorSecondaryLightBlue3">#bad2cd</color>
     <color name="colorSecondaryLightBlue4">#80a9ba</color>
 
