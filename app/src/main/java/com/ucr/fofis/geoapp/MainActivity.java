@@ -50,9 +50,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-<<<<<<< HEAD
         this.showRecommentdationDialog();
-=======
 
         SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
         if(prefs.contains("firsttime")){
@@ -62,9 +60,6 @@ public class MainActivity extends AppCompatActivity
             //autoplay Intro Sound
             autoplayIntro();
         }
-
-
->>>>>>> origin/MainActivity
     }
 
 
@@ -146,17 +141,16 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
-<<<<<<< HEAD
-    public void showRecommentdationDialog(){
+    public void showRecommentdationDialog() {
         RecommendationDialog rd = new RecommendationDialog();
         rd.show(getSupportFragmentManager(), "fofi");
-=======
+    }
+
     private void autoplayIntro() {
         MediaPlayer introMediaPlayer = new MediaPlayer();
         introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
         introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         introMediaPlayer.setLooping(false);
         introMediaPlayer.start();
->>>>>>> origin/MainActivity
     }
 }
