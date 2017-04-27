@@ -14,6 +14,7 @@ import java.util.Random;
  */
 public class ResourceManager {
     List<List<Integer>> pointsMap = new ArrayList<>();
+    List<Integer> carouselMap = new ArrayList<>();
 
     /**
      * The current application context.
@@ -36,6 +37,15 @@ public class ResourceManager {
         DataAccessor.init(context);
         this.context = context;
         instance = this;
+
+        carouselMap.add(getImageFromName("carousel_01"));
+        carouselMap.add(getImageFromName("carousel_02"));
+        carouselMap.add(getImageFromName("carousel_03"));
+        carouselMap.add(getImageFromName("carousel_04"));
+        carouselMap.add(getImageFromName("arco_en_roca"));
+        carouselMap.add(getImageFromName("el_gallito"));
+        carouselMap.add(getImageFromName("estratos_descartes"));
+        carouselMap.add(getImageFromName("macizo_orosi"));
 
         // Initialize maps
         pointsMap.add(null); // index 0 is null, 1-based list
@@ -61,14 +71,14 @@ public class ResourceManager {
         });
         pointsMap.add(5, new ArrayList<Integer>() {
             {
-                add(getImageFromName("punto_5_1"));
-                add(getImageFromName("punto_5_2"));
+                add(getImageFromName("punto_05_1"));
+                add(getImageFromName("punto_05_2"));
             }
         });
         pointsMap.add(6, new ArrayList<Integer>() {
             {
-                add(getImageFromName("punto_6_1_muneco"));
-                add(getImageFromName("punto_6_2"));
+                add(getImageFromName("punto_06_1_muneco"));
+                add(getImageFromName("punto_06_2"));
             }
         });
         pointsMap.add(7, new ArrayList<Integer>() {
@@ -178,13 +188,8 @@ public class ResourceManager {
             for (int i = 0; i < N; i++) {
                 int value;
                 do {
-                    value = random.nextInt(pointsMap.size());
-                    value++; // 1-based
-                    List<Integer> points = pointsMap.get(value);
-                    if (points.size() > 0) {
-                        value = random.nextInt(points.size());
-                        value = points.get(value);
-                    } else value = 0;
+                    value = random.nextInt(carouselMap.size());
+                    value = carouselMap.get(value);
                 } while (hasValue(chosen, value));
                 chosen[i] = value;
             }
@@ -238,5 +243,9 @@ public class ResourceManager {
 
     private boolean isInitialized() {
         return instance != null;
+    }
+
+    public static ResourceManager getInstance() {
+        return instance;
     }
 }

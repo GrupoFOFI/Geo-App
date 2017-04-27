@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
+import com.ucr.fofis.businesslogic.ResourceManager;
 import com.ucr.fofis.geoapp.R;
 
 /**
@@ -22,6 +23,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment, container, false);
+        sampleImages = ResourceManager.getInstance().getCarouselImages(4);
 
         carouselView = (CarouselView) rootView.findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
@@ -34,7 +36,7 @@ public class HomeFragment extends Fragment {
 
     CarouselView carouselView;
 
-    int[] sampleImages = {R.drawable.androidmeda, R.drawable.cl, R.drawable.fofi, R.drawable.gg};
+    int[] sampleImages;
 
 
 

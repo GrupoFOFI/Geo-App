@@ -26,7 +26,7 @@ public final class DataAccessor {
      * @return the resource id for the raw file.
      */
     public static int getRawId(String name) {
-        int resourceId = context.getResources().getIdentifier("name", "raw", "com.ucr.fofis.dataaccess");
+        int resourceId = context.getResources().getIdentifier(name, "raw", context.getPackageName());
         return resourceId;
     }
 
@@ -37,7 +37,7 @@ public final class DataAccessor {
      * @return the resource id for the raw file.
      */
     public static int getImageId(String name) {
-        int resourceId = context.getResources().getIdentifier("name", "drawable", "com.ucr.fofis.dataaccess");
+        int resourceId = context.getResources().getIdentifier(name, "drawable", context.getPackageName());
         return resourceId;
     }
 }
