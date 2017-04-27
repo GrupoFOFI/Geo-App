@@ -1,5 +1,9 @@
 package com.ucr.fofis.geoapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,19 +31,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //setear la vista/layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -47,6 +45,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        //para controlar la navegacion del menu y para poder cambiar de fragmento
         homeFragment = new HomeFragment();
         fragmentManager = getSupportFragmentManager();
         currentFragmentType = homeFragment.getClass();
@@ -54,8 +53,21 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
+        if(prefs.contains("firsttime")){
+        }
+        else{
+            prefs.edit().putString("firsttime", "val").apply();
+            //autoplay Intro Sound
+            autoplayIntro();
+        }
+
+
     }
 
+
+    //Menu lateral
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -90,6 +102,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    //navegacion del menu
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -119,6 +132,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    //setear el fragment seleccionado
     private void setFragment(Fragment fragment) {
         if (fragmentManager.getBackStackEntryCount() == 1 && fragment.getClass() == HomeFragment.class) {
             fragmentManager.popBackStack();
@@ -129,5 +143,13 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.addToBackStack(fragment.getTag());
         }
         fragmentTransaction.commit();
+    }
+
+    private void autoplayIntro() {
+        MediaPlayer introMediaPlayer = new MediaPlayer();
+        introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
+        introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        introMediaPlayer.setLooping(false);
+        introMediaPlayer.start();
     }
 }
