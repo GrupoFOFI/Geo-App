@@ -45,7 +45,9 @@ public class MapActivity extends AppCompatActivity {
     final BoundingBox bBox15 = new BoundingBox(11.0658, -85.6700, 10.9222, -85.7650);
     final BoundingBox bBox16 = new BoundingBox(11.0658, -85.6780, 10.9322, -85.7820);
     public static final GeoPoint routeCenter = new GeoPoint(10.9891, -85.7095);
-
+    ArrayList<Marker> marcadores;
+    ArrayList<Location> locations;
+    Marker myPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,48 @@ public class MapActivity extends AppCompatActivity {
         mMapView.setMapListener(new DelayedMapListener(new miZoomListener()));
         setZoom(mMapView);
         addOverlays(mMapView);
+        initMyPoistion(mMapView);
+        passPOItoMarker(mMapView);
+    }
+
+    private void initMyPoistion(MapView m){
+        myPosition= new Marker(m);
+        LocationManager milocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        LocationListener milocListener = new MiLocationListener();
+        if ( Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return  ;
+        }
+         milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
+
+        //probar
+        /*addMarker(m , "mi posición",  )*/
+    }
+
+
+    private void createListMarker(){
+        marcadores = new ArrayList<Marker>();
+    }
+    private Marker addMarker(MapView m, String name, GeoPoint loc, int pto  ){
+        marcadores.add(new Marker(m));
+        marcadores.get(pto).setPosition(loc);
+        marcadores.get(pto).setTitle(name);
+        marcadores.get(pto).setIcon(this.getResources().getDrawable(R.mipmap.ic_place));
+        marcadores.get(pto).setAnchor(Marker.ANCHOR_CENTER, 1.0f);
+        return marcadores.get(pto);
+    }
+
+    private void drawMarker(Marker marcador){
+        mMapView.getOverlays().add(marcador);
+        mMapView.invalidate();
+    }
+
+    private void passPOItoMarker(MapView m){
+        createListMarker();
+        //for list de poi
+        drawMarker(addMarker(m,"FOFI",routeCenter,0));
+
     }
 
     /* recibe el archivo tiles de assets(in) y el archivo generado tiles en la memoria de android(out)
@@ -214,7 +258,7 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 
-
+    /*-----------------------------------------------------------------------------------------------------------------------------------------*/
     /*clase que escucha la interacción con el zoom del mapa*/
     public class miZoomListener implements MapListener{
         @Override
@@ -242,5 +286,25 @@ public class MapActivity extends AppCompatActivity {
             return true;
         }
 
+    }
+    /*-----------------------------------------------------------------------------------------------------------------------------------------*/
+    public class MiLocationListener implements LocationListener
+    {
+        public void onLocationChanged(Location loc)
+        {
+            loc.getLatitude();
+            loc.getLongitude();
+            String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
+            Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
+        }
+        public void onProviderDisabled(String provider)
+        {
+            Toast.makeText( getApplicationContext(),"Gps Desactivado",Toast.LENGTH_SHORT ).show();
+        }
+        public void onProviderEnabled(String provider)
+        {
+            Toast.makeText( getApplicationContext(),"Gps Activo",Toast.LENGTH_SHORT ).show();
+        }
+        public void onStatusChanged(String provider, int status, Bundle extras){}
     }
 }
