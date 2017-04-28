@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,22 +17,41 @@
             android:orientation="vertical">
 
 
-
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="55"
-            android:orientation="vertical"
             android:background="@android:color/holo_orange_dark"
+            android:orientation="vertical"
             android:weightSum="100">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="15"
+                android:background="@android:color/holo_orange_dark"
+                android:orientation="vertical"
+                android:weightSum="100">
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/buttonFloat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_weight="15"
+                android:clickable="true"
+                app:backgroundTint="@android:color/holo_green_light"
+                app:elevation="@dimen/default_circle_indicator_radius"
+                app:fabSize="mini"
+                app:srcCompat="@mipmap/ic_navigate" />
+            </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="85"
+                android:layout_weight="70"
                 android:padding="20dp"
-                android:text="LOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRA"/>
+                android:text="LOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRALOREM IPSUM EN EL LOREM IPSUM LUIGI SOBO LUIGI GAY LUIGI HEMBRA" />
 
             <Button
                 android:id="@+id/button"
@@ -43,13 +63,11 @@
                 android:background="@android:color/holo_green_light"
                 android:shadowColor="@android:color/black"
                 android:text="sobo" />
+
         </LinearLayout>
 
 
     </LinearLayout>
-
-
-
 
 
 </LinearLayout>
