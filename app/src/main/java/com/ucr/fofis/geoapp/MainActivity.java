@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestPermission();
         //setear la vista/layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        requestPermission();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -180,7 +180,6 @@ public class MainActivity extends AppCompatActivity
 
     public void showRecommentdationDialog() {
         RecommendationDialog rd = new RecommendationDialog();
-        rd.show(getSupportFragmentManager(), "fofi");
     }
 
     private void autoplayIntro() {
