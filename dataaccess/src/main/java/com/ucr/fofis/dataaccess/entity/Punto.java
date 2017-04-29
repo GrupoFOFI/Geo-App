@@ -1,0 +1,117 @@
+package com.ucr.fofis.dataaccess.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by rapuc on 4/19/17.
+ */
+public class Punto {
+
+    private int idntfcdr;
+    private String nombre;
+    private String descripcion;
+    private Double latitud;
+    private Double longitud;
+    private Double geofenceRadio;
+    private List<Integer> imagenes = new ArrayList<Integer>(0); //
+    private Integer videoId;
+    private Integer audioId;
+    private Integer animationId;
+
+    public Punto(int idntfcdr, String nombre, String descripcion, Double latitud, Double longitud, Double geofenceRadio, List<Integer> imagenes, Integer videoId, Integer audioId, Integer animationId) {
+        this.idntfcdr = idntfcdr;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.geofenceRadio = geofenceRadio;
+        this.imagenes = imagenes;
+        this.videoId = videoId;
+        this.audioId = audioId;
+        this.animationId = animationId;
+    }
+
+    public Punto() {
+    }
+
+    public int getIdntfcdr() {
+        return idntfcdr;
+    }
+
+    public void setIdntfcdr(int idntfcdr) {
+        this.idntfcdr = idntfcdr;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
+    }
+
+    public Double getGeofenceRadio() {
+        return geofenceRadio;
+    }
+
+    public void setGeofenceRadio(Double geofenceRadio) {
+        this.geofenceRadio = geofenceRadio;
+    }
+
+    public List<Integer> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<Integer> imagenes) {
+        this.imagenes = imagenes;
+    }
+
+    public Integer getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(Integer videoId) {
+        this.videoId = videoId;
+    }
+
+    public Integer getAudioId() {
+        return audioId;
+    }
+
+    public void setAudioId(Integer audioId) {
+        this.audioId = audioId;
+    }
+
+    public Integer getAnimationId() {
+        return animationId;
+    }
+
+    public void setAnimationId(Integer animationId) {
+        this.animationId = animationId;
+    }
+}

@@ -1,18 +1,20 @@
 package com.ucr.fofis.geoapp;
 
+
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,7 +22,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import com.ucr.fofis.geoapp.Fragment.HomeFragment;
 
@@ -34,19 +35,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestPermission();
+        //setear la vista/layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        //para controlar la navegacion del menu y para poder cambiar de fragmento
         homeFragment = new HomeFragment();
         fragmentManager = getSupportFragmentManager();
         currentFragmentType = homeFragment.getClass();
@@ -71,14 +67,24 @@ public class MainActivity extends AppCompatActivity
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},  CODE_RE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_RE);
         }
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},  CODE_RE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CODE_RE);
+            this.showRecommentdationDialog();
+
+            SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
+            if (prefs.contains("firsttime")) {
+            } else {
+                prefs.edit().putString("firsttime", "val").apply();
+                //autoplay Intro Sound
+                autoplayIntro();
+            }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -88,12 +94,13 @@ public class MainActivity extends AppCompatActivity
                     // Resultado correcto
                     break;
                 case RESULT_CANCELED:
-
                     // Cancelación o cualquier situación de error
                     break;
             }
         }
     }
+
+    //Menu lateral
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -128,6 +135,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    //navegacion del menu
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -143,7 +151,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
-
+            this.showRecommentdationDialog();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -157,6 +165,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    //setear el fragment seleccionado
     private void setFragment(Fragment fragment) {
         if (fragmentManager.getBackStackEntryCount() == 1 && fragment.getClass() == HomeFragment.class) {
             fragmentManager.popBackStack();
@@ -167,5 +176,18 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.addToBackStack(fragment.getTag());
         }
         fragmentTransaction.commit();
+    }
+
+    public void showRecommentdationDialog() {
+        RecommendationDialog rd = new RecommendationDialog();
+        rd.show(getSupportFragmentManager(), "fofi");
+    }
+
+    private void autoplayIntro() {
+        MediaPlayer introMediaPlayer = new MediaPlayer();
+        introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
+        introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        introMediaPlayer.setLooping(false);
+        introMediaPlayer.start();
     }
 }
