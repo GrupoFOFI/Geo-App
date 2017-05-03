@@ -1,9 +1,11 @@
 package com.ucr.fofis.geoapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -112,6 +114,11 @@ public class MainActivity extends AppCompatActivity
             this.showRecommentdationDialog();
         } else if (id == R.id.nav_audio) {
             autoplayIntro();
+        } else if (id == R.id.web) {
+            String url = "http://cicg.ucr.ac.cr/";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
