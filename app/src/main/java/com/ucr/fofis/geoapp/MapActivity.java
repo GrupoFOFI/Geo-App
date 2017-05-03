@@ -24,9 +24,13 @@ import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.views.MapController;
 
 import android.widget.Toast;
+
+import com.ucr.fofis.businesslogic.TourManager;
+
 import	java.io.OutputStream;
 import	java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import org.osmdroid.tileprovider.modules.ArchiveFileFactory;
 import org.osmdroid.tileprovider.modules.IArchiveFile;
@@ -72,20 +76,27 @@ public class MapActivity extends AppCompatActivity {
             return  ;
         }
          milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
-
-        //probar
-        /*addMarker(m , "mi posición",  )*/
+        milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
+        Location l = milocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        GeoPoint p= new GeoPoint(l);
+        myPosition.setPosition( p );
+        myPosition.setIcon(this.getResources().getDrawable(R.mipmap.ic_marker));
+        myPosition.setTitle("my position");
+        myPosition.setAnchor(Marker.ANCHOR_CENTER, 1.0f);
+        drawMarker(myPosition);
     }
 
 
     private void createListMarker(){
         marcadores = new ArrayList<Marker>();
     }
-    private Marker addMarker(MapView m, String name, GeoPoint loc, int pto  ){
+
+    private Marker addMarker(MapView m, String name, double lon,double lat, int pto  ){
         marcadores.add(new Marker(m));
-        marcadores.get(pto).setPosition(loc);
+        GeoPoint gp = new GeoPoint(lon, lat);
+        marcadores.get(pto).setPosition(gp);
         marcadores.get(pto).setTitle(name);
-        marcadores.get(pto).setIcon(this.getResources().getDrawable(R.mipmap.ic_place));
+        marcadores.get(pto).setIcon(this.getResources().getDrawable(R.mipmap.ic_marker2));
         marcadores.get(pto).setAnchor(Marker.ANCHOR_CENTER, 1.0f);
         return marcadores.get(pto);
     }
@@ -97,9 +108,10 @@ public class MapActivity extends AppCompatActivity {
 
     private void passPOItoMarker(MapView m){
         createListMarker();
-        //for list de poi
-        drawMarker(addMarker(m,"FOFI",routeCenter,0));
-
+       for(int i =0; i < TourManager.getPoints().size();i++){
+            drawMarker(addMarker(m,"FOFI",TourManager.getPoints().get(i).getLongitude(),TourManager.getPoints().get(i).getLatitude() ,i));
+            String s = " esto : "+(TourManager.getPoints().get(i));
+        }
     }
 
     /* recibe el archivo tiles de assets(in) y el archivo generado tiles en la memoria de android(out)
@@ -294,11 +306,17 @@ public class MapActivity extends AppCompatActivity {
         {
             loc.getLatitude();
             loc.getLongitude();
-            String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
-            Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
+           // String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
+           // Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
+            GeoPoint p= new GeoPoint(loc.getLatitude(),loc.getLongitude());
+            myPosition.setPosition(p);
+            drawMarker(myPosition);
+
         }
         public void onProviderDisabled(String provider)
         {
+            //String s = "esto :"+TourManager.getPoints().get(1);
+            //Toast.makeText( getApplicationContext(),s,Toast.LENGTH_LONG).show();
             Toast.makeText( getApplicationContext(),"Gps Desactivado",Toast.LENGTH_SHORT ).show();
         }
         public void onProviderEnabled(String provider)
