@@ -39,7 +39,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.55"
             android:orientation="vertical"
-            android:background="@android:color/holo_orange_dark"
+            android:background="@color/colorSecondaryOrange3"
             android:weightSum="1">
 
             <TextView

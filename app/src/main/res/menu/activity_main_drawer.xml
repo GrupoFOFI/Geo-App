@@ -15,9 +15,9 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Escuchar audio introductorio" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/web"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Página Web" />
     </group>
 
     <item android:title="Communicate">
