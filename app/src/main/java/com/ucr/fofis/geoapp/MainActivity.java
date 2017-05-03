@@ -138,10 +138,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void autoplayIntro() {
-        MediaPlayer introMediaPlayer = new MediaPlayer();
-        introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
-        introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        introMediaPlayer.setLooping(false);
-        introMediaPlayer.start();
+
+        AudioManager manager = (AudioManager)this.getSystemService(Context.AUDIO_SERVICE);
+        if(!(manager.isMusicActive()))
+        {
+            MediaPlayer introMediaPlayer = new MediaPlayer();
+            introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
+            introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            introMediaPlayer.setLooping(false);
+            introMediaPlayer.start();
+        }
     }
 }
