@@ -6,11 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 import com.ucr.fofis.businesslogic.ResourceManager;
+import com.ucr.fofis.geoapp.MainActivity;
 import com.ucr.fofis.geoapp.R;
 
 /**
@@ -29,6 +31,14 @@ public class HomeFragment extends Fragment {
         carouselView.setPageCount(sampleImages.length);
 
         carouselView.setImageListener(imageListener);
+
+        Button btnStart = (Button) rootView.findViewById(R.id.btnStart);
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)HomeFragment.this.getActivity()).showRecommentdationDialog();
+            }
+        });
 
         return rootView;
         //return super.onCreateView(inflater, container, savedInstanceState);
