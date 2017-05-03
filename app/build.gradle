@@ -32,6 +32,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':businesslogic')
     compile project(':dataaccess')
+    compile project(path: ':businesslogic')
 }
 
 

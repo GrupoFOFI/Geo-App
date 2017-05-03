@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -148,16 +146,10 @@ public class MainActivity extends AppCompatActivity
                 currentFragmentType = homeFragment.getClass();
                 setTitle("IBX");
             }
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_recomendaciones) {
             this.showRecommentdationDialog();
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_audio) {
+            autoplayIntro();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -183,10 +175,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void autoplayIntro() {
-        MediaPlayer introMediaPlayer = new MediaPlayer();
-        introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
-        introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        introMediaPlayer.setLooping(false);
-        introMediaPlayer.start();
+
+        AudioManager manager = (AudioManager)this.getSystemService(Context.AUDIO_SERVICE);
+        if(!(manager.isMusicActive()))
+        {
+            MediaPlayer introMediaPlayer = new MediaPlayer();
+            introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
+            introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            introMediaPlayer.setLooping(false);
+            introMediaPlayer.start();
+        }
     }
 }
