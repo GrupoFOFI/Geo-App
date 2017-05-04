@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     Class currentFragmentType;
     FragmentManager fragmentManager;
     private HomeFragment homeFragment;
+    public MediaPlayer introMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity
         AudioManager manager = (AudioManager)this.getSystemService(Context.AUDIO_SERVICE);
         if(!(manager.isMusicActive()))
         {
-            MediaPlayer introMediaPlayer = new MediaPlayer();
+            introMediaPlayer = new MediaPlayer();
             introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
             introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             introMediaPlayer.setLooping(false);

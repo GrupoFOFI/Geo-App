@@ -18,6 +18,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.*;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -39,7 +40,7 @@ public class IntroductionSoundTest {
                 allOf(withId(R.id.design_menu_item_text), withText("Escuchar audio introductorio"), isDisplayed()));
         appCompatCheckedTextView.perform(click());
 
-        //Sonido debe estar sonando
+        assertTrue(mActivityTestRule.getActivity().introMediaPlayer.isPlaying());
     }
 
 }

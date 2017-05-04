@@ -24,6 +24,7 @@ import com.ucr.fofis.geoapp.R;
 
 public class HomeFragment extends Fragment {
 
+    public static String URL = "http://cicg.ucr.ac.cr/";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,9 +40,9 @@ public class HomeFragment extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "http://cicg.ucr.ac.cr/";
+
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
+                i.setData(Uri.parse(URL));
                 startActivity(i);
             }
         });
