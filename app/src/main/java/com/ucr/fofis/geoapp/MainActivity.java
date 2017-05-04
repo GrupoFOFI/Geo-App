@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity
 
     public void showRecommentdationDialog() {
         RecommendationDialog rd = new RecommendationDialog();
-        rd.show(getSupportFragmentManager(), "En TODO momento del viaje se debe de utilizar el chaleco salvavidas sin excepciones.\r\n Siempre acatar las instrucciones del capitán. \r\n Mantenerse del mismo lado en donde se les fue ubicado.\r\n");
+        rd.show(getSupportFragmentManager(), "\r\n  \r\n \r\n");
     }
 
     private void autoplayIntro() {
