@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity
 
     public void showRecommentdationDialog() {
         RecommendationDialog rd = new RecommendationDialog();
-        rd.show(getSupportFragmentManager(), "fofi");
+        rd.show(getSupportFragmentManager(), "\r\n  \r\n \r\n");
     }
 
     private void autoplayIntro() {

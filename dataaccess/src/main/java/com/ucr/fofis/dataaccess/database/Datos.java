@@ -21,12 +21,9 @@ public class Datos {
 
     public final static ArrayList<Recomendacion> RECOMENDACIONES = new ArrayList<Recomendacion>() {
         {
-            add(new Recomendacion("Fofi", R.drawable.crgobierno));
-            add(new Recomendacion("Fofi", R.drawable.crgobierno));
-            add(new Recomendacion("Fofi", R.drawable.crgobierno));
-            add(new Recomendacion("Fofi", R.drawable.crgobierno));
-            add(new Recomendacion("Fofi", R.drawable.crgobierno));
-            add(new Recomendacion("Fofi", R.drawable.crgobierno));
+            add(new Recomendacion("En TODO momento del viaje se debe de utilizar el chaleco salvavidas sin excepciones.", R.drawable.salvavidas));
+            add(new Recomendacion("Siempre acatar las instrucciones del capitán.", R.drawable.captain));
+            add(new Recomendacion("Mantenerse del mismo lado en donde se les fue ubicado.", R.drawable.boat));
         }
     };
 }

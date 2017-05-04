@@ -46,10 +46,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.75"
-                android:paddingTop="30dp"
-                android:textSize="14sp"
+                android:paddingTop="40dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryWhite"
                 android:textAlignment="center"
                 android:text="La isla Bolaños y los lugares cercanos permitirán una apreciación de rocas, depositadas en los taludes continentales, emergidos y visibles en superficie por diversos procesos tectónicos y de erosión. En esta ruta se identificarán rocas de hasta 40 millones de años, a través de 24 sitios de interés patrimonial."
+                android:gravity="fill_horizontal"
                 />
             <LinearLayout
                 android:orientation="vertical"
@@ -64,6 +68,7 @@
                     android:id="@+id/btnStart"
                     android:layout_width="150dp"
                     android:layout_height="40dp"
+                    android:textColor="@color/colorPrimaryWhite"
                     android:background="@color/colorSecondaryYellow3"
                     android:text="Ir a página web"
                     />
