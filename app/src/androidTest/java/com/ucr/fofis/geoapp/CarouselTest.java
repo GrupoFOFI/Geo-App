@@ -32,7 +32,7 @@ public class CarouselTest {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void mainActivityTest() {
+    public void mainActivity_carrouselTest() {
 
         ViewInteraction imageView = onView(
                 allOf(withParent(allOf(withId(R.id.containerViewPager),

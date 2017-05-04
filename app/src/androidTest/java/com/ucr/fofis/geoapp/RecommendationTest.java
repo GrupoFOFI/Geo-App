@@ -40,7 +40,7 @@ public class RecommendationTest {
      *
      */
     @Test
-    public void recommendationTest() {
+    public void mainActivity_recommendationTest() {
         try {
             long millis = 1000; //pausa entre interacciones
 

@@ -37,7 +37,7 @@ public class WebLinkTest {
     public IntentsTestRule<MainActivity> mActivity = new IntentsTestRule<MainActivity>(MainActivity.class);
 
     @Test
-    public void webLinkTest() {
+    public void mainActivity_webLinkTest() {
         try {
             ViewInteraction appCompatButton = onView(
                     allOf(withId(R.id.btnStart), withText("Ir a página web"),

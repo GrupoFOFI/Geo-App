@@ -28,19 +28,26 @@ public class IntroductionSoundTest {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void mainActivityTest() {
+    public void mainActivity_soundTest() {
+        try {
+            //Thread.sleep(3000);
+            assertTrue(mActivityTestRule.getActivity().introMediaPlayer.isPlaying());
 
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Open navigation drawer"),
-                        withParent(withId(R.id.toolbar)),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
+            ViewInteraction appCompatImageButton = onView(
+                    allOf(withContentDescription("Open navigation drawer"),
+                            withParent(withId(R.id.toolbar)),
+                            isDisplayed()));
+            appCompatImageButton.perform(click());
+            Thread.sleep(1000);
 
-        ViewInteraction appCompatCheckedTextView = onView(
-                allOf(withId(R.id.design_menu_item_text), withText("Escuchar audio introductorio"), isDisplayed()));
-        appCompatCheckedTextView.perform(click());
+            ViewInteraction appCompatCheckedTextView = onView(
+                    allOf(withId(R.id.design_menu_item_text), withText("Escuchar audio introductorio"), isDisplayed()));
+            appCompatCheckedTextView.perform(click());
+            Thread.sleep(2000);
+            assertTrue(mActivityTestRule.getActivity().introMediaPlayer.isPlaying());
+        }catch(InterruptedException e){
 
-        assertTrue(mActivityTestRule.getActivity().introMediaPlayer.isPlaying());
+        }
     }
 
 }
