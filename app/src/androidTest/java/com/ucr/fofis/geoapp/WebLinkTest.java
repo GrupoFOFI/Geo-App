@@ -7,7 +7,7 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.ucr.fofis.geoapp.Fragment.HomeFragment;
+import com.ucr.fofis.dataaccess.database.Ruta;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,11 +22,13 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAct
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.equalTo;
 
+/**
+ * Clase para probar la funcionalidad del link a la página web.
+ * Revisa que exista el intent que lleva a alguna actividad con el mismo url guardado en la capa de acceso a datos
+ */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class WebLinkTest {
@@ -39,19 +41,18 @@ public class WebLinkTest {
     @Test
     public void mainActivity_webLinkTest() {
         try {
-            ViewInteraction appCompatButton = onView(
-                    allOf(withId(R.id.btnStart), withText("Ir a página web"),
-                            withParent(withId(R.id.button)),
+            ViewInteraction fab = onView(
+                    allOf(withId(R.id.fab),
                             isDisplayed()));
-            appCompatButton.perform(click());
+            fab.perform(click());
 
             intended(allOf(
                     hasAction(equalTo(Intent.ACTION_VIEW)),
-                    hasData(HomeFragment.URL)));
+                    hasData(Ruta.WEB_PAGE_URL)));
 
             pressBack();
 
-            appCompatButton.check(matches((isDisplayed())));
+            fab.check(matches((isDisplayed())));
         }catch(Exception e){
             e.printStackTrace();
         }

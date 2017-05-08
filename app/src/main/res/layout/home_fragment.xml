@@ -43,6 +43,7 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/introText"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.75"
@@ -52,7 +53,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimaryWhite"
                 android:textAlignment="center"
-                android:text="La isla Bolaños y los lugares cercanos permitirán una apreciación de rocas, depositadas en los taludes continentales, emergidos y visibles en superficie por diversos procesos tectónicos y de erosión. En esta ruta se identificarán rocas de hasta 40 millones de años, a través de 24 sitios de interés patrimonial."
+                android:text="intro"
                 android:gravity="fill_horizontal"
                 />
             <LinearLayout
@@ -69,8 +70,8 @@
                     android:layout_width="150dp"
                     android:layout_height="40dp"
                     android:textColor="@color/colorPrimaryWhite"
-                    android:background="@color/colorSecondaryYellow3"
-                    android:text="Ir a página web"
+                    android:background="@color/colorSecondaryYellow2"
+                    android:text="@string/btn_start"
                     />
 
                 </LinearLayout>
@@ -85,7 +86,8 @@
         android:layout_marginRight="25dp"
         android:clickable="true"
         app:backgroundTint="@color/colorSecondaryYellow2"
-        android:src="@android:drawable/arrow_up_float"
+        android:src="@drawable/ic_public_black_24dp"
+        android:tint="@color/colorPrimaryWhite"
         app:layout_anchor="@id/layoutcarousel"
         app:layout_anchorGravity="bottom|right|end"/>
 

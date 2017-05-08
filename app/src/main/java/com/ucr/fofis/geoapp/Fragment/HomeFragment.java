@@ -11,20 +11,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 import com.ucr.fofis.businesslogic.ResourceManager;
+import com.ucr.fofis.dataaccess.database.Ruta;
 import com.ucr.fofis.geoapp.MainActivity;
 import com.ucr.fofis.geoapp.R;
 
 /**
  * Created by omcor on 4/19/2017.
+ * Fragmento de la página principal del app con el carrusel, l introduciǿn y botones de acción
  */
-
 public class HomeFragment extends Fragment {
+    public FloatingActionButton fab;
+    public Button btnStart;
+    public TextView intro;
 
-    public static String URL = "http://cicg.ucr.ac.cr/";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,27 +41,33 @@ public class HomeFragment extends Fragment {
 
         carouselView.setImageListener(imageListener);
 
-        Button btnStart = (Button) rootView.findViewById(R.id.btnStart);
+        //Aquí se seteaa el texto de la introduccíon
+        intro = (TextView)rootView.findViewById(R.id.introText);
+        intro.setText(Ruta.DESCRIPCION);
+
+        //Funcionalidad del botón de iniciar Viaje
+        btnStart = (Button) rootView.findViewById(R.id.btnStart);
+        btnStart.setText(R.string.btn_start);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((MainActivity)HomeFragment.this.getActivity()).showRecommentdationDialog();
 
+            }
+        });
+
+        //Funcionalidad de botón de ir a webapp
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(URL));
+                i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
                 startActivity(i);
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                ((MainActivity)HomeFragment.this.getActivity()).showRecommentdationDialog();
-            }
-        });
-
         return rootView;
-        //return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     CarouselView carouselView;
