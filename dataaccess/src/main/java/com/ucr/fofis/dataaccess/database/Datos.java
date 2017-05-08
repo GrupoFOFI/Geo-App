@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 /**
  * Created by rapuc on 4/19/17.
+ *  Esta clase guarda todos los datos estáticos que poblen las diferentes clases del app.
+ *  Por ahora, las únicas utilizadas son los puntos de recomendación, las cuales separan el texto y la imagen que lleva el diálogo.
  */
 
 public class Datos {

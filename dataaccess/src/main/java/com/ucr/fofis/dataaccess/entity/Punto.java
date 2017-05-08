@@ -5,8 +5,10 @@ import java.util.List;
 
 /**
  * Created by rapuc on 4/19/17.
+ *  Clase que representa cada uno de los puntos geográficos, incluyendo información extra para mostrar en el app.
  */
 public class Punto {
+
 
     private int idntfcdr;
     private String nombre;
@@ -18,6 +20,9 @@ public class Punto {
     private Integer videoId;
     private Integer audioId;
     private Integer animationId;
+
+
+    /* Constructores */
 
     public Punto(int idntfcdr, String nombre, String descripcion, Double latitud, Double longitud, Double geofenceRadio, List<Integer> imagenes, Integer videoId, Integer audioId, Integer animationId) {
         this.idntfcdr = idntfcdr;
@@ -34,6 +39,8 @@ public class Punto {
 
     public Punto() {
     }
+
+    /* Getters & setters */
 
     public int getIdntfcdr() {
         return idntfcdr;
