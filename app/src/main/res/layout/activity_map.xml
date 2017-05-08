@@ -1,32 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ucr.fofis.geoapp.MapActivity">
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="8dp"
-    tools:layout_editor_absoluteX="8dp">
+    tools:context="com.ucr.fofis.geoapp.MapActivity"
+    >
 
-    <org.osmdroid.views.MapView android:id="@+id/mMapView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:background="@android:color/transparent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/layoutMap"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.945"
+            android:orientation="vertical">
+
+            <org.osmdroid.views.MapView
+                android:id="@+id/mMapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutZoom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.055"
+            android:background="@color/colorSecondaryBrown2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.12"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/bttNearMe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:layout_centerHorizontal="true"
+                        app:srcCompat="@mipmap/ic_nearme" />
+
+                    <TextView
+                        android:id="@+id/badge_notif"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/badge_notification_nearme"
+                        android:text="1"
+                        android:textColor="#FFF"
+                        android:textSize="9sp"
+                        android:textStyle="bold"
+                        android:visibility="visible"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutSeekbar"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <SeekBar
+                        android:id="@+id/seekBarZoom"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:max="3" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabGPS"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:adjustViewBounds="false"
+        android:clickable="true"
+        android:tint="@android:color/transparent"
+        android:visibility="visible"
+        app:backgroundTint="#b3F99D1C"
+        app:fabSize="mini"
+        app:layout_anchor="@id/layoutMap"
+        app:layout_anchorGravity="end"
+        app:rippleColor="@android:color/holo_blue_bright"
+        app:srcCompat="@mipmap/ic_marker" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCamera"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:clickable="true"
+        app:backgroundTint="#99000000"
+        app:fabSize="mini"
+        app:layout_anchor="@id/layoutMap"
+        app:layout_anchorGravity="bottom|end"
+        app:rippleColor="@color/colorSecondaryOrange2"
         app:srcCompat="@mipmap/ic_camera" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.892"
+            android:orientation="vertical">
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="0.055">
+        <LinearLayout
+            android:id="@+id/layInfoWindow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFE5B365"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/imgClose"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.1"
+                android:background="@android:color/transparent"
+                app:srcCompat="@mipmap/ic_close" />
+
+            <ImageButton
+                android:id="@+id/imgGoMarker"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.1"
+                android:background="@android:color/transparent"
+                app:srcCompat="@mipmap/ic_gomarker" />
+
+
+            <TextView
+                android:id="@+id/txtInfoPOI"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.6"
+                android:gravity="center"
+                android:text="texto de prueba "
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/colorSecondaryBrown3" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2">
+                </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>
