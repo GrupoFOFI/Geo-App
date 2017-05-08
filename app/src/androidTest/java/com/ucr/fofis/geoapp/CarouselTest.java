@@ -24,6 +24,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static org.hamcrest.Matchers.allOf;
 
+
+/**
+ * Clase para probar la funcionalidad del carrusel de imágenes
+ * Revisa que exista el carrusel y que las imágenes cambien al hacer swipe
+ */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class CarouselTest {
