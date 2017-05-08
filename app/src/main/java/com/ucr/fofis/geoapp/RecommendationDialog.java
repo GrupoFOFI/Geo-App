@@ -100,7 +100,11 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
             return NUM_ITEMS;
         }
 
-        // Returns the fragment to display for that page
+        /** Returns the fragment to display for that page
+         * lo construye a partir de una Recomendación sacada de Datos
+         * @param position
+         * @return
+         */
         @Override
         public RecommendationCards getItem(int position) {
             if(NUM_ITEMS ==0 ){

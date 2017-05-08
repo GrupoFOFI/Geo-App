@@ -20,6 +20,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.*;
 
+ /** Clase para probar la funcionalidad del audi introductorio
+ * Revisa que se reproduzca el audi ointroductorio la primera ve que se abre el app y cuando se pareta el botón para ello
+ */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class IntroductionSoundTest {

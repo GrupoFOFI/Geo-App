@@ -29,6 +29,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
+/**
+ * Clase para probar la funcionalidad de l lista de recomendaciones
+ * Revisa que exista el diálogo de recomendaciones y que cambien apropiadamente al hacer swipe
+ * según la lista de recomendaciones enla clase Datos
+ */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class RecommendationTest {
