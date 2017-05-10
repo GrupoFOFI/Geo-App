@@ -2,11 +2,15 @@ package com.ucr.fofis.dataaccess.entity;
 
 /**
  * Created by rapuc on 4/19/17.
+ * Información contenida en una carta de recomendación
  */
 
 public class Recomendacion {
 
+    //Texto inlcuiddo en la recomendacion
     private String texto;
+
+    //Imagen mostrada en la recomendacion
     private int imagen;
 
     public Recomendacion(String texto, int imagen) {

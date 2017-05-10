@@ -13,11 +13,14 @@
 
     <color name="colorSecondaryOrange1">#e5b365</color>
     <color name="colorSecondaryOrange2">#f99d1c</color>
+
     <color name="colorSecondaryOrange3">#f37021</color>
+    <color name="colorSecondaryOrange3shaded">#F58C4D</color>
+
 
     <color name="colorSecondaryBrown1">#b7be11</color>
     <color name="colorSecondaryBrown2">#7b3400</color>
-    <color name="colorSecondaryBrown3">#670000</color>
+    <color name="colorSecondaryBrown3">#670000</color>c
 
     <color name="colorAccent">#8ed8f8</color>
     <color name="colorSecondaryLightBlue3">#bad2cd</color>
@@ -26,4 +29,6 @@
     <color name="colorSecondaryGreen2">#b9d989</color>
     <color name="colorSecondaryGreen3">#8dc63f</color>
     <color name="colorSecondaryGreen4">#008641</color>
+
+    <color name="colorDarkGray">#696969</color>
 </resources>

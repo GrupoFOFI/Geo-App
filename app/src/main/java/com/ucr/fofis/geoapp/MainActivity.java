@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -23,17 +24,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ucr.fofis.dataaccess.database.Ruta;
 import com.ucr.fofis.geoapp.Fragment.HomeFragment;
 
+/**
+ * Actividad principal del App, controla menú de navegacíon, Diálogo de recomendaciones y audio introductorio
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final int CODE_RE = 121;
     Class currentFragmentType;
     FragmentManager fragmentManager;
     private HomeFragment homeFragment;
+    public MediaPlayer introMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         //setear la vista/layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -55,7 +62,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
 
@@ -133,7 +139,11 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    //navegacion del menu
+    /**
+     * navegacion del menu, define lo que se hace para cada item del menu
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -144,12 +154,16 @@ public class MainActivity extends AppCompatActivity
             if (!(currentFragmentType == HomeFragment.class)) {
                 setFragment(homeFragment);
                 currentFragmentType = homeFragment.getClass();
-                setTitle("IBX");
+                setTitle(Ruta.TITULO);
             }
         } else if (id == R.id.nav_recomendaciones) {
             this.showRecommentdationDialog();
         } else if (id == R.id.nav_audio) {
             autoplayIntro();
+        } else if (id == R.id.web) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -157,7 +171,10 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    //setear el fragment seleccionado
+    /**
+     *     setea el fragment seleccionado
+     * @param fragment
+     */
     private void setFragment(Fragment fragment) {
         if (fragmentManager.getBackStackEntryCount() == 1 && fragment.getClass() == HomeFragment.class) {
             fragmentManager.popBackStack();
@@ -170,16 +187,23 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * Carga el diálogo de recomendaciones cargadas desde Datos.RECOMENDACIONES
+     */
     public void showRecommentdationDialog() {
         RecommendationDialog rd = new RecommendationDialog();
+        rd.show(getSupportFragmentManager(), "\r\n  \r\n \r\n");
     }
 
+    /**
+     * Reproduce audio introductorio
+     */
     private void autoplayIntro() {
 
         AudioManager manager = (AudioManager)this.getSystemService(Context.AUDIO_SERVICE);
         if(!(manager.isMusicActive()))
         {
-            MediaPlayer introMediaPlayer = new MediaPlayer();
+            introMediaPlayer = new MediaPlayer();
             introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
             introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             introMediaPlayer.setLooping(false);

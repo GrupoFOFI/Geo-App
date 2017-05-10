@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 /**
  * Created by Esteban on 23/04/2017.
+ * Fragment usado para cada carta dentro del ViewPager del Diálogo de Recomendaciones
  */
-
 public class RecommendationCards extends Fragment {
     // Store instance variables
     private String title;
@@ -21,6 +21,10 @@ public class RecommendationCards extends Fragment {
     public RecommendationCards() {
     }
 
+    /**
+     * Usado para mandar ids de recursos para cargar Recommendacíon
+     * @param args
+     */
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
@@ -39,7 +43,15 @@ public class RecommendationCards extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    // Inflate the view for the fragment based on layout XML
+
+    /**
+     *     Inflate the view for the fragment based on layout XML
+     *     a partir de los ids mandados en el Bundle y obtenidos en el setArguments
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

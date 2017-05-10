@@ -1,0 +1,7 @@
+com.ucr.fofis.businesslogic
+com.ucr.fofis.dataaccess
+com.ucr.fofis.dataaccess.database
+com.ucr.fofis.dataaccess.entity
+com.ucr.fofis.geoapp
+com.ucr.fofis.geoapp.Application
+com.ucr.fofis.geoapp.Fragment

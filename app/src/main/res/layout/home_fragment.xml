@@ -39,17 +39,22 @@
             android:layout_height="0dp"
             android:layout_weight="0.55"
             android:orientation="vertical"
-            android:background="@android:color/holo_orange_dark"
+            android:background="@color/colorSecondaryOrange3"
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/introText"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.75"
-                android:paddingTop="20dp"
-                android:textSize="12sp"
+                android:paddingTop="40dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryWhite"
                 android:textAlignment="center"
-                android:text="Texto de introduccion al recorrido."
+                android:text="intro"
+                android:gravity="fill_horizontal"
                 />
             <LinearLayout
                 android:orientation="vertical"
@@ -64,8 +69,9 @@
                     android:id="@+id/btnStart"
                     android:layout_width="150dp"
                     android:layout_height="40dp"
-                    android:background="@android:color/holo_green_light"
-                    android:text="Ver Recomendaciones"
+                    android:textColor="@color/colorPrimaryWhite"
+                    android:background="@color/colorSecondaryYellow2"
+                    android:text="@string/btn_start"
                     />
 
             </LinearLayout>
@@ -75,12 +81,13 @@
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginRight="25dp"
         android:clickable="true"
-        app:backgroundTint="@color/colorPrimary"
-        android:src="@android:drawable/arrow_up_float"
+        app:backgroundTint="@color/colorSecondaryYellow2"
+        android:src="@drawable/ic_public_black_24dp"
+        android:tint="@color/colorPrimaryWhite"
         app:layout_anchor="@id/layoutcarousel"
         app:layout_anchorGravity="bottom|right|end"/>
 

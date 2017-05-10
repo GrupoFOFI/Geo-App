@@ -14,5 +14,9 @@
             android:id="@+id/nav_audio"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Escuchar audio introductorio" />
+        <item
+            android:id="@+id/web"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Página Web" />
     </group>
 </menu>
