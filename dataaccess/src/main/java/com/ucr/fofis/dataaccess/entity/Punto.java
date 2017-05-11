@@ -1,5 +1,7 @@
 package com.ucr.fofis.dataaccess.entity;
 
+import org.osmdroid.util.GeoPoint;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,23 +15,21 @@ public class Punto {
     private int idntfcdr;
     private String nombre;
     private String descripcion;
-    private Double latitud;
-    private Double longitud;
-    private Double geofenceRadio;
+    private GeoPoint geoPoint;
+    private double geofenceRadio;
     private List<Integer> imagenes = new ArrayList<Integer>(0); //
-    private Integer videoId;
-    private Integer audioId;
-    private Integer animationId;
+    private int videoId;
+    private int audioId;
+    private int animationId;
 
 
     /* Constructores */
 
-    public Punto(int idntfcdr, String nombre, String descripcion, Double latitud, Double longitud, Double geofenceRadio, List<Integer> imagenes, Integer videoId, Integer audioId, Integer animationId) {
+    public Punto(int idntfcdr, String nombre, String descripcion, GeoPoint geoPoint, double geofenceRadio, List<Integer> imagenes, int videoId, int audioId, int animationId) {
         this.idntfcdr = idntfcdr;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.latitud = latitud;
-        this.longitud = longitud;
+        this.geoPoint = geoPoint;
         this.geofenceRadio = geofenceRadio;
         this.imagenes = imagenes;
         this.videoId = videoId;
@@ -66,27 +66,19 @@ public class Punto {
         this.descripcion = descripcion;
     }
 
-    public Double getLatitud() {
-        return latitud;
+    public GeoPoint getGeoPoint() {
+        return geoPoint;
     }
 
-    public void setLatitud(Double latitud) {
-        this.latitud = latitud;
+    public void setGeoPoint(GeoPoint geoPoint) {
+        this.geoPoint = geoPoint;
     }
 
-    public Double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(Double longitud) {
-        this.longitud = longitud;
-    }
-
-    public Double getGeofenceRadio() {
+    public double getGeofenceRadio() {
         return geofenceRadio;
     }
 
-    public void setGeofenceRadio(Double geofenceRadio) {
+    public void setGeofenceRadio(double geofenceRadio) {
         this.geofenceRadio = geofenceRadio;
     }
 
@@ -98,27 +90,27 @@ public class Punto {
         this.imagenes = imagenes;
     }
 
-    public Integer getVideoId() {
+    public int getVideoId() {
         return videoId;
     }
 
-    public void setVideoId(Integer videoId) {
+    public void setVideoId(int videoId) {
         this.videoId = videoId;
     }
 
-    public Integer getAudioId() {
+    public int getAudioId() {
         return audioId;
     }
 
-    public void setAudioId(Integer audioId) {
+    public void setAudioId(int audioId) {
         this.audioId = audioId;
     }
 
-    public Integer getAnimationId() {
+    public int getAnimationId() {
         return animationId;
     }
 
-    public void setAnimationId(Integer animationId) {
+    public void setAnimationId(int animationId) {
         this.animationId = animationId;
     }
 }
