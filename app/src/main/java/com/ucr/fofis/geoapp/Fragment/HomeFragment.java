@@ -17,7 +17,6 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 import com.ucr.fofis.businesslogic.ResourceManager;
 import com.ucr.fofis.dataaccess.database.Ruta;
-import com.ucr.fofis.geoapp.MainActivity;
 import com.ucr.fofis.geoapp.MapActivity;
 import com.ucr.fofis.geoapp.R;
 
@@ -61,7 +60,9 @@ public class HomeFragment extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)HomeFragment.this.getActivity()).showRecommentdationDialog();
+                Intent i = new Intent(getActivity(),MapActivity.class);
+                i.putExtra("showRecomendation",true);
+                startActivity(i);
 
             }
         });
