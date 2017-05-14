@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CODE_RE);
-            this.showRecommentdationDialog();
+            //this.showRecommentdationDialog();
 
             SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
             if (prefs.contains("firsttime")) {
