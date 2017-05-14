@@ -12,6 +12,7 @@
         android:layout_weight="2"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        android:textSize="15sp"
         android:text=""
         android:id="@+id/recommendation_fragment_text"/>
 

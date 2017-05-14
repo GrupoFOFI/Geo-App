@@ -65,6 +65,8 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
 
         title = (TextView) view.findViewById(R.id.recommendation_dialog_title);
         title.setText("Recomendaciones de Seguridad");
+
+        //Se inicializa el viewpager(vista de tarjetas de recomendaciones) y su adapter que devuelve los fragments(tarjetas de recomendacion)
         viewPager = (ViewPager)view.findViewById(R.id.recommendation_dialog_viewpager);
         mPagerAdapter = new MyPagerAdapter(fm);
         viewPager.setAdapter(mPagerAdapter);
@@ -106,12 +108,12 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
          * @return
          */
         @Override
-        public RecommendationCards getItem(int position) {
+        public RecommendationFragment getItem(int position) {
             if(NUM_ITEMS ==0 ){
                 return null;
             }else {
                 Recomendacion r = Datos.RECOMENDACIONES.get(position);
-                RecommendationCards rc = new RecommendationCards();
+                RecommendationFragment rc = new RecommendationFragment();
                 Bundle args = new Bundle();
                 args.putString("title", r.getTexto());
                 args.putInt("imageId", r.getImagen());

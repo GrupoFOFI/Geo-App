@@ -65,14 +65,16 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
+    //Metodo que realiza el pedido de permisos.
     private void requestPermission() {
 
+        //Permiso de External Storage
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_RE);
         }
+        //Permiso de Location
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -156,10 +158,13 @@ public class MainActivity extends AppCompatActivity
                 currentFragmentType = homeFragment.getClass();
                 setTitle(Ruta.TITULO);
             }
+            //Mostrar recomendaciones
         } else if (id == R.id.nav_recomendaciones) {
             this.showRecommentdationDialog();
+            //Reproducir audio
         } else if (id == R.id.nav_audio) {
             autoplayIntro();
+            //Link a pagina web
         } else if (id == R.id.web) {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
