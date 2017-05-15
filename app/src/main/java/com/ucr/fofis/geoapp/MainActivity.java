@@ -31,12 +31,13 @@ import com.ucr.fofis.geoapp.Fragment.HomeFragment;
  * Actividad principal del App, controla menú de navegacíon, Diálogo de recomendaciones y audio introductorio
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, RecommendationDialog.DialogDismissInterface {
     private static final int CODE_RE = 121;
     Class currentFragmentType;
     FragmentManager fragmentManager;
     private HomeFragment homeFragment;
     public MediaPlayer introMediaPlayer;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         currentFragmentType = homeFragment.getClass();
         setFragment(homeFragment);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -197,6 +198,7 @@ public class MainActivity extends AppCompatActivity
      */
     public void showRecommentdationDialog() {
         RecommendationDialog rd = new RecommendationDialog();
+        rd.setDialogDismissInterface(this);
         rd.show(getSupportFragmentManager(), "\r\n  \r\n \r\n");
     }
 
@@ -214,5 +216,10 @@ public class MainActivity extends AppCompatActivity
             introMediaPlayer.setLooping(false);
             introMediaPlayer.start();
         }
+    }
+
+    @Override
+    public void onDialogDismiss() {
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 }
