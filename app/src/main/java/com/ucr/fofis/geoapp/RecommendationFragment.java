@@ -12,13 +12,13 @@ import android.widget.TextView;
  * Created by Esteban on 23/04/2017.
  * Fragment usado para cada carta dentro del ViewPager del Diálogo de Recomendaciones
  */
-public class RecommendationCards extends Fragment {
-    // Store instance variables
+public class RecommendationFragment extends Fragment {
+    //Titulo e imagen de la recomendacion
     private String title;
     private int imagenId;
 
 
-    public RecommendationCards() {
+    public RecommendationFragment() {
     }
 
     /**

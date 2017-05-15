@@ -13,7 +13,6 @@ import java.util.ArrayList;
  *  Esta clase guarda todos los datos estáticos que poblen las diferentes clases del app.
  *  Por ahora, las únicas utilizadas son los puntos de recomendación, las cuales separan el texto y la imagen que lleva el diálogo.
  */
-
 public class Datos {
 
     public final static ArrayList<Punto> PUNTOS = new ArrayList<Punto>() {

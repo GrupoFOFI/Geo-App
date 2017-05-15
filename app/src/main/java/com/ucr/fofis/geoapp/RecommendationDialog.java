@@ -12,8 +12,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.synnapps.carouselview.CirclePageIndicator;
 import com.ucr.fofis.dataaccess.database.Datos;
 import com.ucr.fofis.dataaccess.entity.Recomendacion;
 
@@ -49,6 +51,9 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
      */
     private int index;
 
+    private CirclePageIndicator mTitleIndicator;
+    private RelativeLayout exit;
+
     public RecommendationDialog() {
     }
 
@@ -62,12 +67,26 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.recommmendation_dialog, container);
         android.support.v4.app.FragmentManager fm = getChildFragmentManager();
+        mTitleIndicator = (CirclePageIndicator) view.findViewById(R.id.circle_indicator);
+
+
 
         title = (TextView) view.findViewById(R.id.recommendation_dialog_title);
         title.setText("Recomendaciones de Seguridad");
+
+        //Se inicializa el viewpager(vista de tarjetas de recomendaciones) y su adapter que devuelve los fragments(tarjetas de recomendacion)
         viewPager = (ViewPager)view.findViewById(R.id.recommendation_dialog_viewpager);
         mPagerAdapter = new MyPagerAdapter(fm);
         viewPager.setAdapter(mPagerAdapter);
+        mTitleIndicator.setViewPager(viewPager);
+        exit = (RelativeLayout) view.findViewById(R.id.exit);
+        exit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
         return view;
     }
 
@@ -106,12 +125,12 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
          * @return
          */
         @Override
-        public RecommendationCards getItem(int position) {
+        public RecommendationFragment getItem(int position) {
             if(NUM_ITEMS ==0 ){
                 return null;
             }else {
                 Recomendacion r = Datos.RECOMENDACIONES.get(position);
-                RecommendationCards rc = new RecommendationCards();
+                RecommendationFragment rc = new RecommendationFragment();
                 Bundle args = new Bundle();
                 args.putString("title", r.getTexto());
                 args.putInt("imageId", r.getImagen());
