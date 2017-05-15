@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,11 +20,9 @@ import com.google.android.gms.location.LocationServices;
 import com.ucr.fofis.businesslogic.Geofences.GeofenceUtils;
 import com.ucr.fofis.businesslogic.Geofences.Preferences.GeofencePreferences;
 import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
-import com.ucr.fofis.dataaccess.entity.Geofence;
+import com.ucr.fofis.dataaccess.entity.Punto;
 
 import java.util.List;
-
-import static com.google.android.gms.analytics.internal.zzy.es;
 
 public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
@@ -40,7 +37,7 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks, Goo
     private static final long POLLING_FREQ = 1000 * 60 * 3;
     private static final long FASTEST_UPDATE_FREQ = 1000 * 30;
 
-    private List<Geofence> mGeofences;
+    private List<Punto> mGeofences;
 
     public GeofenceManager(Context context) throws Exception {
         geofencePreferences = new GeofencePreferences(context);
