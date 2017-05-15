@@ -270,7 +270,7 @@ public class MapActivity extends AppCompatActivity   {
     private void passPOItoMarker(MapView m){
         createListMarker();
        for(int i =0; i < TourManager.getPoints().size();i++){
-            drawMarker(addMarker(m,"FOFI",TourManager.getPoints().get(i).getLongitude(),TourManager.getPoints().get(i).getLatitude() ,i));
+            drawMarker(addMarker(m,"FOFI",TourManager.getPoints().get(i).getGeoPoint().getLongitude(),TourManager.getPoints().get(i).getGeoPoint().getLatitude() ,i));
             String s = " esto : "+(TourManager.getPoints().get(i));
         }
     }

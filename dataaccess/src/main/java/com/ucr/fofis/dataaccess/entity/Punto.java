@@ -1,5 +1,7 @@
 package com.ucr.fofis.dataaccess.entity;
 
+import org.osmdroid.util.GeoPoint;
+
 /**
  * Created by rapuc on 4/19/17.
  *  Clase que representa cada uno de los puntos geográficos, incluyendo información extra para mostrar en el app.
@@ -10,34 +12,27 @@ public class Punto {
     private int idntfcdr;
     private String nombre;
     private String descripcion;
-    private Double latitud;
-    private Double longitud;
+    private GeoPoint geoPoint;
     private Double geofenceRadio;
-    private int[] imagenes ;
+    private int[] imagenes;
     private Integer videoId;
     private Integer audioId;
     private Integer animationId;
 
+    public Punto() {
+    }
 
-    /* Constructores */
-
-    public Punto(int idntfcdr, String nombre, String descripcion, Double latitud, Double longitud, Double geofenceRadio, int[] imagenes, Integer videoId, Integer audioId, Integer animationId) {
+    public Punto(int idntfcdr, String nombre, String descripcion, GeoPoint geoPoint, Double geofenceRadio, int[] imagenes, Integer videoId, Integer audioId, Integer animationId) {
         this.idntfcdr = idntfcdr;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.latitud = latitud;
-        this.longitud = longitud;
+        this.geoPoint = geoPoint;
         this.geofenceRadio = geofenceRadio;
         this.imagenes = imagenes;
         this.videoId = videoId;
         this.audioId = audioId;
         this.animationId = animationId;
     }
-
-    public Punto() {
-    }
-
-    /* Getters & setters */
 
     public int getIdntfcdr() {
         return idntfcdr;
@@ -63,20 +58,12 @@ public class Punto {
         this.descripcion = descripcion;
     }
 
-    public Double getLatitud() {
-        return latitud;
+    public GeoPoint getGeoPoint() {
+        return geoPoint;
     }
 
-    public void setLatitud(Double latitud) {
-        this.latitud = latitud;
-    }
-
-    public Double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(Double longitud) {
-        this.longitud = longitud;
+    public void setGeoPoint(GeoPoint geoPoint) {
+        this.geoPoint = geoPoint;
     }
 
     public Double getGeofenceRadio() {
@@ -91,7 +78,7 @@ public class Punto {
         return imagenes;
     }
 
-    public void setImagenes( int[] imagenes) {
+    public void setImagenes(int[] imagenes) {
         this.imagenes = imagenes;
     }
 

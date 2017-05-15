@@ -1,8 +1,7 @@
 package com.ucr.fofis.businesslogic;
 
-import com.ucr.fofis.dataaccess.database.Ruta;
-
-import org.osmdroid.util.GeoPoint;
+import com.ucr.fofis.dataaccess.database.Datos;
+import com.ucr.fofis.dataaccess.entity.Punto;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public final class TourManager {
      * Returns the tour points
      * @return
      */
-    public static List<GeoPoint> getPoints() {
-        return Ruta.points;
+    public static List<Punto> getPoints() {
+        return Datos.PUNTOS;
     }
 }
