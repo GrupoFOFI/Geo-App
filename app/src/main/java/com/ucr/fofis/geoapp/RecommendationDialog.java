@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.synnapps.carouselview.CirclePageIndicator;
 import com.ucr.fofis.dataaccess.database.Datos;
 import com.ucr.fofis.dataaccess.entity.Recomendacion;
 
@@ -49,6 +50,8 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
      */
     private int index;
 
+    private CirclePageIndicator mTitleIndicator;
+
     public RecommendationDialog() {
     }
 
@@ -62,6 +65,9 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.recommmendation_dialog, container);
         android.support.v4.app.FragmentManager fm = getChildFragmentManager();
+        mTitleIndicator = (CirclePageIndicator) view.findViewById(R.id.circle_indicator);
+
+
 
         title = (TextView) view.findViewById(R.id.recommendation_dialog_title);
         title.setText("Recomendaciones de Seguridad");
@@ -70,6 +76,7 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
         viewPager = (ViewPager)view.findViewById(R.id.recommendation_dialog_viewpager);
         mPagerAdapter = new MyPagerAdapter(fm);
         viewPager.setAdapter(mPagerAdapter);
+        mTitleIndicator.setViewPager(viewPager);
         return view;
     }
 
