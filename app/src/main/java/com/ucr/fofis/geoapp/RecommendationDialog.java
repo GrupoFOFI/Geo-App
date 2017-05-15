@@ -90,7 +90,9 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
 
             @Override
             public void onClick(View v) {
-                dialogDismissInterface.onDialogDismiss();
+                if(dialogDismissInterface != null) {
+                    dialogDismissInterface.onDialogDismiss();
+                }
                 getDialog().dismiss();
             }
         });
