@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.synnapps.carouselview.CirclePageIndicator;
@@ -51,6 +52,7 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
     private int index;
 
     private CirclePageIndicator mTitleIndicator;
+    private RelativeLayout exit;
 
     public RecommendationDialog() {
     }
@@ -77,6 +79,14 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
         mPagerAdapter = new MyPagerAdapter(fm);
         viewPager.setAdapter(mPagerAdapter);
         mTitleIndicator.setViewPager(viewPager);
+        exit = (RelativeLayout) view.findViewById(R.id.exit);
+        exit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
         return view;
     }
 
