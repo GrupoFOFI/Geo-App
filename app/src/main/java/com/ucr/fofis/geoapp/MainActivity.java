@@ -33,12 +33,13 @@ import com.ucr.fofis.geoapp.Fragment.HomeFragment;
  * Actividad principal del App, controla menú de navegacíon, Diálogo de recomendaciones y audio introductorio
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener, RecommendationDialog.DialogDismissInterface {
+    private static final int CODE_RE = 121;
     Class currentFragmentType;
     FragmentManager fragmentManager;
     private HomeFragment homeFragment;
     public MediaPlayer introMediaPlayer;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity
         //setear la vista/layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        requestPermission();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -64,22 +66,53 @@ public class MainActivity extends AppCompatActivity
         currentFragmentType = homeFragment.getClass();
         setFragment(homeFragment);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
 
 
-        SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
-        if(prefs.contains("firsttime")){
+    //Metodo que realiza el pedido de permisos.
+    private void requestPermission() {
+
+        //Permiso de External Storage
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_RE);
         }
-        else{
-            prefs.edit().putString("firsttime", "val").apply();
-            //autoplay Intro Sound si es la primera vez que se entra al app
-            autoplayIntro();
+        //Permiso de Location
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CODE_RE);
+            //this.showRecommentdationDialog();
+
+            SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
+            if (prefs.contains("firsttime")) {
+            } else {
+                prefs.edit().putString("firsttime", "val").apply();
+                //autoplay Intro Sound
+                autoplayIntro();
+            }
         }
 
         checkCameraPermission();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == CODE_RE){
+            switch (resultCode) {
+                case RESULT_OK:
+                    // Resultado correcto
+                    break;
+                case RESULT_CANCELED:
+                    // Cancelación o cualquier situación de error
+                    break;
+            }
+        }
+    }
 
     //Menu lateral
     @Override
@@ -133,10 +166,13 @@ public class MainActivity extends AppCompatActivity
                 currentFragmentType = homeFragment.getClass();
                 setTitle(Ruta.TITULO);
             }
+            //Mostrar recomendaciones
         } else if (id == R.id.nav_recomendaciones) {
             this.showRecommentdationDialog();
+            //Reproducir audio
         } else if (id == R.id.nav_audio) {
             autoplayIntro();
+            //Link a pagina web
         } else if (id == R.id.web) {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
@@ -173,6 +209,7 @@ public class MainActivity extends AppCompatActivity
      */
     public void showRecommentdationDialog() {
         RecommendationDialog rd = new RecommendationDialog();
+        rd.setDialogDismissInterface(this);
         rd.show(getSupportFragmentManager(), "\r\n  \r\n \r\n");
     }
 
@@ -196,11 +233,11 @@ public class MainActivity extends AppCompatActivity
      * Solicita permiso de la camara
      */
 
-    private void checkCameraPermission(){
+    private void checkCameraPermission() {
 
         final Activity currentActivity = this;
 
-        if(ContextCompat.checkSelfPermission(currentActivity,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(currentActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
             builder.setTitle("Esta aplicación requiere acceso a la cámara");
             builder.setMessage("Porfavor conceda a esta aplicación acceso a la cámara para poder mostrar el visor.");
@@ -214,5 +251,10 @@ public class MainActivity extends AppCompatActivity
             });
             builder.show();
         }
+    }
+
+    @Override
+    public void onDialogDismiss() {
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 }

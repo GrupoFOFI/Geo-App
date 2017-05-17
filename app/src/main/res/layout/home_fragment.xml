@@ -50,7 +50,7 @@
                 android:paddingTop="40dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="@color/colorPrimaryWhite"
                 android:textAlignment="center"
                 android:text="intro"
@@ -74,10 +74,10 @@
                     android:text="@string/btn_start"
                     />
 
-                </LinearLayout>
+            </LinearLayout>
 
             <!--android:shadowColor="@android:color/black"-->
-            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -93,7 +93,3 @@
 
 
 </android.support.design.widget.CoordinatorLayout>
-
-
-
-
