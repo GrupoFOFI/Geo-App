@@ -1,19 +1,26 @@
 package com.ucr.fofis.geoapp;
 
+import android.app.Activity;
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -35,6 +42,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //pedir permisos de camara
+        checkCameraPermission(this);
 
         //setear la vista/layout
         super.onCreate(savedInstanceState);
@@ -129,6 +139,9 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
             startActivity(i);
+        } else if (id == R.id.camera) {
+            Intent i = new Intent(this, CameraActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -173,6 +186,28 @@ public class MainActivity extends AppCompatActivity
             introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             introMediaPlayer.setLooping(false);
             introMediaPlayer.start();
+        }
+    }
+
+    /**
+    * Solicita permisos para usar la camara
+    */
+
+    public void checkCameraPermission(final Activity thisActivity){
+
+        if(ContextCompat.checkSelfPermission(thisActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(thisActivity);
+            builder.setTitle("Esta aplicación requiere acceso a la cámara");
+            builder.setMessage("Por favor conceda el acceso a la cámara para que la aplicación pueda mostrar el visor.");
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    ActivityCompat.requestPermissions(thisActivity, new String[]{Manifest.permission.CAMERA}, 1);
+                }
+            });
+            builder.show();
         }
     }
 }

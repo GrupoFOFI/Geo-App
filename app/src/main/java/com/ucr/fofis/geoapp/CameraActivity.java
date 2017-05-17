@@ -24,27 +24,7 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-
-        // Assume thisActivity is the current activity
-        int cameraPermissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA);
-
-        if(cameraPermissionCheck != PackageManager.PERMISSION_GRANTED){
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.CAMERA)){
-
-                // Explanation
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.CAMERA},
-                        1);
-            }
-        }
+        mCamera = Camera.open();
 
         if(mCamera != null){
             mCameraView = new CameraView(this, mCamera);
@@ -60,33 +40,5 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    try{
-                        mCamera = Camera.open();
-                    }catch (Exception e){
-                        Log.d("ERROR", "Failed to get camera "+e.getMessage());
-                    }
-
-
-                } else {
-
-
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
     }
 }
