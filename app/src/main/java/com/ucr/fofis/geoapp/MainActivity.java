@@ -1,7 +1,7 @@
 package com.ucr.fofis.geoapp;
 
-import android.Manifest;
 import android.app.Activity;
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //pedir los permisos de camara
+        //pedir permisos de camara
+        checkCameraPermission();
 
         //setear la vista/layout
         super.onCreate(savedInstanceState);
@@ -140,7 +141,8 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
             startActivity(i);
-        } else if (id == R.id.camera){
+
+        } else if (id == R.id.camera) {
             Intent i = new Intent(this, CameraActivity.class);
             startActivity(i);
         }
