@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //pedir permisos de camara
-        checkCameraPermission();
-
         //setear la vista/layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -232,7 +229,6 @@ public class MainActivity extends AppCompatActivity
     /**
      * Solicita permiso de la camara
      */
-
     private void checkCameraPermission() {
 
         final Activity currentActivity = this;
@@ -246,7 +242,7 @@ public class MainActivity extends AppCompatActivity
 
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-                    ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.READ_CONTACTS}, 1);
+                    ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.CAMERA}, 1);
                 }
             });
             builder.show();
