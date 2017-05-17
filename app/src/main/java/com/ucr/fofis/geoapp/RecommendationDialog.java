@@ -54,6 +54,12 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
     private CirclePageIndicator mTitleIndicator;
     private RelativeLayout exit;
 
+    public interface DialogDismissInterface {
+        void onDialogDismiss();
+    }
+
+    private DialogDismissInterface dialogDismissInterface;
+
     public RecommendationDialog() {
     }
 
@@ -84,6 +90,9 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
 
             @Override
             public void onClick(View v) {
+                if(dialogDismissInterface != null) {
+                    dialogDismissInterface.onDialogDismiss();
+                }
                 getDialog().dismiss();
             }
         });
@@ -103,6 +112,10 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
     @Override
     public void onClick(View v) {
 
+    }
+
+    public void setDialogDismissInterface(DialogDismissInterface dialogDismissInterface){
+        this.dialogDismissInterface = dialogDismissInterface;
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
@@ -146,4 +159,6 @@ public class RecommendationDialog extends DialogFragment implements View.OnClick
         }
 
     }
+
+
 }
