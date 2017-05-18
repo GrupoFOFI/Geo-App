@@ -124,6 +124,10 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                 if(menuItem.getTitle().equals("Cámara")){
                     Intent i = new Intent(getApplicationContext(), CameraActivity.class);
                     startActivity(i);
+                }else if(menuItem.getTitle().equals("Ubicación")){
+                    mapViewController.setZoom(16);
+                    mMapView.setScrollableAreaLimitDouble(bBox16);
+                    mapViewController.animateTo(routeCenter);
                 }
                 return false;
             }
