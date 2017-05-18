@@ -1,8 +1,9 @@
 package com.ucr.fofis.geoapp;
 
-
+import android.app.Activity;
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -19,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -90,6 +92,8 @@ public class MainActivity extends AppCompatActivity
                 autoplayIntro();
             }
         }
+
+        checkCameraPermission();
     }
 
     @Override
@@ -170,6 +174,10 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
             startActivity(i);
+
+        } else if (id == R.id.camera) {
+            Intent i = new Intent(this, CameraActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -215,6 +223,29 @@ public class MainActivity extends AppCompatActivity
             introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             introMediaPlayer.setLooping(false);
             introMediaPlayer.start();
+        }
+    }
+
+    /**
+     * Solicita permiso de la camara
+     */
+    private void checkCameraPermission() {
+
+        final Activity currentActivity = this;
+
+        if (ContextCompat.checkSelfPermission(currentActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
+            builder.setTitle("Esta aplicación requiere acceso a la cámara");
+            builder.setMessage("Porfavor conceda a esta aplicación acceso a la cámara para poder mostrar el visor.");
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.CAMERA}, 1);
+                }
+            });
+            builder.show();
         }
     }
 

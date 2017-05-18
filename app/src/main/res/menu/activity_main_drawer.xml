@@ -18,5 +18,9 @@
             android:id="@+id/web"
             android:icon="@drawable/ic_menu_send"
             android:title="Página Web" />
+        <item
+            android:id="@+id/camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Cámara" />
     </group>
 </menu>
