@@ -1,6 +1,7 @@
 package com.ucr.fofis.geoapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -120,6 +121,10 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             @Override
             public boolean onMenuItemSelected(MenuItem menuItem) {
                 //TODO: Start some activity
+                if(menuItem.getTitle().equals("Cámara")){
+                    Intent i = new Intent(getApplicationContext(), CameraActivity.class);
+                    startActivity(i);
+                }
                 return false;
             }
         });
