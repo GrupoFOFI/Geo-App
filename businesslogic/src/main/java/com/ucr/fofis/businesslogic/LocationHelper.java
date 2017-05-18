@@ -4,6 +4,7 @@ import android.location.Location;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.ucr.fofis.dataaccess.entity.Punto;
 
 /**
  * <h1> Location Helper </h1>
@@ -28,10 +29,6 @@ public class LocationHelper {
      * Represents a geographical location.
      */
     protected Location latestLocation;
-
-
-    private TargetObject[] closeMonuments;
-    private TargetObject[] closeBuildings;
 
 
     /**
@@ -59,90 +56,6 @@ public class LocationHelper {
 
     public void setLatestLocation(Location latestLocation) {
         this.latestLocation = latestLocation;
-    }
-
-    /**
-     * Method that retrieves the closest buildings
-     *
-     * @param ammount
-     * @return
-     */
-    public TargetObject[] getClosestBuildings(Location location, int ammount) {
-        if (location != null) {
-            latestLocation = location;
-            TargetObject[] closest = new TargetObject[ammount];
-            topidx = new int[ammount];
-            mindist = new double[ammount];
-            for (int i = 0; i < ammount; i++) {
-                mindist[i] = Double.MAX_VALUE;
-            }
-            for (TargetObject ed : Data.targetObjects) {
-                if (ed.getType() == TargetType.BUILDING) {
-                    double temp = distance(latestLocation.getLatitude(), ed.getLatitude(), latestLocation.getLongitude(), ed.getLongitude(), 0, 0);
-                    Data.distances[ed.getId() - 1] = temp;
-                    for (int i = 0; i < ammount; i++) {
-                        if (temp <= mindist[i]) {
-                            for (int j = ammount - 1; j > i; j--) {
-                                mindist[j] = mindist[j - 1];
-                                topidx[j] = topidx[j - 1];
-                            }
-                            mindist[i] = temp;
-                            topidx[i] = ed.getId() - 1;
-                            break;
-                        }
-                    }
-                }
-            }
-            for (int i = 0; i < ammount; i++) {
-                closest[i] = Data.targetObjects.get(topidx[i]);
-            }
-            Log.d("konri", "closest buildings");
-            return closest;
-        }
-        return null;
-    }
-
-
-    /**
-     * Method that retrieves the closest monuments
-     *
-     * @param ammount
-     * @return
-     */
-    public TargetObject[] getClosestMonuments(Location location, int ammount) {
-        if (latestLocation != null) {
-            latestLocation = location;
-            TargetObject[] closest = new TargetObject[ammount];
-            topidx = new int[ammount];
-            mindist = new double[ammount];
-            for (int i = 0; i < ammount; i++) {
-                mindist[i] = Double.MAX_VALUE;
-            }
-
-            for (TargetObject ed : Data.targetObjects) {
-                if (ed.getType() == TargetType.MONUMENT) {
-                    double temp = distance(latestLocation.getLatitude(), ed.getLatitude(), latestLocation.getLongitude(), ed.getLongitude(), 0, 0);
-                    Data.distances[ed.getId() - 1] = temp;
-                    for (int i = 0; i < ammount; i++) {
-                        if (temp <= mindist[i]) {
-                            for (int j = ammount - 1; j > i; j--) {
-                                mindist[j] = mindist[j - 1];
-                                topidx[j] = topidx[j - 1];
-                            }
-                            mindist[i] = temp;
-                            topidx[i] = ed.getId() - 1;
-                            break;
-                        }
-                    }
-                }
-            }
-            for (int i = 0; i < ammount; i++) {
-                closest[i] = Data.targetObjects.get(topidx[i]);
-            }
-            Log.d("konri", "closest buildings");
-            return closest;
-        }
-        return null;
     }
 
     /**
@@ -175,14 +88,14 @@ public class LocationHelper {
     }
 
     /**
-     * Method that retrieves tha building that the camera is currently pointing to
+     * Method that retrieves the point that the camera is currently pointing to
      *
      * @param xCam
      * @param yCam
      * @param loc
      * @return
-     */
-    public TargetObject pointingCamera(double xCam, double yCam, LatLng loc) {
+     *
+    public Punto pointingCamera(double xCam, double yCam, LatLng loc) {
         //calculate distance
         float errorAngle = 0;
         double v1 = 0;
@@ -208,7 +121,7 @@ public class LocationHelper {
             }
         }
         return null;
-    }
+    }*/
 
 
     /**
@@ -235,36 +148,6 @@ public class LocationHelper {
         }
         return a;
     }
-
-    /**
-     * Calculates the closest buildings and monuments based on the specified location
-     *
-     * @param location the user's location
-     */
-    public void calculateClosest(Location location) {
-        closeBuildings = getClosestBuildings(location, TARGET_AMMOUNT);
-        closeMonuments = getClosestMonuments(location, TARGET_AMMOUNT);
-    }
-
-    /**
-     * Returns the closest monuments previously calculated
-     *
-     * @return the closest monuments
-     */
-    public TargetObject[] getCloseMonuments() {
-        return closeMonuments;
-    }
-
-    /**
-     * Returns the closest buildings previously calculated
-     *
-     * @return the closest buildings
-     */
-    public TargetObject[] getCloseBuildings() {
-        return closeBuildings;
-    }
-
-
 
 }
 

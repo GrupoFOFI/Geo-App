@@ -13,7 +13,10 @@ import com.google.android.gms.location.Geofence;
 import com.ucr.fofis.businesslogic.GeofenceManager;
 import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
 import com.ucr.fofis.businesslogic.ResourceManager;
+import com.ucr.fofis.dataaccess.entity.Punto;
 import com.ucr.fofis.geoapp.R;
+
+import java.util.List;
 
 /**
  * Created by enrico on 4/27/17.
@@ -22,6 +25,8 @@ import com.ucr.fofis.geoapp.R;
 public class GeoApp extends Application {
     ResourceManager resourceManager;
     GeofenceManager geofenceManager;
+
+    List<Punto> Puntos;
 
     private GeofenceNotificationReceiver geofenceNotificationReceiver = new GeofenceNotificationReceiver();
 
@@ -43,7 +48,7 @@ public class GeoApp extends Application {
             int id = intent.getIntExtra(GeofenceService.GEOFENCE_ID, -1); // point id
             int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
             if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
-
+                showNotification("Atención","Se esta acercando al punto" + Puntos.get(id).getNombre());
             } else if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // left region
 
             }
