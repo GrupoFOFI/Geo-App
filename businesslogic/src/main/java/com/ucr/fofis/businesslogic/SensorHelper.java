@@ -113,10 +113,10 @@ public class SensorHelper implements SensorEventListener {
         if (mListener != null) {
             if (mBuilding != ed) {
                 if (mBuilding != null)
-                    mListener.onStopLookingAtBuilding(mBuilding);
+                    mListener.onStopLookingAtTarget(mBuilding);
                 mBuilding = ed;
                 if (ed != null)
-                    mListener.onStartLookingAtBuilding(ed);
+                    mListener.onStartLookingAtTarget(ed);
             }
         }
         if ( SensorManager.getRotationMatrix( rMat, iMat, acclReading, mgntReading ) ) {

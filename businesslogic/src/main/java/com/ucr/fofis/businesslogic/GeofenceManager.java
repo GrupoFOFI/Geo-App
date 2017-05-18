@@ -40,6 +40,8 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks, Goo
     private List<Punto> mGeofences;
 
     public GeofenceManager(Context context) throws Exception {
+        mContext = context;
+        mGeofences = TourManager.getPoints();
         geofencePreferences = new GeofencePreferences(context);
         if (geofenceManagerInstance == null) geofenceManagerInstance = this;
         else throw new Exception("Can't instantiate more than one GeofenceManager, use GeofenceManager.getInstance() instead");

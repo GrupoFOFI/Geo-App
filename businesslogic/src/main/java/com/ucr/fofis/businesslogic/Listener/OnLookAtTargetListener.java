@@ -15,12 +15,12 @@ public interface OnLookAtTargetListener {
      *
      * @param targetObject
      */
-    void onStartLookingAtBuilding(Punto targetObject);
+    void onStartLookingAtTarget(Punto targetObject);
 
     /**
      * Method called when the user stops looking to a target
      *
      * @param targetObject
      */
-    void onStopLookingAtBuilding(Punto targetObject);
+    void onStopLookingAtTarget(Punto targetObject);
 }

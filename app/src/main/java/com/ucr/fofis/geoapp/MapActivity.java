@@ -1,6 +1,9 @@
 package com.ucr.fofis.geoapp;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -18,6 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.Geofence;
+import com.ucr.fofis.businesslogic.GeofenceManager;
+import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
 import com.ucr.fofis.businesslogic.TourManager;
 
 import org.osmdroid.events.DelayedMapListener;
@@ -63,7 +69,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     public Drawable iconMarker;
     private TextView txtInfo;
     public Marker nmbIfoWndw;
-
+    GeofenceReceiver geofenceReceiver = new GeofenceReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +102,20 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                 mapViewController.animateTo(routeCenter);
             }
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GeofenceManager.getInstance().init(this);
+        registerReceiver(geofenceReceiver, new IntentFilter(GeofenceService.GEOFENCE_NOTIFICATION_FILTER));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GeofenceManager.getInstance().stop();
+        unregisterReceiver(geofenceReceiver);
     }
 
     @Override
@@ -410,5 +429,18 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         }
 
 
+    }
+
+    private class GeofenceReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int id = intent.getIntExtra(GeofenceService.GEOFENCE_ID, -1); // point id
+            int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
+            if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
+                // mostrar boton de camara
+            } else if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // left region
+                // esconder boton de camara
+            }
+        }
     }
 }
