@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.ucr.fofis.businesslogic.LocationHelper;
 import com.google.android.gms.location.Geofence;
 import com.ucr.fofis.businesslogic.GeofenceManager;
 import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
@@ -71,6 +73,9 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     public Marker nmbIfoWndw;
     GeofenceReceiver geofenceReceiver = new GeofenceReceiver();
 
+    private LocationHelper locationHelper;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +107,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                 mapViewController.animateTo(routeCenter);
             }
         });
+        locationHelper = new LocationHelper();
     }
 
     @Override
@@ -116,6 +122,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         super.onStop();
         GeofenceManager.getInstance().stop();
         unregisterReceiver(geofenceReceiver);
+
     }
 
     @Override
@@ -142,6 +149,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         myPosition.setIcon(this.getResources().getDrawable(R.mipmap.ic_myposition));
         myPosition.closeInfoWindow();
         myPosition.setAnchor(Marker.ANCHOR_CENTER, 1.0f);
+        myPosition.setTitle("Mi Posición");
         drawMarker(myPosition);
     }
 
@@ -163,20 +171,20 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         Marker.OnMarkerClickListener mrkeListnr = new Marker.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker, MapView mapView) {
-                if(marker.isInfoWindowOpen()){
-                    marker.closeInfoWindow();
-                    nmbIfoWndw=null;
-                    marker.setIcon(iconMarker);
-                    return false;
-                }
-                if (nmbIfoWndw!=null){
-                    nmbIfoWndw.closeInfoWindow();
-                    nmbIfoWndw.setIcon(iconMarker);
-                }
-                nmbIfoWndw = marker;
-                marker.setIcon(markerColor);
-                marker.showInfoWindow();
-                return true;
+                    if (marker.isInfoWindowOpen()) {
+                        marker.closeInfoWindow();
+                        nmbIfoWndw = null;
+                        marker.setIcon(iconMarker);
+                        return false;
+                    }
+                    if (nmbIfoWndw != null) {
+                        nmbIfoWndw.closeInfoWindow();
+                        nmbIfoWndw.setIcon(iconMarker);
+                    }
+                    nmbIfoWndw = marker;
+                    marker.setIcon(markerColor);
+                    marker.showInfoWindow();
+                    return true;
             }
         };
         marcadores.get(pto).setOnMarkerClickListener(mrkeListnr);
@@ -191,7 +199,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     private void passPOItoMarker(MapView m){
         createListMarker();
        for(int i =0; i < TourManager.getPoints().size();i++){
-            drawMarker(addMarker(m,"FOFI",TourManager.getPoints().get(i).getGeoPoint().getLongitude(),TourManager.getPoints().get(i).getGeoPoint().getLatitude() ,i));
+            drawMarker(addMarker(m,TourManager.getPoints().get(i).getNombre(),TourManager.getPoints().get(i).getGeoPoint().getLongitude(),TourManager.getPoints().get(i).getGeoPoint().getLatitude() ,i));
             String s = " esto : "+(TourManager.getPoints().get(i));
         }
     }
@@ -397,6 +405,8 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             GeoPoint p= new GeoPoint(loc.getLatitude(),loc.getLongitude());
             myPosition.setPosition(p);
             drawMarker(myPosition);
+            LatLng position = new LatLng(loc.getLatitude(),loc.getLongitude());
+            locationHelper.updateLastLocation(position);
 
         }
         public void onProviderDisabled(String provider)
