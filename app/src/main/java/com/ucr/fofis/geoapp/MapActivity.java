@@ -1,5 +1,7 @@
 package com.ucr.fofis.geoapp;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +16,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,6 +56,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
+
+import static com.ucr.fofis.dataaccess.database.DataAccessor.init;
 
 
 public class MapActivity extends AppCompatActivity  implements View.OnClickListener  {
@@ -159,9 +165,9 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     }
 
 
-    private Marker addMarker(MapView m, String name, double lon,double lat, int pto  ){
+    private Marker addMarker(MapView m, String name, double lat,double lon, int pto  ){
         marcadores.add(new Marker(m));
-        GeoPoint gp = new GeoPoint(lon, lat);
+        GeoPoint gp = new GeoPoint(lat, lon);
         marcadores.get(pto).setPosition(gp);
         InfoWindow infoWindow = new MyInfoWindow(R.layout.info_window, mMapView,name);
         marcadores.get(pto).setInfoWindow(infoWindow);
@@ -199,7 +205,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     private void passPOItoMarker(MapView m){
         createListMarker();
        for(int i =0; i < TourManager.getPoints().size();i++){
-            drawMarker(addMarker(m,TourManager.getPoints().get(i).getNombre(),TourManager.getPoints().get(i).getGeoPoint().getLongitude(),TourManager.getPoints().get(i).getGeoPoint().getLatitude() ,i));
+            drawMarker(addMarker(m,TourManager.getPoints().get(i).getNombre(),TourManager.getPoints().get(i).getGeoPoint().getLatitude(),TourManager.getPoints().get(i).getGeoPoint().getLongitude() ,i));
             String s = " esto : "+(TourManager.getPoints().get(i));
         }
     }
@@ -402,9 +408,11 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             loc.getLongitude();
            // String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
            // Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
-            GeoPoint p= new GeoPoint(loc.getLatitude(),loc.getLongitude());
-            myPosition.setPosition(p);
-            drawMarker(myPosition);
+            if(11.0680 >= loc.getLatitude() && -85.7100 >= loc.getLongitude() && 10.9222 <= loc.getLatitude() && -85.7420 <= loc.getLongitude()) {
+                GeoPoint p = new GeoPoint(loc.getLatitude(), loc.getLongitude());
+                myPosition.setPosition(p);
+                drawMarker(myPosition);
+            }
             LatLng position = new LatLng(loc.getLatitude(),loc.getLongitude());
             locationHelper.updateLastLocation(position);
 
@@ -444,13 +452,40 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     private class GeofenceReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.i("i","Algo");
             int id = intent.getIntExtra(GeofenceService.GEOFENCE_ID, -1); // point id
             int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
             if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
-                // mostrar boton de camara
-            } else if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // left region
-                // esconder boton de camara
+                showNotification("Atención","Se esta acercando al punto" + TourManager.getPoints().get(id).getNombre());
+            } else if (trigger == Geofence.GEOFENCE_TRANSITION_EXIT) { // left region
+
             }
+            Toast.makeText( getApplicationContext(),"Gps Activo",Toast.LENGTH_SHORT ).show();
+        }
+
+        /**
+         * Sends a notification.
+         *
+         * @param title the notification's title.
+         * @param description the notification's description.
+         */
+        private void showNotification(String title, String description) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+            builder.setContentTitle(title).setContentText(description);
+            Intent resultIntent = null; //new Intent(getApplicationContext(), MapActivity.class);
+            PendingIntent resultPendingIntent =
+                    PendingIntent.getActivity(
+                            getApplicationContext(),
+                            0,
+                            resultIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+            builder.setSmallIcon(R.drawable.ic_launcher);
+            builder.setContentIntent(resultPendingIntent);
+            builder.setAutoCancel(true);
+            builder.setColor(getResources().getColor(R.color.colorPrimaryDark));
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.notify(5, builder.build());
         }
     }
 }
