@@ -96,10 +96,10 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks, Goo
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (!geofencePreferences.isGeofenceReady() && mGeofences != null && mGeofences.size() > 0) {
+        if (mGeofences != null && mGeofences.size() > 0) {
             GeofenceUtils.stopGeofences(getGeofencePendingIntent(), mGoogleApiClient);
             if (GeofenceUtils.startGeofences(mGeofences, getGeofencePendingIntent(), mGoogleApiClient)) {
-                geofencePreferences.setGeofenceReady(true);
+                //geofencePreferences.setGeofenceReady(true);
             }
         }
         // start location updates

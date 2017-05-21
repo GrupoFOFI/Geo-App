@@ -2,11 +2,13 @@ package com.ucr.fofis.dataaccess.entity;
 
 import org.osmdroid.util.GeoPoint;
 
+import java.io.Serializable;
+
 /**
  * Created by rapuc on 4/19/17.
  *  Clase que representa cada uno de los puntos geográficos, incluyendo información extra para mostrar en el app.
  */
-public class Punto {
+public class Punto implements Serializable {
 
 
     private int idntfcdr;

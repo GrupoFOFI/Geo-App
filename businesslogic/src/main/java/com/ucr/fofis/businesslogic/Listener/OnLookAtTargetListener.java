@@ -23,4 +23,11 @@ public interface OnLookAtTargetListener {
      * @param targetObject
      */
     void onStopLookingAtTarget(Punto targetObject);
+
+    /**
+     * Method called when the device's rotation changes
+     *
+     * @param rotationVector
+     */
+    void onRotationUpdate(float[] rotationVector);
 }

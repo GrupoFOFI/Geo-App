@@ -44,6 +44,10 @@ public class SensorHelper implements SensorEventListener {
         mgnt = snsrmngr.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
+    public void setTarget(Punto point) {
+        mBuilding = point;
+    }
+
     /**
      * Sets the rotation update listener to receive rotation updates
      *
@@ -122,7 +126,7 @@ public class SensorHelper implements SensorEventListener {
         if ( SensorManager.getRotationMatrix( rMat, iMat, acclReading, mgntReading ) ) {
             mAzimuth= (int) ( Math.toDegrees( SensorManager.getOrientation( rMat, orientationAngles )[0] ) + 360 ) % 360;
         }
-        //if (mListener != null) mListener.onRotationUpdate(rotationVector);
+        if (mListener != null) mListener.onRotationUpdate(rotationVector);
     }
 
     /**

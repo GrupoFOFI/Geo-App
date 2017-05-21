@@ -42,7 +42,7 @@ public class GeofenceService extends IntentService {
                     String id = geofence.getRequestId();
                     Intent broadcastIntent = new Intent(GEOFENCE_NOTIFICATION_FILTER);
                     broadcastIntent.setAction(GEOFENCE_NOTIFICATION_FILTER);
-                    broadcastIntent.putExtra(GEOFENCE_ID, id); // point id
+                    broadcastIntent.putExtra(GEOFENCE_ID, Integer.parseInt(id)); // point id
                     broadcastIntent.putExtra(GEOFENCE_TRIGGER, Geofence.GEOFENCE_TRANSITION_ENTER);
                     sendBroadcast(broadcastIntent);
                 }
@@ -55,7 +55,7 @@ public class GeofenceService extends IntentService {
                     String id = geofence.getRequestId();
                     Intent broadcastIntent = new Intent(GEOFENCE_NOTIFICATION_FILTER);
                     broadcastIntent.setAction(GEOFENCE_NOTIFICATION_FILTER);
-                    broadcastIntent.putExtra(GEOFENCE_ID, id); // point id
+                    broadcastIntent.putExtra(GEOFENCE_ID, Integer.parseInt(id)); // point id
                     broadcastIntent.putExtra(GEOFENCE_TRIGGER, Geofence.GEOFENCE_TRANSITION_EXIT);
                     sendBroadcast(broadcastIntent);
                 }

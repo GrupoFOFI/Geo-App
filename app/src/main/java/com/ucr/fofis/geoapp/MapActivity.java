@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -25,11 +24,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.ucr.fofis.businesslogic.LocationHelper;
 import com.google.android.gms.location.Geofence;
+import com.google.android.gms.maps.model.LatLng;
 import com.ucr.fofis.businesslogic.GeofenceManager;
 import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
+import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.TourManager;
 
 import org.osmdroid.events.DelayedMapListener;
@@ -57,12 +56,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
 
-import static com.ucr.fofis.dataaccess.database.DataAccessor.init;
-
 
 public class MapActivity extends AppCompatActivity  implements View.OnClickListener  {
 
 
+    LocationListener milocListener = new MiLocationListener();
     public MapView mMapView;
     final BoundingBox bBox14 = new BoundingBox(11.0680, -85.7100, 10.9222, -85.7420);
     final BoundingBox bBox15 = new BoundingBox(11.0658, -85.6700, 10.9222, -85.7650);
@@ -120,14 +118,14 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         GeofenceManager.getInstance().init(this);
-        registerReceiver(geofenceReceiver, new IntentFilter(GeofenceService.GEOFENCE_NOTIFICATION_FILTER));
+        //registerReceiver(geofenceReceiver, new IntentFilter(GeofenceService.GEOFENCE_NOTIFICATION_FILTER));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         GeofenceManager.getInstance().stop();
-        unregisterReceiver(geofenceReceiver);
+        //unregisterReceiver(geofenceReceiver);
 
     }
 
@@ -140,14 +138,13 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     private void initMyPoistion(MapView m){
         myPosition= new Marker(m);
         LocationManager milocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        LocationListener milocListener = new MiLocationListener();
         if ( Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return  ;
         }
-         milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
         milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
+        //milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
         Location l = milocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         //GeoPoint p= new GeoPoint(l);
         GeoPoint p= new GeoPoint(routeCenter);
