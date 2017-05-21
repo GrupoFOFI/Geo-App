@@ -66,6 +66,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     final BoundingBox bBox15 = new BoundingBox(11.0658, -85.6700, 10.9222, -85.7650);
     final BoundingBox bBox16 = new BoundingBox(11.0658, -85.6780, 10.9322, -85.7820);
     public static final GeoPoint routeCenter = new GeoPoint(10.9891, -85.7025);
+    public GeoPoint myLocation = new GeoPoint(0.0, 0.0);
     ArrayList<Marker> marcadores;
     Marker myPosition;
     public int markerTouched=-1;
@@ -108,7 +109,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             public void onClick(View v) {
                 mapViewController.setZoom(16);
                 mMapView.setScrollableAreaLimitDouble(bBox16);
-                mapViewController.animateTo(routeCenter);
+                mapViewController.animateTo(myLocation);
             }
         });
         locationHelper = new LocationHelper();
@@ -138,21 +139,27 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     private void initMyPoistion(MapView m){
         myPosition= new Marker(m);
         LocationManager milocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        LocationListener milocListener = new MiLocationListener();
         if ( Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return  ;
         }
         milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
-        //milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
+        milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
         Location l = milocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        //GeoPoint p= new GeoPoint(l);
-        GeoPoint p= new GeoPoint(routeCenter);
-        myPosition.setPosition( p );
+        myPosition.setPosition( myLocation );
         myPosition.setIcon(this.getResources().getDrawable(R.mipmap.ic_myposition));
         myPosition.closeInfoWindow();
         myPosition.setAnchor(Marker.ANCHOR_CENTER, 1.0f);
-        myPosition.setTitle("Mi Posición");
+        if (l == null) { //no pone el marcador hasta que no encuentre una posicion
+            return;
+        }
+        String coordenadas = "Mis coordenadas son: " + "Latitud = " + l.getLatitude() + "Longitud = " + l.getLongitude();
+        Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
+        GeoPoint p= new GeoPoint(l);
+        myLocation.setCoords(p.getLatitude(),p.getLongitude());
+        //GeoPoint p= new GeoPoint(routeCenter);
         drawMarker(myPosition);
     }
 
@@ -406,8 +413,10 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
            // String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
            // Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
             if(11.0680 >= loc.getLatitude() && -85.7100 >= loc.getLongitude() && 10.9222 <= loc.getLatitude() && -85.7420 <= loc.getLongitude()) {
-                GeoPoint p = new GeoPoint(loc.getLatitude(), loc.getLongitude());
-                myPosition.setPosition(p);
+              //  GeoPoint p = new GeoPoint(loc.getLatitude(), loc.getLongitude());
+                myLocation.setCoords(loc.getLatitude(), loc.getLongitude());
+                myPosition.setPosition(myLocation);
+               // myPosition.setPosition(p);
                 drawMarker(myPosition);
             }
             LatLng position = new LatLng(loc.getLatitude(),loc.getLongitude());
