@@ -9,8 +9,8 @@
         android:id="@+id/action_text"
         android:icon="@mipmap/ic_gps"
         android:title="Ubicación"/>
-    <item
+    <!--<item
         android:id="@+id/action_email"
         android:icon="@mipmap/ic_compass"
-        android:title="Zoom" />
+        android:title="Zoom" />-->
 </menu>

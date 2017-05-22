@@ -14,6 +14,7 @@ import java.util.List;
 
 public class GeofenceService extends IntentService {
     public static final String GEOFENCE_ID = "GEOFENCE_ID";
+    public static final String GEOFENCE_TRIGGER = "GEOFENCE_TRIGGER";
     public static String GEOFENCE_NOTIFICATION_FILTER = "net.symbiotic.GeofenceNotification";
 
     public GeofenceService() {
@@ -41,21 +42,24 @@ public class GeofenceService extends IntentService {
                     String id = geofence.getRequestId();
                     Intent broadcastIntent = new Intent(GEOFENCE_NOTIFICATION_FILTER);
                     broadcastIntent.setAction(GEOFENCE_NOTIFICATION_FILTER);
-                    broadcastIntent.putExtra(GEOFENCE_ID, id);
+                    broadcastIntent.putExtra(GEOFENCE_ID, Integer.parseInt(id)); // point id
+                    broadcastIntent.putExtra(GEOFENCE_TRIGGER, Geofence.GEOFENCE_TRANSITION_ENTER);
                     sendBroadcast(broadcastIntent);
                 }
             }
-            // TODO: send notification to user on geofence enter.
-
-            // Get the transition details as a String.
-            /*String geofenceTransitionDetails = getGeofenceTransitionDetails(
-                    this,
-                    geofenceTransition,
-                    triggeringGeofences
-            );*/
-
-            // Send notification and log the transition details.
-            //sendNotification(geofenceTransitionDetails);
+        } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
+            List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
+            if (triggeringGeofences != null) {
+                for (int i = 0; i < triggeringGeofences.size(); i++) {
+                    Geofence geofence = triggeringGeofences.get(i);
+                    String id = geofence.getRequestId();
+                    Intent broadcastIntent = new Intent(GEOFENCE_NOTIFICATION_FILTER);
+                    broadcastIntent.setAction(GEOFENCE_NOTIFICATION_FILTER);
+                    broadcastIntent.putExtra(GEOFENCE_ID, Integer.parseInt(id)); // point id
+                    broadcastIntent.putExtra(GEOFENCE_TRIGGER, Geofence.GEOFENCE_TRANSITION_EXIT);
+                    sendBroadcast(broadcastIntent);
+                }
+            }
         } else {
             // Log the error.
         }
