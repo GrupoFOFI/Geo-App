@@ -2,11 +2,13 @@ package com.ucr.fofis.dataaccess.entity;
 
 import org.osmdroid.util.GeoPoint;
 
+import java.io.Serializable;
+
 /**
  * Created by rapuc on 4/19/17.
  *  Clase que representa cada uno de los puntos geográficos, incluyendo información extra para mostrar en el app.
  */
-public class Punto {
+public class Punto implements Serializable {
 
 
     private int idntfcdr;
@@ -66,11 +68,11 @@ public class Punto {
         this.geoPoint = geoPoint;
     }
 
-    public Double getGeofenceRadio() {
+    public double getGeofenceRadio() {
         return geofenceRadio;
     }
 
-    public void setGeofenceRadio(Double geofenceRadio) {
+    public void setGeofenceRadio(double geofenceRadio) {
         this.geofenceRadio = geofenceRadio;
     }
 
@@ -82,27 +84,27 @@ public class Punto {
         this.imagenes = imagenes;
     }
 
-    public Integer getVideoId() {
+    public int getVideoId() {
         return videoId;
     }
 
-    public void setVideoId(Integer videoId) {
+    public void setVideoId(int videoId) {
         this.videoId = videoId;
     }
 
-    public Integer getAudioId() {
+    public int getAudioId() {
         return audioId;
     }
 
-    public void setAudioId(Integer audioId) {
+    public void setAudioId(int audioId) {
         this.audioId = audioId;
     }
 
-    public Integer getAnimationId() {
+    public int getAnimationId() {
         return animationId;
     }
 
-    public void setAnimationId(Integer animationId) {
+    public void setAnimationId(int animationId) {
         this.animationId = animationId;
     }
 }

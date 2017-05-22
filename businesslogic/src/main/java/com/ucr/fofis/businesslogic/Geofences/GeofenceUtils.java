@@ -6,7 +6,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.ucr.fofis.businesslogic.GeofenceManager;
-import com.ucr.fofis.dataaccess.entity.Geofence;
+import com.ucr.fofis.dataaccess.entity.Punto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +25,17 @@ public class GeofenceUtils {
      *
      * @param geofences the stored geofences.
      */
-    public static void init(List<Geofence> geofences) {
+    public static void init(List<Punto> geofences) {
         createGeofenceList(geofences);
     }
 
-    private static void createGeofenceList(List<Geofence> geofences) {
+    private static void createGeofenceList(List<Punto> geofences) {
         mGeofenceList = new ArrayList<>();
-        for (Geofence geofence : geofences) {
+        for (Punto geofence : geofences) {
             com.google.android.gms.location.Geofence.Builder builder = new com.google.android.gms.location.Geofence.Builder();
-            float radius = geofence.getRadius();
-            builder.setRequestId("" + geofence.getPointId())
-                    .setCircularRegion(geofence.getLatitude(), geofence.getLongitude(), radius)
+            float radius = (float)geofence.getGeofenceRadio();
+            builder.setRequestId("" + geofence.getIdntfcdr())
+                    .setCircularRegion(geofence.getGeoPoint().getLatitude(), geofence.getGeoPoint().getLongitude(), radius)
                     .setExpirationDuration(com.google.android.gms.location.Geofence.NEVER_EXPIRE)
                     .setTransitionTypes(com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER | com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT)
                     .setNotificationResponsiveness(0);
@@ -52,7 +52,7 @@ public class GeofenceUtils {
      * @param googleApiClient the google api client.
      * @return true if geofence monitoring starts successfully, otherwise false.
      */
-    public static boolean startGeofences(List<Geofence> geofences, PendingIntent pendingIntent, GoogleApiClient googleApiClient) {
+    public static boolean startGeofences(List<Punto> geofences, PendingIntent pendingIntent, GoogleApiClient googleApiClient) {
         if (GeofenceManager.getInstance().hasLocationPermission()) {
             createGeofenceList(geofences);
             if (googleApiClient != null && googleApiClient.isConnected()) {

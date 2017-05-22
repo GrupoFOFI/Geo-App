@@ -32,7 +32,8 @@ public class Datos {
             add(new Punto(13,"Punto13",null, new GeoPoint(11.0488333333333,-85.7266666666666),100.0d,new int[]{R.drawable.punto_13_1},0,R.raw.audio_13bl,0));
             add(new Punto(14,"Punto14",null, new GeoPoint(11.0457666666666,-85.7219),200.0d,new int[]{R.drawable.punto_14_1,R.drawable.punto_14_2, R.drawable.punto_14_3},0,R.raw.audio_14bl,0));
             add(new Punto(15,"Punto15",null, new GeoPoint(11.0466881500087,-85.7075191718204),100.0d,new int[]{R.drawable.punto_15_1, R.drawable.punto_16_1,R.drawable.punto_17_1,R.drawable.punto_17_2, R.drawable.punto_17_3,R.drawable.punto_18_1},0,R.raw.audio_17bl,0));
-            add(new Punto(19,"Punto16",null, new GeoPoint(11.0491333333333,-85.7074666666666),50.0d,new int[]{R.drawable.punto_19_1,R.drawable.punto_20_1,R.drawable.punto_21_1,R.drawable.punto_22_1, R.drawable.punto_22_1a,R.drawable.punto_23_1,R.drawable.punto_24_1, R.drawable.punto_24_1a,R.raw.audio_24bl},0,R.raw.audio_19bl,0));
+            add(new Punto(16,"Punto19",null, new GeoPoint(11.0491333333333,-85.7074666666666),50.0d,new int[]{R.drawable.punto_19_1,R.drawable.punto_20_1,R.drawable.punto_21_1,R.drawable.punto_22_1, R.drawable.punto_22_1a,R.drawable.punto_23_1,R.drawable.punto_24_1, R.drawable.punto_24_1a,R.raw.audio_24bl},0,R.raw.audio_19bl,0));
+
         }
 
     };
