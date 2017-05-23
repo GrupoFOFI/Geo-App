@@ -14,10 +14,13 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.internal.NavigationMenu;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -30,6 +33,7 @@ import com.ucr.fofis.businesslogic.GeofenceManager;
 import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
 import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.TourManager;
+import com.ucr.fofis.geoapp.Application.GeoApp;
 
 import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.events.MapListener;
@@ -55,6 +59,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
+
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
+
+import static android.R.id.button2;
 
 
 public class MapActivity extends AppCompatActivity  implements View.OnClickListener  {
@@ -87,8 +96,11 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         setContentView(R.layout.activity_map);
         getSupportActionBar().hide();
         if(getIntent().getBooleanExtra("showRecomendation", false)){
-            showRecommentdationDialog();
+            if(GeoApp.recommendationPlay == true) {
+                showRecommentdationDialog();
+            }
         }
+        GeoApp.recommendationPlay = false;
         //--
        // getSupportActionBar().hide();
         mMapView = (MapView) findViewById(R.id.mMapView);
@@ -103,16 +115,37 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         initMyPoistion(mMapView);
         passPOItoMarker(mMapView);
         FloatingActionButton FabGPS;
-        FabGPS = (FloatingActionButton) findViewById(R.id.fabGPS);//boton de gps
-        FabGPS.setOnClickListener(new View.OnClickListener() {
+
+        locationHelper = new LocationHelper();
+
+
+
+
+        FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
-            public void onClick(View v) {
-                mapViewController.setZoom(16);
-                mMapView.setScrollableAreaLimitDouble(bBox16);
-                mapViewController.animateTo(myLocation);
+            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
+                // TODO: Do something with yout menu items, or return false if you don't want to show them
+                return true;
             }
         });
-        locationHelper = new LocationHelper();
+
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                //TODO: Start some activity
+                if(menuItem.getTitle().equals("Cámara")){
+                    Intent i = new Intent(getApplicationContext(), CameraActivity.class);
+                    startActivity(i);
+                }else if(menuItem.getTitle().equals("Ubicación")){
+                    mapViewController.setZoom(16);
+                    mMapView.setScrollableAreaLimitDouble(bBox16);
+                    mapViewController.animateTo(routeCenter);
+                }
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -127,7 +160,6 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         super.onStop();
         GeofenceManager.getInstance().stop();
         //unregisterReceiver(geofenceReceiver);
-
     }
 
     @Override

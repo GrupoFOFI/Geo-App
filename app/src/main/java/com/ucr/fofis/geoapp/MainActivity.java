@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ucr.fofis.dataaccess.database.Ruta;
+import com.ucr.fofis.geoapp.Application.GeoApp;
 import com.ucr.fofis.geoapp.Fragment.HomeFragment;
 
 /**
@@ -65,6 +66,11 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (GeoApp.audioPlay == true) {
+            autoplayIntro();
+        }
+        GeoApp.audioPlay = false;
     }
 
 
@@ -85,12 +91,6 @@ public class MainActivity extends AppCompatActivity
             //this.showRecommentdationDialog();
 
             SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
-            if (prefs.contains("firsttime")) {
-            } else {
-                prefs.edit().putString("firsttime", "val").apply();
-                //autoplay Intro Sound
-                autoplayIntro();
-            }
         }
 
         checkCameraPermission();
