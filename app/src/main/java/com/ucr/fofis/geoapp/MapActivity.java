@@ -155,6 +155,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         if (l == null) { //no pone el marcador hasta que no encuentre una posicion
             return;
         }
+        LocationHelper.updateLastLocation(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()));
         String coordenadas = "Mis coordenadas son: " + "Latitud = " + l.getLatitude() + "Longitud = " + l.getLongitude();
         Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
         GeoPoint p= new GeoPoint(l);
