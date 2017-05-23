@@ -63,7 +63,6 @@ import java.util.Set;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
-
 public class MapActivity extends AppCompatActivity  implements View.OnClickListener  {
 
 
