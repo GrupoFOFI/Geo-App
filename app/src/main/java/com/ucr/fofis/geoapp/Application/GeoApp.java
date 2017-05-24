@@ -25,6 +25,8 @@ import com.ucr.fofis.geoapp.R;
 public class GeoApp extends MultiDexApplication {
     ResourceManager resourceManager;
     GeofenceManager geofenceManager;
+    public static boolean recommendationPlay;
+    public static boolean audioPlay;
 
     private GeofenceNotificationReceiver geofenceNotificationReceiver = new GeofenceNotificationReceiver();
 
@@ -38,6 +40,8 @@ public class GeoApp extends MultiDexApplication {
 
         }
         registerReceiver(geofenceNotificationReceiver, new IntentFilter(GeofenceService.GEOFENCE_NOTIFICATION_FILTER));
+        recommendationPlay = true;
+        audioPlay = true;
     }
 
     public class GeofenceNotificationReceiver extends BroadcastReceiver {

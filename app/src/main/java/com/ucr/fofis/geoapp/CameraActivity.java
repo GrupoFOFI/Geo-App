@@ -58,7 +58,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         imgClose.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                System.exit(0);
+                finish();
             }
         });
 
