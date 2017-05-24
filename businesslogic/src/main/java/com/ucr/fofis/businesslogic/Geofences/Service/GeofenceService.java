@@ -15,10 +15,10 @@ import java.util.List;
 public class GeofenceService extends IntentService {
     public static final String GEOFENCE_ID = "GEOFENCE_ID";
     public static final String GEOFENCE_TRIGGER = "GEOFENCE_TRIGGER";
-    public static String GEOFENCE_NOTIFICATION_FILTER = "net.symbiotic.GeofenceNotification";
+    public static String GEOFENCE_NOTIFICATION_FILTER = "com.ucr.fofis.GeofenceNotification";
 
     public GeofenceService() {
-        super("net.symbiotic.GeofenceService");
+        super("com.ucr.fofis.GeofenceService");
     }
 
     protected void onHandleIntent(Intent intent) {

@@ -21,6 +21,7 @@ import com.ucr.fofis.dataaccess.entity.Punto;
 
 public class CameraActivity extends AppCompatActivity implements OnLookAtTargetListener {
     public static final String POINT_TAG = "POINT_TAG";
+    double[] J = new double[]{0, 1, 0};
     double[] K = new double[]{0, 0, 1};
 
     private Camera mCamera=null;
@@ -99,18 +100,23 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                 viewdir[i] = rotationVector[i];
             }
 
-            double angle = MathUtils.angle(viewdir, dir);
+            double angle = MathUtils.angle(viewdir, dir) * (180.0 / Math.PI);
+            double up_angle = MathUtils.angle(J, viewdir) * (180.0 / Math.PI);
 
             double[] up = K;
             double[] right = MathUtils.cross(dir, up);
 
             double proj1 = MathUtils.scalar_proj(viewdir, right);
             double[] proj2 = MathUtils.proj(viewdir, up);
+            double base_angle = 0;
             if (proj1 > 0) {
-                arrow.setRotation(90);
+                base_angle = 90;
             } else {
-                arrow.setRotation(-90);
+                base_angle = -90;
             }
+            Log.i("ROTATION_UPDATE", "angle is: " + up_angle);
+            //base_angle += up_angle - 90;
+            arrow.setRotation((float)base_angle);
 
             //double realangle = MathUtils.angle(K, proj1);
 

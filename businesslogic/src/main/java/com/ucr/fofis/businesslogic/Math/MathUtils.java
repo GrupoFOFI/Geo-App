@@ -38,7 +38,6 @@ public class MathUtils {
     }
 
     public static double scalar_proj(double[] vector, double[] u) {
-        double[] result = new double[3];
         double d = dot(vector, u);
         double mag = Math.pow(vectorMagnitude(u), 2);
         return d / mag;
