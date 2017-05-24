@@ -90,7 +90,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         if (last != null) {
             double x = point.getGeoPoint().getLatitude() - last.latitude;
             double y = point.getGeoPoint().getLongitude() - last.longitude;
-            double[] dir = new double[]{x, y, 0};
+            double[] dir = new double[]{x, 0, y};
 
             /*double viewx = Math.cos(rotationVector[0]);
             double viewy = Math.sin(rotationVector[1]);
@@ -115,7 +115,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                 base_angle = -90;
             }
             Log.i("ROTATION_UPDATE", "angle is: " + up_angle);
-            //base_angle += up_angle - 90;
+            base_angle += up_angle + 90;
             arrow.setRotation((float)base_angle);
 
             //double realangle = MathUtils.angle(K, proj1);
