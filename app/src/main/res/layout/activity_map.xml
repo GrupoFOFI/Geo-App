@@ -55,8 +55,8 @@
         android:layout_gravity="bottom|end"
         app:fabGravity="bottom_end"
         app:fabMenu="@menu/speed_dial_button"
-        app:miniFabDrawableTint="?attr/colorPrimaryDark"
-        app:miniFabTitleTextColor="?attr/colorPrimaryDark" />
+        app:fabBackgroundTint="@color/colorSecondaryOrange3"
+        app:miniFabTitleTextColor="@color/colorSecondaryOrange3" />
 
 
 </android.support.design.widget.CoordinatorLayout>

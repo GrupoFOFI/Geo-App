@@ -15,13 +15,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.internal.NavigationMenu;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,8 +61,6 @@ import java.util.Set;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
-
-import static android.R.id.button2;
 
 
 public class MapActivity extends AppCompatActivity  implements View.OnClickListener  {
@@ -140,7 +137,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                 }else if(menuItem.getTitle().equals("Ubicación")){
                     mapViewController.setZoom(16);
                     mMapView.setScrollableAreaLimitDouble(bBox16);
-                    mapViewController.animateTo(routeCenter);
+                    mapViewController.animateTo(myLocation);
                 }
                 return false;
             }
@@ -188,11 +185,19 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             return;
         }
         String coordenadas = "Mis coordenadas son: " + "Latitud = " + l.getLatitude() + "Longitud = " + l.getLongitude();
-        Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
+        //Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
         GeoPoint p= new GeoPoint(l);
+        // punto cerca Isla Bolaños 10.9523,-85.713
+        //punto en la ECCI 9.937939, -84.051966
+//        double latOffset = 1.014361;
+//        double lngOffset = -1.661034;
+        //punto en la casa de apú 9.991756, -84.112890
+//        double latOffset = 10.9523 - 9.991756;
+//        double lngOffset = -85.713 + 84.112890;
         myLocation.setCoords(p.getLatitude(),p.getLongitude());
         //GeoPoint p= new GeoPoint(routeCenter);
         drawMarker(myPosition);
+
     }
 
 
@@ -420,15 +425,15 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             switch(mMapView.getZoomLevel()){//acomodar los limites de area del mapa dependiendo del nivel de zoom
                 case 15:
                     mMapView.setScrollableAreaLimitDouble(bBox15);
-                    Toast.makeText( getApplicationContext(),"Zoom 15",Toast.LENGTH_LONG).show();
+                    //Toast.makeText( getApplicationContext(),"Zoom 15",Toast.LENGTH_LONG).show();
                     break;
                 case 16:
                     mMapView.setScrollableAreaLimitDouble(bBox16);
-                    Toast.makeText( getApplicationContext(),"Zoom 16",Toast.LENGTH_LONG).show();
+                    //Toast.makeText( getApplicationContext(),"Zoom 16",Toast.LENGTH_LONG).show();
                     break;
                 default:
                     mMapView.setScrollableAreaLimitDouble(bBox14);
-                    Toast.makeText( getApplicationContext(),"Zoom 14",Toast.LENGTH_LONG).show();
+                    //Toast.makeText( getApplicationContext(),"Zoom 14",Toast.LENGTH_LONG).show();
                     break;
             }
             return true;
@@ -438,23 +443,27 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     /*-----------------------------------------------------------------------------------------------------------------------------------------*/
     public class MiLocationListener implements LocationListener
     {
+        @Override
         public void onLocationChanged(Location loc)
         {
             loc.getLatitude();
             loc.getLongitude();
-           // String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
+           String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
            // Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
-            if(11.0680 >= loc.getLatitude() && -85.7100 >= loc.getLongitude() && 10.9222 <= loc.getLatitude() && -85.7420 <= loc.getLongitude()) {
+            Log.d("location",coordenadas);
+           // if(11.0680 >= loc.getLatitude() && -85.7100 >= loc.getLongitude() && 10.9222 <= loc.getLatitude() && -85.7420 <= loc.getLongitude()) {
               //  GeoPoint p = new GeoPoint(loc.getLatitude(), loc.getLongitude());
                 myLocation.setCoords(loc.getLatitude(), loc.getLongitude());
                 myPosition.setPosition(myLocation);
                // myPosition.setPosition(p);
                 drawMarker(myPosition);
-            }
+                Log.d("location","locationUpdated");
+            //}
             LatLng position = new LatLng(loc.getLatitude(),loc.getLongitude());
-            locationHelper.updateLastLocation(position);
+            LocationHelper.updateLastLocation(position);
 
         }
+
         public void onProviderDisabled(String provider)
         {
             //String s = "esto :"+TourManager.getPoints().get(1);
@@ -490,19 +499,18 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     private class GeofenceReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("i","Algo");
             int id = intent.getIntExtra(GeofenceService.GEOFENCE_ID, -1); // point id
             int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
             if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
-                showNotification("Atención","Se esta acercando al punto" + TourManager.getPoints().get(id).getNombre());
+                showNotification("Atención","Se esta acercando al punto " + TourManager.getPoints().get(id).getNombre());
             } else if (trigger == Geofence.GEOFENCE_TRANSITION_EXIT) { // left region
 
             }
-            Toast.makeText( getApplicationContext(),"Gps Activo",Toast.LENGTH_SHORT ).show();
+            //Toast.makeText( getApplicationContext(),"Gps Activo",Toast.LENGTH_SHORT ).show();
         }
 
         /**
-         * Sends a notification.
+         * Manda una notificación a la hora de entrar a un geofence.
          *
          * @param title the notification's title.
          * @param description the notification's description.
