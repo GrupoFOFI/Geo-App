@@ -11,19 +11,24 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.model.LatLng;
 import com.ucr.fofis.businesslogic.Listener.OnLookAtTargetListener;
 import com.ucr.fofis.businesslogic.LocationHelper;
+import com.ucr.fofis.businesslogic.Math.MathUtils;
 import com.ucr.fofis.businesslogic.SensorHelper;
 import com.ucr.fofis.dataaccess.entity.Punto;
 
 public class CameraActivity extends AppCompatActivity implements OnLookAtTargetListener {
     public static final String POINT_TAG = "POINT_TAG";
+    double[] J = new double[]{0, 1, 0};
+    double[] K = new double[]{0, 0, 1};
 
     private Camera mCamera=null;
     private CameraView mCameraView=null;
     ImageView arrow;
     SensorHelper sensorHelper;
+    LocationRequest locationRequest;
 
     Punto point;
 
@@ -85,14 +90,37 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         if (last != null) {
             double x = point.getGeoPoint().getLatitude() - last.latitude;
             double y = point.getGeoPoint().getLongitude() - last.longitude;
+            double[] dir = new double[]{x, 0, y};
 
-            double viewx = Math.cos(rotationVector[0]);
+            /*double viewx = Math.cos(rotationVector[0]);
             double viewy = Math.sin(rotationVector[1]);
+            double[] viewdir = new double[]{viewx, viewy, 0};*/
+            double[] viewdir = new double[3];
+            for (int i = 0; i < 3; i++) {
+                viewdir[i] = rotationVector[i];
+            }
 
-            double angle = Math.acos((x * viewx + y * viewy) / (vectorMagnitude(x, y) * vectorMagnitude(viewx, viewy)));
-            angle = angle * (180.0 / Math.PI);
+            double angle = MathUtils.angle(viewdir, dir) * (180.0 / Math.PI);
+            double up_angle = MathUtils.angle(J, viewdir) * (180.0 / Math.PI);
 
-            Log.i("ROTATION_UPDATE", "Angle is: " + angle);
+            double[] up = K;
+            double[] right = MathUtils.cross(dir, up);
+
+            double proj1 = MathUtils.scalar_proj(viewdir, right);
+            double[] proj2 = MathUtils.proj(viewdir, up);
+            double base_angle = 0;
+            if (proj1 > 0) {
+                base_angle = 90;
+            } else {
+                base_angle = -90;
+            }
+            Log.i("ROTATION_UPDATE", "angle is: " + up_angle);
+            base_angle += up_angle + 90;
+            arrow.setRotation((float)base_angle);
+
+            //double realangle = MathUtils.angle(K, proj1);
+
+            //Log.i("ROTATION_UPDATE", "Angle is: " + realangle * (180.0 / Math.PI));
 
             if (angle < 30.0) {
                 if (arrow.getVisibility() == View.VISIBLE) {
@@ -103,9 +131,5 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                 arrow.setVisibility(View.VISIBLE);
             }
         }
-    }
-
-    private double vectorMagnitude(double x, double y) {
-        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/splash_background_fofi" />
+
+    <item>
+        <bitmap android:src="@drawable/rsz_splash"
+            android:gravity="center_horizontal"
+            android:filter="@bool/default_circle_indicator_centered"/>
+    </item>
+
+
+</layer-list>

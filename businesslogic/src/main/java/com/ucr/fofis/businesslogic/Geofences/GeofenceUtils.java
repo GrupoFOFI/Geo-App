@@ -31,15 +31,17 @@ public class GeofenceUtils {
 
     private static void createGeofenceList(List<Punto> geofences) {
         mGeofenceList = new ArrayList<>();
+        int i = 0;
         for (Punto geofence : geofences) {
             com.google.android.gms.location.Geofence.Builder builder = new com.google.android.gms.location.Geofence.Builder();
             float radius = (float)geofence.getGeofenceRadio();
-            builder.setRequestId("" + geofence.getIdntfcdr())
+            builder.setRequestId("" + i)
                     .setCircularRegion(geofence.getGeoPoint().getLatitude(), geofence.getGeoPoint().getLongitude(), radius)
                     .setExpirationDuration(com.google.android.gms.location.Geofence.NEVER_EXPIRE)
                     .setTransitionTypes(com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER | com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT)
                     .setNotificationResponsiveness(0);
             mGeofenceList.add(builder.build());
+            i++;
         }
     }
 

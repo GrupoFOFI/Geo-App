@@ -30,6 +30,10 @@ public class HomeFragment extends Fragment {
     public TextView intro;
 
 
+    CarouselView carouselView;
+
+    int[] sampleImages;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class HomeFragment extends Fragment {
         carouselView.setPageCount(sampleImages.length);
 
         carouselView.setImageListener(imageListener);
+        carouselView.setSlideInterval(Integer.MAX_VALUE);
 
         //Aquí se seteaa el texto de la introduccíon
         intro = (TextView)rootView.findViewById(R.id.introText);
@@ -80,10 +85,6 @@ public class HomeFragment extends Fragment {
 
         return rootView;
     }
-
-    CarouselView carouselView;
-
-    int[] sampleImages;
 
 
 
