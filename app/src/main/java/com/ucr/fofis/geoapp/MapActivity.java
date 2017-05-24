@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -32,6 +33,7 @@ import com.ucr.fofis.businesslogic.GeofenceManager;
 import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
 import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.TourManager;
+import com.ucr.fofis.dataaccess.entity.Punto;
 import com.ucr.fofis.geoapp.Application.GeoApp;
 
 import org.osmdroid.events.DelayedMapListener;
@@ -62,7 +64,6 @@ import java.util.Set;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
-
 public class MapActivity extends AppCompatActivity  implements View.OnClickListener  {
 
 
@@ -83,6 +84,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     private TextView txtInfo;
     public Marker nmbIfoWndw;
     GeofenceReceiver geofenceReceiver = new GeofenceReceiver();
+    private Punto point;
 
     private LocationHelper locationHelper;
 
@@ -132,8 +134,11 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             public boolean onMenuItemSelected(MenuItem menuItem) {
                 //TODO: Start some activity
                 if(menuItem.getTitle().equals("Cámara")){
-                    Intent i = new Intent(getApplicationContext(), CameraActivity.class);
-                    startActivity(i);
+                    if (point != null) {
+                        Intent i = new Intent(getApplicationContext(), CameraActivity.class);
+                        i.putExtra(CameraActivity.POINT_TAG, point);
+                        startActivity(i);
+                    }
                 }else if(menuItem.getTitle().equals("Ubicación")){
                     mapViewController.setZoom(16);
                     mMapView.setScrollableAreaLimitDouble(bBox16);
@@ -149,14 +154,14 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         GeofenceManager.getInstance().init(this);
-        //registerReceiver(geofenceReceiver, new IntentFilter(GeofenceService.GEOFENCE_NOTIFICATION_FILTER));
+        registerReceiver(geofenceReceiver, new IntentFilter(GeofenceService.GEOFENCE_NOTIFICATION_FILTER));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         GeofenceManager.getInstance().stop();
-        //unregisterReceiver(geofenceReceiver);
+        unregisterReceiver(geofenceReceiver);
     }
 
     @Override
@@ -184,6 +189,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         if (l == null) { //no pone el marcador hasta que no encuentre una posicion
             return;
         }
+        LocationHelper.updateLastLocation(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()));
         String coordenadas = "Mis coordenadas son: " + "Latitud = " + l.getLatitude() + "Longitud = " + l.getLongitude();
         //Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
         GeoPoint p= new GeoPoint(l);
@@ -502,11 +508,11 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             int id = intent.getIntExtra(GeofenceService.GEOFENCE_ID, -1); // point id
             int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
             if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
-                showNotification("Atención","Se esta acercando al punto " + TourManager.getPoints().get(id).getNombre());
+               point = TourManager.getPoints().get(id);
+                showNotification("Atención","Se esta acercando al punto" + TourManager.getPoints().get(id).getNombre(), point);
             } else if (trigger == Geofence.GEOFENCE_TRANSITION_EXIT) { // left region
 
             }
-            //Toast.makeText( getApplicationContext(),"Gps Activo",Toast.LENGTH_SHORT ).show();
         }
 
         /**
@@ -515,10 +521,11 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
          * @param title the notification's title.
          * @param description the notification's description.
          */
-        private void showNotification(String title, String description) {
+        private void showNotification(String title, String description, Punto point) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
             builder.setContentTitle(title).setContentText(description);
-            Intent resultIntent = null; //new Intent(getApplicationContext(), MapActivity.class);
+            Intent resultIntent = new Intent(getApplicationContext(), CameraActivity.class);
+            resultIntent.putExtra(CameraActivity.POINT_TAG, point);
             PendingIntent resultPendingIntent =
                     PendingIntent.getActivity(
                             getApplicationContext(),
@@ -533,5 +540,5 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             manager.notify(5, builder.build());
         }
-    }
+   }
 }

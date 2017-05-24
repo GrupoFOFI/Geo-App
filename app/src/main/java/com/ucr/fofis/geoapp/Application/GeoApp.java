@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.NotificationCompat;
 
@@ -39,7 +38,7 @@ public class GeoApp extends MultiDexApplication {
         } catch (Exception e) {
 
         }
-        registerReceiver(geofenceNotificationReceiver, new IntentFilter(GeofenceService.GEOFENCE_NOTIFICATION_FILTER));
+        //registerReceiver(geofenceNotificationReceiver, new IntentFilter(GeofenceService.GEOFENCE_NOTIFICATION_FILTER));
         recommendationPlay = true;
         audioPlay = true;
     }

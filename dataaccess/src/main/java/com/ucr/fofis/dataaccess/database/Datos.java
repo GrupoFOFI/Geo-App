@@ -35,7 +35,7 @@ public class Datos {
             add(new Punto(16,"Punto 19",null, new GeoPoint(11.0491333333333,-85.7074666666666),50.0d,new int[]{R.drawable.punto_19_1,R.drawable.punto_20_1,R.drawable.punto_21_1,R.drawable.punto_22_1, R.drawable.punto_22_1a,R.drawable.punto_23_1,R.drawable.punto_24_1, R.drawable.punto_24_1a,R.raw.audio_24bl},0,R.raw.audio_19bl,0));
             //add(new Punto(17,"Mock",null, new GeoPoint(9.937939, -84.051966),50.0d,new int[]{R.drawable.boat},0,0,0));
 
-        }
+       }
 
     };
 

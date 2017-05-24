@@ -104,9 +104,15 @@ public class SensorHelper implements SensorEventListener {
         final float[] rotationMatrix = new float[9];
         SensorManager.getRotationMatrix(rotationMatrix, null, acclReading, mgntReading);
 
+        // [0] is yaw, [1] is pitch, [2] is roll
         orientationAngles = SensorManager.getOrientation(rotationMatrix, orientationAngles);
-        rotationVector[0] = (float) Math.sin(orientationAngles[0]);// x
-        rotationVector[1] = (float) Math.cos(orientationAngles[1]);// y
+        /*rotationVector[0] = (float) Math.cos(orientationAngles[1]) * (float)Math.cos(orientationAngles[0]);// x
+        //rotationVector[0] = (float) Math.sin(orientationAngles[0]);// x
+        rotationVector[2] = (float) Math.cos(orientationAngles[1]) * (float)Math.sin(orientationAngles[0]);// z
+        rotationVector[1] = (float) Math.sin(orientationAngles[1]) * (float)Math.cos(orientationAngles[0]);// y*/
+        rotationVector[0] = rotationMatrix[0];
+        rotationVector[2] = rotationMatrix[3];
+        rotationVector[1] = rotationMatrix[7];
 
         // z doesn't matter
         Punto ed =null;
