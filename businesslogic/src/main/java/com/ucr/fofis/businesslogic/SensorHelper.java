@@ -13,7 +13,7 @@ import com.ucr.fofis.dataaccess.entity.Punto;
  * <h1> Sensor Helper </h1>
  *
  * <p>
- *  Fragment to handle the points of Interest using Wikitude
+ *     Helper class for calculating the device's rotation.
  * </p>
  *
  *
@@ -112,7 +112,7 @@ public class SensorHelper implements SensorEventListener {
         rotationVector[1] = (float) Math.sin(orientationAngles[1]) * (float)Math.cos(orientationAngles[0]);// y*/
         rotationVector[0] = rotationMatrix[0];
         rotationVector[2] = rotationMatrix[3];
-        rotationVector[1] = rotationMatrix[7];
+        rotationVector[1] = -1 * rotationMatrix[8];
 
         // z doesn't matter
         Punto ed =null;
