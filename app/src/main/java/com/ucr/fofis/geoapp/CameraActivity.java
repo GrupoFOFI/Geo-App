@@ -1,7 +1,12 @@
 package com.ucr.fofis.geoapp;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.model.LatLng;
+import com.ucr.fofis.businesslogic.GeofenceManager;
+import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
 import com.ucr.fofis.businesslogic.Listener.OnLookAtTargetListener;
 import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.Math.MathUtils;
@@ -68,6 +75,16 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         });
 
         sensorHelper.start();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -128,9 +145,28 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                     Toast.makeText(this, "¿Vieron el punto?", Toast.LENGTH_SHORT);
                 }
                 arrow.setVisibility(View.INVISIBLE);
+                showNotification("Punto Detectado", "Punto " + point.getNombre() + " detectado");
             } else {
                 arrow.setVisibility(View.VISIBLE);
+                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                manager.cancel(6);
             }
         }
+    }
+
+    /**
+     * Manda una notificación a la hora de entrar a un geofence.
+     *
+     * @param title the notification's title.
+     * @param description the notification's description.
+     */
+    private void showNotification(String title, String description) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+        builder.setContentTitle(title).setContentText(description);
+        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setAutoCancel(true);
+        builder.setColor(getResources().getColor(R.color.colorPrimaryDark));
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(6, builder.build());
     }
 }

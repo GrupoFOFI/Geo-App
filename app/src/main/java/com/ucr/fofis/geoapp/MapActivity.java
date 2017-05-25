@@ -511,7 +511,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
                 Log.i("Enter","Entrada2");
                 point = TourManager.getPoints().get(id);
-                showNotification("Atención","Se esta acercando al punto" + TourManager.getPoints().get(id).getNombre(), point);
+                showNotification("Atención","Se esta acercando al punto " + TourManager.getPoints().get(id).getNombre(), point);
                 camaraHabilitada = true;
             }
             else if (trigger == 2) { // left region
