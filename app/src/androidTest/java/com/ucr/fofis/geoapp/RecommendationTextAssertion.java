@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import com.ucr.fofis.dataaccess.database.Datos;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -36,126 +38,50 @@ public class RecommendationTextAssertion {
 
     @Test
     public void recommendationTextAssertion() {
+
+        int index = 0;
+
+
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btnStart), withText("Iniciar Viaje"),
                         withParent(withId(R.id.button)),
                         isDisplayed()));
         appCompatButton.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.recommendation_fragment_text), withText("En todo momento del viaje se debe de utilizar el chaleco salvavidas."),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("En todo momento del viaje se debe de utilizar el chaleco salvavidas.")));
-
         ViewInteraction viewPager = onView(
                 allOf(withId(R.id.recommendation_dialog_viewpager),
                         withParent(allOf(withId(R.id.fofi),
                                 withParent(withId(R.id.recommendation_dialog)))),
                         isDisplayed()));
-        viewPager.perform(swipeLeft());
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.recommendation_fragment_text), withText("Siempre acatar las instrucciones del capit?n."),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                0),
-                        isDisplayed()));
-        textView2.check(matches(withText("Siempre acatar las instrucciones del capitán.")));
+        ViewInteraction textView = null;
+        for(index = 0;index < Datos.RECOMENDACIONES.size();index++) {
+            textView =onView(
+                    allOf(withId(R.id.recommendation_fragment_text),withText(Datos.RECOMENDACIONES.get(index).getTexto()),
+                            childAtPosition(
+                                    withParent(withId(R.id.recommendation_dialog_viewpager)),
+                                    0),
+                            isDisplayed()));
+            textView.check(matches(withText(Datos.RECOMENDACIONES.get(index).getTexto())));
+            viewPager.perform(swipeLeft());
+        }
 
-        ViewInteraction viewPager2 = onView(
-                allOf(withId(R.id.recommendation_dialog_viewpager),
-                        withParent(allOf(withId(R.id.fofi),
-                                withParent(withId(R.id.recommendation_dialog)))),
-                        isDisplayed()));
-        viewPager2.perform(swipeLeft());
+        for(index = Datos.RECOMENDACIONES.size()-1;index >= 0; index--) {
+            textView =onView(
+                    allOf(withId(R.id.recommendation_fragment_text),withText(Datos.RECOMENDACIONES.get(index).getTexto()),
+                            childAtPosition(
+                                    withParent(withId(R.id.recommendation_dialog_viewpager)),
+                                    0),
+                            isDisplayed()));
+            textView.check(matches(withText(Datos.RECOMENDACIONES.get(index).getTexto())));
+            viewPager.perform(swipeRight());
+        }
 
-        ViewInteraction textView3 = onView(
-                allOf(withId(R.id.recommendation_fragment_text), withText("?Prot?jase del sol! Use protector solar"),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                0),
-                        isDisplayed()));
-        textView3.check(matches(withText("¡Protéjase del sol! Use protector solar")));
-
-        ViewInteraction viewPager3 = onView(
-                allOf(withId(R.id.recommendation_dialog_viewpager),
-                        withParent(allOf(withId(R.id.fofi),
-                                withParent(withId(R.id.recommendation_dialog)))),
-                        isDisplayed()));
-        viewPager3.perform(swipeLeft());
-
-        ViewInteraction textView4 = onView(
-                allOf(withId(R.id.recommendation_fragment_text), withText("?Prot?jase del sol! Use sombrero"),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                0),
-                        isDisplayed()));
-        textView4.check(matches(withText("¡Protéjase del sol! Use sombrero")));
-
-        ViewInteraction viewPager4 = onView(
-                allOf(withId(R.id.recommendation_dialog_viewpager),
-                        withParent(allOf(withId(R.id.fofi),
-                                withParent(withId(R.id.recommendation_dialog)))),
-                        isDisplayed()));
-        viewPager4.perform(swipeRight());
-
-        ViewInteraction textView5 = onView(
-                allOf(withId(R.id.recommendation_fragment_text), withText("?Prot?jase del sol! Use protector solar"),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                0),
-                        isDisplayed()));
-        textView5.check(matches(withText("¡Protéjase del sol! Use protector solar")));
-
-        ViewInteraction imageView = onView(
-                allOf(withId(R.id.recommendation_fragment_image),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                1),
-                        isDisplayed()));
-        imageView.check(matches(isDisplayed()));
-
-        ViewInteraction viewPager5 = onView(
-                allOf(withId(R.id.recommendation_dialog_viewpager),
-                        withParent(allOf(withId(R.id.fofi),
-                                withParent(withId(R.id.recommendation_dialog)))),
-                        isDisplayed()));
-        viewPager5.perform(swipeRight());
-
-        ViewInteraction textView6 = onView(
-                allOf(withId(R.id.recommendation_fragment_text), withText("Siempre acatar las instrucciones del capit?n."),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                0),
-                        isDisplayed()));
-        textView6.check(matches(withText("Siempre acatar las instrucciones del capitán.")));
-
-        ViewInteraction viewPager6 = onView(
-                allOf(withId(R.id.recommendation_dialog_viewpager),
-                        withParent(allOf(withId(R.id.fofi),
-                                withParent(withId(R.id.recommendation_dialog)))),
-                        isDisplayed()));
-        viewPager6.perform(swipeRight());
-
-        ViewInteraction textView7 = onView(
-                allOf(withId(R.id.recommendation_fragment_text), withText("En todo momento del viaje se debe de utilizar el chaleco salvavidas."),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                0),
-                        isDisplayed()));
-        textView7.check(matches(withText("En todo momento del viaje se debe de utilizar el chaleco salvavidas.")));
 
         ViewInteraction relativeLayout = onView(
                 allOf(withId(R.id.exit),

@@ -56,6 +56,7 @@
         app:fabGravity="bottom_end"
         app:fabMenu="@menu/speed_dial_button"
         app:fabBackgroundTint="@color/colorSecondaryOrange3"
+        app:miniFabDrawableTint="@color/colorSecondaryOrange3"
         app:miniFabTitleTextColor="@color/colorSecondaryOrange3" />
 
 

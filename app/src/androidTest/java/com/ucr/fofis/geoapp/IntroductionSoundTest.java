@@ -33,9 +33,9 @@ public class IntroductionSoundTest {
     @Test
     public void mainActivity_soundTest() {
         try {
-            //Thread.sleep(3000);
-            assertTrue(mActivityTestRule.getActivity().introMediaPlayer.isPlaying());
 
+            assertTrue(mActivityTestRule.getActivity().introMediaPlayer.isPlaying());
+            Thread.sleep(21000);
             ViewInteraction appCompatImageButton = onView(
                     allOf(withContentDescription("Open navigation drawer"),
                             withParent(withId(R.id.toolbar)),
