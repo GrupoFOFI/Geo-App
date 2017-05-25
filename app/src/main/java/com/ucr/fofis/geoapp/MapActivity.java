@@ -85,6 +85,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     public Marker nmbIfoWndw;
     GeofenceReceiver geofenceReceiver = new GeofenceReceiver();
     private Punto point;
+    public boolean camaraHabilitada;
 
     private LocationHelper locationHelper;
 
@@ -508,11 +509,18 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             int id = intent.getIntExtra(GeofenceService.GEOFENCE_ID, -1); // point id
             int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
             if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
-               point = TourManager.getPoints().get(id);
+                Log.i("Enter","Entrada2");
+                point = TourManager.getPoints().get(id);
                 showNotification("Atención","Se esta acercando al punto" + TourManager.getPoints().get(id).getNombre(), point);
-            } else if (trigger == Geofence.GEOFENCE_TRANSITION_EXIT) { // left region
-
+                camaraHabilitada = true;
             }
+            else if (trigger == 2) { // left region
+                Log.i("Exit","Salida");
+                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                manager.cancel(5);
+                camaraHabilitada = false;
+            }
+            Log.i("Trigger",trigger + "");
         }
 
         /**
