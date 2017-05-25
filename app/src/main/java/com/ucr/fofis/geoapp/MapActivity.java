@@ -137,7 +137,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             public boolean onMenuItemSelected(MenuItem menuItem) {
                 //TODO: Start some activity
                 if(menuItem.getTitle().equals("Cámara")){
-                    if (point != null) {
+                    if (camaraHabilitada) {
                         Intent i = new Intent(getApplicationContext(), CameraActivity.class);
                         i.putExtra(CameraActivity.POINT_TAG, point);
                         startActivity(i);
