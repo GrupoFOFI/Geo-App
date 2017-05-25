@@ -55,6 +55,7 @@
                 android:textAlignment="center"
                 android:text="intro"
                 android:gravity="fill_horizontal"
+                android:scrollbars="vertical"
                 />
             <LinearLayout
                 android:orientation="vertical"
