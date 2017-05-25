@@ -1,6 +1,11 @@
 package com.ucr.fofis.geoapp;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -10,20 +15,31 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.maps.model.LatLng;
+import com.ucr.fofis.businesslogic.GeofenceManager;
+import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
+import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.TourManager;
+import com.ucr.fofis.dataaccess.entity.Punto;
+import com.ucr.fofis.geoapp.Application.GeoApp;
 
+import org.osmdroid.events.DelayedMapListener;
+import org.osmdroid.events.MapListener;
+import org.osmdroid.events.ScrollEvent;
+import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.modules.ArchiveFileFactory;
 import org.osmdroid.tileprovider.modules.IArchiveFile;
 import org.osmdroid.tileprovider.modules.OfflineTileProvider;
@@ -35,6 +51,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,12 +61,19 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class MapActivity extends AppCompatActivity   {
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
+
+public class MapActivity extends AppCompatActivity  implements View.OnClickListener  {
+
+
+    LocationListener milocListener = new MiLocationListener();
     public MapView mMapView;
     final BoundingBox bBox14 = new BoundingBox(11.0680, -85.7100, 10.9222, -85.7420);
     final BoundingBox bBox15 = new BoundingBox(11.0658, -85.6700, 10.9222, -85.7650);
     final BoundingBox bBox16 = new BoundingBox(11.0658, -85.6780, 10.9322, -85.7820);
     public static final GeoPoint routeCenter = new GeoPoint(10.9891, -85.7025);
+    public GeoPoint myLocation = new GeoPoint(0.0, 0.0);
     ArrayList<Marker> marcadores;
     Marker myPosition;
     public int markerTouched=-1;
@@ -57,17 +81,13 @@ public class MapActivity extends AppCompatActivity   {
     private LinearLayout layoutInfo;
     public Drawable markerColor;
     public Drawable iconMarker;
-    //brujula
-    public ImageButton bttNearMe;
-    private float[] mLastAccelerometer = new float[3];
-    private float[] mLastMagnetometer = new float[3];
-    private boolean mLastAccelerometerSet = false;
-    private boolean mLastMagnetometerSet = false;
-    private float[] mR = new float[9];
-    private float[] mOrientation = new float[3];
-    private float mCurrentDegree = 0f;
-    //--
     private TextView txtInfo;
+    public Marker nmbIfoWndw;
+    GeofenceReceiver geofenceReceiver = new GeofenceReceiver();
+    private Punto point;
+
+    private LocationHelper locationHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,119 +95,79 @@ public class MapActivity extends AppCompatActivity   {
         setContentView(R.layout.activity_map);
         getSupportActionBar().hide();
         if(getIntent().getBooleanExtra("showRecomendation", false)){
-            showRecommentdationDialog();
+            if(GeoApp.recommendationPlay == true) {
+                showRecommentdationDialog();
+            }
         }
+        GeoApp.recommendationPlay = false;
         //--
+       // getSupportActionBar().hide();
         mMapView = (MapView) findViewById(R.id.mMapView);
         mMapView.setUseDataConnection(true);
         mapViewController = (MapController) mMapView.getController();
-
         markerColor =  this.getResources().getDrawable(R.mipmap.ic_mtouched);
         iconMarker = this.getResources().getDrawable(R.mipmap.ic_marker2);
-        //iniciar botones
-        FloatingActionButton FabGPS = (FloatingActionButton) findViewById(R.id.fabGPS);
         loadOsmdroidTiles();
-        //mMapView.setMapListener(new DelayedMapListener(new miZoomListener()));
+        mMapView.setMapListener(new DelayedMapListener(new miZoomListener()));
         setZoom(mapViewController);
         addOverlays(mMapView);
         initMyPoistion(mMapView);
         passPOItoMarker(mMapView);
-        final SeekBar seekBar = (SeekBar)findViewById(R.id.seekBarZoom);
-        bttNearMe = (ImageButton) findViewById(R.id.bttNearMe);
+        FloatingActionButton FabGPS;
 
-        FabGPS.setOnClickListener(new View.OnClickListener() {
+        locationHelper = new LocationHelper();
+
+
+
+
+        FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
-            public void onClick(View v) {
-
-                mapViewController.setZoom(16);
-                mMapView.setScrollableAreaLimitDouble(bBox16);
-                mapViewController.animateTo(routeCenter);
-                seekBar.setProgress(2);
-                Toast.makeText(getApplicationContext(), "your ubication", Toast.LENGTH_SHORT).show();
+            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
+                // TODO: Do something with yout menu items, or return false if you don't want to show them
+                return true;
             }
         });
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-                                           {
-                                               @Override
-                                               public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-                                               {
 
-                                                   switch(seekBar.getProgress()){//acomodar los limites de area del mapa dependiendo del nivel de zoom
-                                                       case 0:
-                                                           mapViewController.setZoom(14);
-                                                           mMapView.setScrollableAreaLimitDouble(bBox14);
-                                                           //Toast.makeText( getApplicationContext(),"Zoom 14",Toast.LENGTH_LONG).show();
-                                                           break;
-                                                       case 1:
-                                                           mapViewController.setZoom(15);
-                                                           mMapView.setScrollableAreaLimitDouble(bBox15);
-                                                           //Toast.makeText( getApplicationContext(),"Zoom 15",Toast.LENGTH_LONG).show();
-                                                           break;
-                                                       case 2:
-                                                           mapViewController.setZoom(16);
-                                                           mMapView.setScrollableAreaLimitDouble(bBox16);
-                                                           //Toast.makeText( getApplicationContext(),"Zoom 16",Toast.LENGTH_LONG).show();
-                                                           break;
-                                                       default:
-                                                           mapViewController.setZoom(16);
-                                                           mMapView.setScrollableAreaLimitDouble(bBox16);
-                                                           Toast.makeText( getApplicationContext(),"Zoom 17",Toast.LENGTH_LONG).show();
-                                                           break;
-                                                   }
-                                               }
-                                               @Override
-                                               public void onStartTrackingTouch(SeekBar seekBar)
-                                               {
-                                                   //TO DO Auto-Generated Method stub
-                                               }
-                                               @Override
-                                               public void onStopTrackingTouch(SeekBar seekBar)
-                                               {
-                                                   //TO DO Auto-Generated Method stub
-                                               }
-    });
-        layoutInfo = (LinearLayout) findViewById(R.id.layInfoWindow);
-        ImageButton bttClose = (ImageButton) findViewById(R.id.imgClose);
-        bttClose.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                layoutInfo.setVisibility(View.INVISIBLE);
-                Animation animation= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hidden_layout);
-                layoutInfo.startAnimation(animation);
-                if(markerTouched!=-1){
-                    marcadores.get(markerTouched).setIcon(iconMarker);
-                    drawMarker(marcadores.get(markerTouched));
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                //TODO: Start some activity
+                if(menuItem.getTitle().equals("Cámara")){
+                    if (point != null) {
+                        Intent i = new Intent(getApplicationContext(), CameraActivity.class);
+                        i.putExtra(CameraActivity.POINT_TAG, point);
+                        startActivity(i);
+                    }
+                }else if(menuItem.getTitle().equals("Ubicación")){
+                    mapViewController.setZoom(16);
+                    mMapView.setScrollableAreaLimitDouble(bBox16);
+                    mapViewController.animateTo(myLocation);
                 }
-               // Toast.makeText( getApplicationContext(),"esto"+markerTouched,Toast.LENGTH_LONG).show();
-                markerTouched = -1;
+                return false;
             }
         });
 
-        ImageButton bttGoMarker = (ImageButton) findViewById(R.id.imgGoMarker);
-        bttGoMarker.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mapViewController.setZoom(16);
-                seekBar.setProgress(2);
-                mMapView.setScrollableAreaLimitDouble(bBox16);
-                mapViewController.setCenter(marcadores.get(markerTouched).getPosition());
-               // Toast.makeText( getApplicationContext(),"go go go"+markerTouched,Toast.LENGTH_LONG).show();
-            }
-        });
-        txtInfo = (TextView)findViewById(R.id.txtInfoPOI);
-        bttNearMe.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                layoutInfo.setVisibility(View.VISIBLE);
-                Animation animation= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_layout);
-                layoutInfo.startAnimation(animation);
-                if(markerTouched!=-1){//limpiar marcador tocado antes
-                    marcadores.get(markerTouched).setIcon(iconMarker);
-                    drawMarker(marcadores.get(markerTouched));
-                }
-
-                markerTouched = -1;
-            }
-        });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GeofenceManager.getInstance().init(this);
+        registerReceiver(geofenceReceiver, new IntentFilter(GeofenceService.GEOFENCE_NOTIFICATION_FILTER));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GeofenceManager.getInstance().stop();
+        unregisterReceiver(geofenceReceiver);
+    }
+
+    @Override
+    public void onClick(View v){
+
+    }
 
     /*obtener posicion del usuario atraves del gps y cargar un marcador en el mapa, de esa posición*/
     private void initMyPoistion(MapView m){
@@ -199,66 +179,68 @@ public class MapActivity extends AppCompatActivity   {
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return  ;
         }
-         milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
+        milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
         milocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, milocListener);
         Location l = milocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        //GeoPoint p= new GeoPoint(l);
-        GeoPoint p= new GeoPoint(routeCenter);
-        myPosition.setPosition( p );
-        myPosition.setIcon(this.getResources().getDrawable(R.mipmap.ic_gps));
-        myPosition.setTitle("my position");
-        myPosition.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(final Marker marker, final MapView mMapView) {
-                mMapView.getController().animateTo(marker.getPosition());
-                txtInfo.setText("Mi ubicación ");
-                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_layout);
-                layoutInfo.startAnimation(animation);
-                return true;
-            }
-        });
+        myPosition.setPosition( myLocation );
+        myPosition.setIcon(this.getResources().getDrawable(R.mipmap.ic_myposition));
+        myPosition.closeInfoWindow();
         myPosition.setAnchor(Marker.ANCHOR_CENTER, 1.0f);
+        if (l == null) { //no pone el marcador hasta que no encuentre una posicion
+            return;
+        }
+        LocationHelper.updateLastLocation(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()));
+        String coordenadas = "Mis coordenadas son: " + "Latitud = " + l.getLatitude() + "Longitud = " + l.getLongitude();
+        //Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
+        GeoPoint p= new GeoPoint(l);
+        // punto cerca Isla Bolaños 10.9523,-85.713
+        //punto en la ECCI 9.937939, -84.051966
+//        double latOffset = 1.014361;
+//        double lngOffset = -1.661034;
+        //punto en la casa de apú 9.991756, -84.112890
+//        double latOffset = 10.9523 - 9.991756;
+//        double lngOffset = -85.713 + 84.112890;
+        myLocation.setCoords(p.getLatitude(),p.getLongitude());
+        //GeoPoint p= new GeoPoint(routeCenter);
         drawMarker(myPosition);
+
     }
 
 
     private void createListMarker(){
         marcadores = new ArrayList<Marker>();
     }
-    private void animateTest(){
 
-    }
 
-    private Marker addMarker(MapView m, String name, double lon,double lat, int pto  ){
+    private Marker addMarker(MapView m, String name, double lat,double lon, int pto  ){
         marcadores.add(new Marker(m));
-        GeoPoint gp = new GeoPoint(lon, lat);
+        GeoPoint gp = new GeoPoint(lat, lon);
         marcadores.get(pto).setPosition(gp);
+        InfoWindow infoWindow = new MyInfoWindow(R.layout.info_window, mMapView,name);
+        marcadores.get(pto).setInfoWindow(infoWindow);
         marcadores.get(pto).setTitle(name);
-
         marcadores.get(pto).setIcon(iconMarker);
         marcadores.get(pto).setAnchor(Marker.ANCHOR_CENTER, 1.0f);
-        final int punt = pto;
-        marcadores.get(pto).setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+        Marker.OnMarkerClickListener mrkeListnr = new Marker.OnMarkerClickListener() {
             @Override
-            public boolean onMarkerClick(final Marker marker, final MapView mMapView) {
-                if(markerTouched!=punt) {
-                    mMapView.getController().animateTo(marker.getPosition());
-                    if (markerTouched != -1) {
-                        marcadores.get(markerTouched).setIcon(iconMarker);
-                        //Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hidden_layout);
-                        //layoutInfo.startAnimation(animation);
+            public boolean onMarkerClick(Marker marker, MapView mapView) {
+                    if (marker.isInfoWindowOpen()) {
+                        marker.closeInfoWindow();
+                        nmbIfoWndw = null;
+                        marker.setIcon(iconMarker);
+                        return false;
                     }
-                    txtInfo.setText("Punto de Interés "+punt);
-                    layoutInfo.setVisibility(View.VISIBLE);
-                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_layout);
-                    layoutInfo.startAnimation(animation);
-                    marcadores.get(punt).setIcon(markerColor);
-                    markerTouched = punt;
-
-                }
-                return true;
+                    if (nmbIfoWndw != null) {
+                        nmbIfoWndw.closeInfoWindow();
+                        nmbIfoWndw.setIcon(iconMarker);
+                    }
+                    nmbIfoWndw = marker;
+                    marker.setIcon(markerColor);
+                    marker.showInfoWindow();
+                    return true;
             }
-        });
+        };
+        marcadores.get(pto).setOnMarkerClickListener(mrkeListnr);
         return marcadores.get(pto);
     }
 
@@ -270,7 +252,7 @@ public class MapActivity extends AppCompatActivity   {
     private void passPOItoMarker(MapView m){
         createListMarker();
        for(int i =0; i < TourManager.getPoints().size();i++){
-            drawMarker(addMarker(m,"FOFI",TourManager.getPoints().get(i).getLongitude(),TourManager.getPoints().get(i).getLatitude() ,i));
+            drawMarker(addMarker(m,TourManager.getPoints().get(i).getNombre(),TourManager.getPoints().get(i).getGeoPoint().getLatitude(),TourManager.getPoints().get(i).getGeoPoint().getLongitude() ,i));
             String s = " esto : "+(TourManager.getPoints().get(i));
         }
     }
@@ -288,6 +270,8 @@ public class MapActivity extends AppCompatActivity   {
 
     /*Opciones de zoom, touch y limites de area para la vista mapa */
     private void setZoom(MapController mapViewController) {
+        mMapView.setClickable(true);
+        mMapView.setMultiTouchControls(true);
         mMapView.setClickable(false);
         mapViewController.setZoom(14);
         mapViewController.animateTo(routeCenter);
@@ -435,7 +419,7 @@ public class MapActivity extends AppCompatActivity   {
 
     /*-----------------------------------------------------------------------------------------------------------------------------------------*/
     /*clase que escucha la interacción con el zoom del mapa*/
-    /*public class miZoomListener implements MapListener{
+    public class miZoomListener implements MapListener {
         @Override
         public boolean onScroll(final ScrollEvent event) {
 
@@ -447,35 +431,45 @@ public class MapActivity extends AppCompatActivity   {
             switch(mMapView.getZoomLevel()){//acomodar los limites de area del mapa dependiendo del nivel de zoom
                 case 15:
                     mMapView.setScrollableAreaLimitDouble(bBox15);
-                    Toast.makeText( getApplicationContext(),"Zoom 15",Toast.LENGTH_LONG).show();
+                    //Toast.makeText( getApplicationContext(),"Zoom 15",Toast.LENGTH_LONG).show();
                     break;
                 case 16:
                     mMapView.setScrollableAreaLimitDouble(bBox16);
-                    Toast.makeText( getApplicationContext(),"Zoom 16",Toast.LENGTH_LONG).show();
+                    //Toast.makeText( getApplicationContext(),"Zoom 16",Toast.LENGTH_LONG).show();
                     break;
                 default:
                     mMapView.setScrollableAreaLimitDouble(bBox14);
-                    Toast.makeText( getApplicationContext(),"Zoom 14",Toast.LENGTH_LONG).show();
+                    //Toast.makeText( getApplicationContext(),"Zoom 14",Toast.LENGTH_LONG).show();
                     break;
             }
             return true;
         }
 
-    }*/
+    }
     /*-----------------------------------------------------------------------------------------------------------------------------------------*/
     public class MiLocationListener implements LocationListener
     {
+        @Override
         public void onLocationChanged(Location loc)
         {
             loc.getLatitude();
             loc.getLongitude();
-           // String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
+           String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
            // Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
-            GeoPoint p= new GeoPoint(loc.getLatitude(),loc.getLongitude());
-            myPosition.setPosition(p);
-            drawMarker(myPosition);
+            Log.d("location",coordenadas);
+           // if(11.0680 >= loc.getLatitude() && -85.7100 >= loc.getLongitude() && 10.9222 <= loc.getLatitude() && -85.7420 <= loc.getLongitude()) {
+              //  GeoPoint p = new GeoPoint(loc.getLatitude(), loc.getLongitude());
+                myLocation.setCoords(loc.getLatitude(), loc.getLongitude());
+                myPosition.setPosition(myLocation);
+               // myPosition.setPosition(p);
+                drawMarker(myPosition);
+                Log.d("location","locationUpdated");
+            //}
+            LatLng position = new LatLng(loc.getLatitude(),loc.getLongitude());
+            LocationHelper.updateLastLocation(position);
 
         }
+
         public void onProviderDisabled(String provider)
         {
             //String s = "esto :"+TourManager.getPoints().get(1);
@@ -488,4 +482,63 @@ public class MapActivity extends AppCompatActivity   {
         }
         public void onStatusChanged(String provider, int status, Bundle extras){}
     }
+    /*-----------------------------------------------------------------------------------------------------------------------------------------*/
+    private class MyInfoWindow extends InfoWindow{
+        String nameMarker;
+        public MyInfoWindow(int layoutResId, MapView mapView,String namMrker) {
+            super(layoutResId, mapView);
+            nameMarker = namMrker;
+        }
+        public void onClose() {
+            MyInfoWindow.closeAllInfoWindowsOn(mMapView);
+        }
+
+        public void onOpen(Object arg0) {
+            TextView txtDescription = (TextView) mView.findViewById(R.id.txtIfoWndw);
+            txtDescription.setText(nameMarker);
+
+        }
+
+
+    }
+
+    private class GeofenceReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int id = intent.getIntExtra(GeofenceService.GEOFENCE_ID, -1); // point id
+            int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
+            if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
+               point = TourManager.getPoints().get(id);
+                showNotification("Atención","Se esta acercando al punto" + TourManager.getPoints().get(id).getNombre(), point);
+            } else if (trigger == Geofence.GEOFENCE_TRANSITION_EXIT) { // left region
+
+            }
+        }
+
+        /**
+         * Manda una notificación a la hora de entrar a un geofence.
+         *
+         * @param title the notification's title.
+         * @param description the notification's description.
+         */
+        private void showNotification(String title, String description, Punto point) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+            builder.setContentTitle(title).setContentText(description);
+            Intent resultIntent = new Intent(getApplicationContext(), CameraActivity.class);
+            resultIntent.putExtra(CameraActivity.POINT_TAG, point);
+            PendingIntent resultPendingIntent =
+                    PendingIntent.getActivity(
+                            getApplicationContext(),
+                            0,
+                            resultIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+            builder.setSmallIcon(R.drawable.ic_launcher);
+            builder.setContentIntent(resultPendingIntent);
+            builder.setAutoCancel(true);
+            builder.setColor(getResources().getColor(R.color.colorPrimaryDark));
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.notify(5, builder.build());
+        }
+   }
 }

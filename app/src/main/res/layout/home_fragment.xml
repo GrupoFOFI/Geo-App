@@ -50,11 +50,12 @@
                 android:paddingTop="40dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="@color/colorPrimaryWhite"
                 android:textAlignment="center"
                 android:text="intro"
                 android:gravity="fill_horizontal"
+                android:scrollbars="vertical"
                 />
             <LinearLayout
                 android:orientation="vertical"

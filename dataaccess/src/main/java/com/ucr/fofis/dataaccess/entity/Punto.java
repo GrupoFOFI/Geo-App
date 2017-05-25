@@ -2,30 +2,29 @@ package com.ucr.fofis.dataaccess.entity;
 
 import org.osmdroid.util.GeoPoint;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 /**
  * Created by rapuc on 4/19/17.
  *  Clase que representa cada uno de los puntos geográficos, incluyendo información extra para mostrar en el app.
  */
-public class Punto {
+public class Punto implements Serializable {
 
 
     private int idntfcdr;
     private String nombre;
     private String descripcion;
     private GeoPoint geoPoint;
-    private double geofenceRadio;
-    private List<Integer> imagenes = new ArrayList<Integer>(0); //
-    private int videoId;
-    private int audioId;
-    private int animationId;
+    private Double geofenceRadio;
+    private int[] imagenes;
+    private Integer videoId;
+    private Integer audioId;
+    private Integer animationId;
 
+    public Punto() {
+    }
 
-    /* Constructores */
-
-    public Punto(int idntfcdr, String nombre, String descripcion, GeoPoint geoPoint, double geofenceRadio, List<Integer> imagenes, int videoId, int audioId, int animationId) {
+    public Punto(int idntfcdr, String nombre, String descripcion, GeoPoint geoPoint, Double geofenceRadio, int[] imagenes, Integer videoId, Integer audioId, Integer animationId) {
         this.idntfcdr = idntfcdr;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -36,11 +35,6 @@ public class Punto {
         this.audioId = audioId;
         this.animationId = animationId;
     }
-
-    public Punto() {
-    }
-
-    /* Getters & setters */
 
     public int getIdntfcdr() {
         return idntfcdr;
@@ -82,11 +76,11 @@ public class Punto {
         this.geofenceRadio = geofenceRadio;
     }
 
-    public List<Integer> getImagenes() {
+    public int[] getImagenes() {
         return imagenes;
     }
 
-    public void setImagenes(List<Integer> imagenes) {
+    public void setImagenes(int[] imagenes) {
         this.imagenes = imagenes;
     }
 

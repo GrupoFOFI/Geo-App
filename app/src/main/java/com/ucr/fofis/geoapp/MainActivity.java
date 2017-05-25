@@ -1,8 +1,9 @@
 package com.ucr.fofis.geoapp;
 
-
+import android.app.Activity;
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -19,24 +20,27 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ucr.fofis.dataaccess.database.Ruta;
+import com.ucr.fofis.geoapp.Application.GeoApp;
 import com.ucr.fofis.geoapp.Fragment.HomeFragment;
 
 /**
  * Actividad principal del App, controla menú de navegacíon, Diálogo de recomendaciones y audio introductorio
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, RecommendationDialog.DialogDismissInterface {
     private static final int CODE_RE = 121;
     Class currentFragmentType;
     FragmentManager fragmentManager;
     private HomeFragment homeFragment;
     public MediaPlayer introMediaPlayer;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +64,13 @@ public class MainActivity extends AppCompatActivity
         currentFragmentType = homeFragment.getClass();
         setFragment(homeFragment);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (GeoApp.audioPlay == true) {
+            autoplayIntro();
+        }
+        GeoApp.audioPlay = false;
     }
 
 
@@ -82,13 +91,9 @@ public class MainActivity extends AppCompatActivity
             //this.showRecommentdationDialog();
 
             SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
-            if (prefs.contains("firsttime")) {
-            } else {
-                prefs.edit().putString("firsttime", "val").apply();
-                //autoplay Intro Sound
-                autoplayIntro();
-            }
         }
+
+        checkCameraPermission();
     }
 
     @Override
@@ -169,6 +174,10 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
             startActivity(i);
+
+        } else if (id == R.id.camera) {
+            Intent i = new Intent(this, CameraActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -197,6 +206,7 @@ public class MainActivity extends AppCompatActivity
      */
     public void showRecommentdationDialog() {
         RecommendationDialog rd = new RecommendationDialog();
+        rd.setDialogDismissInterface(this);
         rd.show(getSupportFragmentManager(), "\r\n  \r\n \r\n");
     }
 
@@ -214,5 +224,33 @@ public class MainActivity extends AppCompatActivity
             introMediaPlayer.setLooping(false);
             introMediaPlayer.start();
         }
+    }
+
+    /**
+     * Solicita permiso de la camara
+     */
+    private void checkCameraPermission() {
+
+        final Activity currentActivity = this;
+
+        if (ContextCompat.checkSelfPermission(currentActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
+            builder.setTitle("Esta aplicación requiere acceso a la cámara");
+            builder.setMessage("Porfavor conceda a esta aplicación acceso a la cámara para poder mostrar el visor.");
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.CAMERA}, 1);
+                }
+            });
+            builder.show();
+        }
+    }
+
+    @Override
+    public void onDialogDismiss() {
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,10 @@ public class HomeFragment extends Fragment {
     public TextView intro;
 
 
+    CarouselView carouselView;
+
+    int[] sampleImages;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,10 +54,12 @@ public class HomeFragment extends Fragment {
         carouselView.setPageCount(sampleImages.length);
 
         carouselView.setImageListener(imageListener);
+        carouselView.setSlideInterval(Integer.MAX_VALUE);
 
         //Aquí se seteaa el texto de la introduccíon
         intro = (TextView)rootView.findViewById(R.id.introText);
         intro.setText(Ruta.DESCRIPCION);
+        intro.setMovementMethod(new ScrollingMovementMethod());
 
         //Funcionalidad del botón de iniciar Viaje
         btnStart = (Button) rootView.findViewById(R.id.btnStart);
@@ -80,10 +87,6 @@ public class HomeFragment extends Fragment {
 
         return rootView;
     }
-
-    CarouselView carouselView;
-
-    int[] sampleImages;
 
 
 

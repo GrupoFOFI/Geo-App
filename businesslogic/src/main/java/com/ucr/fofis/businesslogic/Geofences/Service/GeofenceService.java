@@ -15,10 +15,10 @@ import java.util.List;
 public class GeofenceService extends IntentService {
     public static final String GEOFENCE_ID = "GEOFENCE_ID";
     public static final String GEOFENCE_TRIGGER = "GEOFENCE_TRIGGER";
-    public static String GEOFENCE_NOTIFICATION_FILTER = "net.symbiotic.GeofenceNotification";
+    public static String GEOFENCE_NOTIFICATION_FILTER = "com.ucr.fofis.GeofenceNotification";
 
     public GeofenceService() {
-        super("net.symbiotic.GeofenceService");
+        super("com.ucr.fofis.GeofenceService");
     }
 
     protected void onHandleIntent(Intent intent) {
@@ -42,7 +42,7 @@ public class GeofenceService extends IntentService {
                     String id = geofence.getRequestId();
                     Intent broadcastIntent = new Intent(GEOFENCE_NOTIFICATION_FILTER);
                     broadcastIntent.setAction(GEOFENCE_NOTIFICATION_FILTER);
-                    broadcastIntent.putExtra(GEOFENCE_ID, id); // point id
+                    broadcastIntent.putExtra(GEOFENCE_ID, Integer.parseInt(id)); // point id
                     broadcastIntent.putExtra(GEOFENCE_TRIGGER, Geofence.GEOFENCE_TRANSITION_ENTER);
                     sendBroadcast(broadcastIntent);
                 }
@@ -55,7 +55,7 @@ public class GeofenceService extends IntentService {
                     String id = geofence.getRequestId();
                     Intent broadcastIntent = new Intent(GEOFENCE_NOTIFICATION_FILTER);
                     broadcastIntent.setAction(GEOFENCE_NOTIFICATION_FILTER);
-                    broadcastIntent.putExtra(GEOFENCE_ID, id); // point id
+                    broadcastIntent.putExtra(GEOFENCE_ID, Integer.parseInt(id)); // point id
                     broadcastIntent.putExtra(GEOFENCE_TRIGGER, Geofence.GEOFENCE_TRANSITION_EXIT);
                     sendBroadcast(broadcastIntent);
                 }
