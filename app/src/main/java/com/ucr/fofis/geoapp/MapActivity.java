@@ -508,7 +508,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             int id = intent.getIntExtra(GeofenceService.GEOFENCE_ID, -1); // point id
             int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
             if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
-               point = TourManager.getPoints().get(id);
+                point = TourManager.getPoints().get(id);
                 showNotification("Atención","Se esta acercando al punto" + TourManager.getPoints().get(id).getNombre(), point);
             } else if (trigger == Geofence.GEOFENCE_TRANSITION_EXIT) { // left region
 

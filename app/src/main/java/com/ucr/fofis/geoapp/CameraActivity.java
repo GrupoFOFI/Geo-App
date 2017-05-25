@@ -103,19 +103,20 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
             double angle = MathUtils.angle(viewdir, dir) * (180.0 / Math.PI);
             double up_angle = MathUtils.angle(J, viewdir) * (180.0 / Math.PI);
 
-            double[] up = K;
+           double[] up = J;
             double[] right = MathUtils.cross(dir, up);
 
             double proj1 = MathUtils.scalar_proj(viewdir, right);
-            double[] proj2 = MathUtils.proj(viewdir, up);
-            double base_angle = 0;
+            //double[] proj2 = MathUtils.proj(viewdir, up);
+            double base_angle;
             if (proj1 > 0) {
-                base_angle = 90;
+                base_angle = 270;
+                base_angle -= up_angle + 90;
             } else {
-                base_angle = -90;
+                base_angle = 90;
+                base_angle += up_angle + 90;
             }
             Log.i("ROTATION_UPDATE", "angle is: " + up_angle);
-            base_angle += up_angle + 90;
             arrow.setRotation((float)base_angle);
 
             //double realangle = MathUtils.angle(K, proj1);

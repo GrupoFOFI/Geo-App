@@ -30,6 +30,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:id="@+id/imgClose"
+        android:visibility="gone"
         android:background="@android:drawable/ic_menu_close_clear_cancel"
         android:padding="20dp"/>
 

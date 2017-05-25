@@ -1,9 +1,10 @@
 package com.ucr.fofis.businesslogic.Math;
 
 /**
- * Created by tete on 5/23/17.
+ * Has useful methods for vector operations.
+ *
+ * Created by enrico on 5/23/17.
  */
-
 public class MathUtils {
     /**
      * Calculates the cross product of two vectors.
@@ -21,41 +22,64 @@ public class MathUtils {
     }
 
     /**
-     * Calculates the projection of vec in u.
+     * Calculates the projection of vector in u.
      *
      * @param vector the vector.
      * @param u the vector to project to.
-     * @return the projection of vec in u.
+     * @return the projection of vector in u.
      */
     public static double[] proj(double[] vector, double[] u) {
         double[] result = new double[3];
         double d = dot(vector, u);
-        double mag = Math.pow(vectorMagnitude(u), 2);
+        double mag = Math.pow(magnitude(u), 2);
         for (int i = 0; i < 3; i++) {
             result[i] = u[i] * (d / mag);
         }
         return result;
     }
 
+    /**
+     * Calculates the scalar projection of vector in u.
+     *
+     * @param vector the vector.
+     * @param u the vector to project to.
+     * @return the scalar projection of vector in u.
+     */
     public static double scalar_proj(double[] vector, double[] u) {
         double d = dot(vector, u);
-        double mag = Math.pow(vectorMagnitude(u), 2);
+        double mag = Math.pow(magnitude(u), 2);
         return d / mag;
     }
 
+    /**
+     * Calculates the angle between two vectors.
+     *
+     * @param vec1 the first vector.
+     * @param vec2 the second vector.
+     * @return the angle in radians between vec1 and vec2.
+     */
     public static double angle(double[] vec1, double[] vec2) {
-        return Math.acos((dot(vec1, vec2)) / (vectorMagnitude(vec1) * vectorMagnitude(vec2)));
+        return Math.acos((dot(vec1, vec2)) / (magnitude(vec1) * magnitude(vec2)));
     }
 
+    /**
+     * Calculates the dot product between two vectors.
+     *
+     * @param vec1 the first vector.
+     * @param vec2 the second vector.
+     * @return the dot product between vec1 and vec2.
+     */
     public static double dot(double[] vec1, double[] vec2) {
         return vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2];
     }
 
-    public static double vectorMagnitude(double[] vector) {
+    /**
+     * Calculates the magnitude of a vector.
+     *
+     * @param vector the vector.
+     * @return the magnitude of the vector.
+     */
+    public static double magnitude(double[] vector) {
         return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2));
-    }
-
-    public static double vectorMagnitude(double x, double y) {
-        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 }
