@@ -88,6 +88,8 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
     private LocationHelper locationHelper;
 
+    //Variable usada para revisar la selección de elementos no reconocibles en expresso
+    public String selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,11 +140,13 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                         Intent i = new Intent(getApplicationContext(), CameraActivity.class);
                         i.putExtra(CameraActivity.POINT_TAG, point);
                         startActivity(i);
+                        selected =  "Cámara";
                     }
                 }else if(menuItem.getTitle().equals("Ubicación")){
                     mapViewController.setZoom(16);
                     mMapView.setScrollableAreaLimitDouble(bBox16);
                     mapViewController.animateTo(myLocation);
+                    selected = "Ubicación";
                 }
                 return false;
             }
@@ -228,6 +232,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                         marker.closeInfoWindow();
                         nmbIfoWndw = null;
                         marker.setIcon(iconMarker);
+                        selected = marker.getTitle();
                         return false;
                     }
                     if (nmbIfoWndw != null) {
@@ -509,7 +514,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
             if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
                point = TourManager.getPoints().get(id);
-                showNotification("Atención","Se esta acercando al punto" + TourManager.getPoints().get(id).getNombre(), point);
+                showNotification("Atención","Se esta acercando a el punto " + TourManager.getPoints().get(id).getNombre(), point);
             } else if (trigger == Geofence.GEOFENCE_TRANSITION_EXIT) { // left region
 
             }
