@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -86,16 +85,6 @@ public class MapActivityTest {
         frameLayout2.check(matches(isDisplayed()));
 
         frameLayout2.perform(click());
-
-        ViewInteraction frameLayout3 = onView(
-                allOf( withParent(allOf(withId(R.id.card_view),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.fab),
-                                        0),
-                                0))), withText("Cámara")));
-        frameLayout3.check(matches(isDisplayed()));
-
 
 
     }
