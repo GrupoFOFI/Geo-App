@@ -1,7 +1,12 @@
 package com.ucr.fofis.geoapp;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,19 +16,26 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.model.LatLng;
+import com.ucr.fofis.businesslogic.GeofenceManager;
+import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
 import com.ucr.fofis.businesslogic.Listener.OnLookAtTargetListener;
 import com.ucr.fofis.businesslogic.LocationHelper;
+import com.ucr.fofis.businesslogic.Math.MathUtils;
 import com.ucr.fofis.businesslogic.SensorHelper;
 import com.ucr.fofis.dataaccess.entity.Punto;
 
 public class CameraActivity extends AppCompatActivity implements OnLookAtTargetListener {
     public static final String POINT_TAG = "POINT_TAG";
+    double[] J = new double[]{0, 1, 0};
+    double[] K = new double[]{0, 0, 1};
 
     private Camera mCamera=null;
     private CameraView mCameraView=null;
     ImageView arrow;
     SensorHelper sensorHelper;
+    LocationRequest locationRequest;
 
     Punto point;
 
@@ -66,6 +78,16 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
     public void onStartLookingAtTarget(Punto targetObject) {
         arrow.setVisibility(View.INVISIBLE);
     }
@@ -85,27 +107,66 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         if (last != null) {
             double x = point.getGeoPoint().getLatitude() - last.latitude;
             double y = point.getGeoPoint().getLongitude() - last.longitude;
+            double[] dir = new double[]{x, 0, y};
 
-            double viewx = Math.cos(rotationVector[0]);
+            /*double viewx = Math.cos(rotationVector[0]);
             double viewy = Math.sin(rotationVector[1]);
+            double[] viewdir = new double[]{viewx, viewy, 0};*/
+            double[] viewdir = new double[3];
+            for (int i = 0; i < 3; i++) {
+                viewdir[i] = rotationVector[i];
+            }
 
-            double angle = Math.acos((x * viewx + y * viewy) / (vectorMagnitude(x, y) * vectorMagnitude(viewx, viewy)));
-            angle = angle * (180.0 / Math.PI);
+            double angle = MathUtils.angle(viewdir, dir) * (180.0 / Math.PI);
+            double up_angle = MathUtils.angle(J, viewdir) * (180.0 / Math.PI);
 
-            Log.i("ROTATION_UPDATE", "Angle is: " + angle);
+           double[] up = J;
+            double[] right = MathUtils.cross(dir, up);
+
+            double proj1 = MathUtils.scalar_proj(viewdir, right);
+            //double[] proj2 = MathUtils.proj(viewdir, up);
+            double base_angle;
+            if (proj1 > 0) {
+                base_angle = 270;
+                base_angle -= up_angle + 90;
+            } else {
+                base_angle = 90;
+                base_angle += up_angle + 90;
+            }
+            Log.i("ROTATION_UPDATE", "angle is: " + up_angle);
+            arrow.setRotation((float)base_angle);
+
+            //double realangle = MathUtils.angle(K, proj1);
+
+            //Log.i("ROTATION_UPDATE", "Angle is: " + realangle * (180.0 / Math.PI));
 
             if (angle < 30.0) {
                 if (arrow.getVisibility() == View.VISIBLE) {
                     Toast.makeText(this, "¿Vieron el punto?", Toast.LENGTH_SHORT);
                 }
                 arrow.setVisibility(View.INVISIBLE);
+                showNotification("Punto Detectado", "Punto " + point.getNombre() + " detectado");
             } else {
                 arrow.setVisibility(View.VISIBLE);
+                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                manager.cancel(6);
             }
         }
     }
 
-    private double vectorMagnitude(double x, double y) {
-        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    /**
+     * Manda una notificación a la hora de entrar a un geofence.
+     *
+     * @param title the notification's title.
+     * @param description the notification's description.
+     */
+    private void showNotification(String title, String description) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+        builder.setContentTitle(title).setContentText(description);
+        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setAutoCancel(true);
+        builder.setColor(getResources().getColor(R.color.colorPrimaryDark));
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(6, builder.build());
     }
 }

@@ -56,8 +56,9 @@
         app:fabGravity="bottom_end"
         app:touchGuard="false"
         app:fabMenu="@menu/speed_dial_button"
-        app:miniFabDrawableTint="?attr/colorPrimaryDark"
-        app:miniFabTitleTextColor="?attr/colorPrimaryDark" />
+        app:fabBackgroundTint="@color/colorSecondaryOrange3"
+        app:miniFabDrawableTint="@color/colorSecondaryOrange3"
+        app:miniFabTitleTextColor="@color/colorSecondaryOrange3" />
 
     <io.github.yavski.fabspeeddial.FabSpeedDial
         android:id="@+id/fab_speed_dial2"
