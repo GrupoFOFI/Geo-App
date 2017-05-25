@@ -175,9 +175,6 @@ public class MainActivity extends AppCompatActivity
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
             startActivity(i);
 
-        } else if (id == R.id.camera) {
-            Intent i = new Intent(this, CameraActivity.class);
-            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -234,18 +231,7 @@ public class MainActivity extends AppCompatActivity
         final Activity currentActivity = this;
 
         if (ContextCompat.checkSelfPermission(currentActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
-            builder.setTitle("Esta aplicación requiere acceso a la cámara");
-            builder.setMessage("Porfavor conceda a esta aplicación acceso a la cámara para poder mostrar el visor.");
-            builder.setPositiveButton(android.R.string.ok, null);
-            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.CAMERA}, 1);
-                }
-            });
-            builder.show();
+            ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.CAMERA}, 1);
         }
     }
 
