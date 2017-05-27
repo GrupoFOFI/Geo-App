@@ -64,6 +64,11 @@ import java.util.Set;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
+/*
+* Activity del mapa, contiene almacena y carga el mapa offline, incluye xml de infowindow de marcadores.
+* Contiene botones de ubicación gps y boton hacia el camera activity
+* presenta las recomendaciones visuales
+* */
 public class MapActivity extends AppCompatActivity  implements View.OnClickListener  {
 
 
@@ -72,7 +77,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     final BoundingBox bBox14 = new BoundingBox(11.0680, -85.7100, 10.9222, -85.7420);
     final BoundingBox bBox15 = new BoundingBox(11.0658, -85.6700, 10.9222, -85.7650);
     final BoundingBox bBox16 = new BoundingBox(11.0658, -85.6780, 10.9322, -85.7820);
-    public static final GeoPoint routeCenter = new GeoPoint(10.9891, -85.7025);
+    public static final GeoPoint routeCenter = new GeoPoint(10.9891, -85.7025);//para ajustar vista del mapa al entrar
     public GeoPoint myLocation = new GeoPoint(0.0, 0.0);
     ArrayList<Marker> marcadores;
     Marker myPosition;
@@ -91,7 +96,9 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
     //Variable usada para revisar la selección de elementos no reconocibles en expresso
     public String selected;
-
+    /*
+    *llama a todos los metodos de carga de mapa, asinación de marcadores, ajustes de zoom, listener de gps , botones y zoom
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,8 +110,6 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             }
         }
         GeoApp.recommendationPlay = false;
-        //--
-       // getSupportActionBar().hide();
         mMapView = (MapView) findViewById(R.id.mMapView);
         mMapView.setUseDataConnection(true);
         mapViewController = (MapController) mMapView.getController();
@@ -143,7 +148,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                         startActivity(i);
                         selected =  "Cámara";
                     }
-                }else if(menuItem.getTitle().equals("Ubicación")){
+                }else if(menuItem.getTitle().equals("Ubicación")){//boton de gps
                     mapViewController.setZoom(16);
                     mMapView.setScrollableAreaLimitDouble(bBox16);
                     mapViewController.animateTo(myLocation);
@@ -154,7 +159,8 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         });
 
     }
-
+/*
+* incio de geofence*/
     @Override
     protected void onStart() {
         super.onStart();
@@ -174,11 +180,11 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
     }
 
-    /*obtener posicion del usuario atraves del gps y cargar un marcador en el mapa, de esa posición*/
+    /*obtener posicion del usuario en la clase MiLocationListener y cargar un marcador en el mapa. animación del marcador en conjutno con la ubicación*/
     private void initMyPoistion(MapView m){
         myPosition= new Marker(m);
         LocationManager milocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        LocationListener milocListener = new MiLocationListener();
+        LocationListener milocListener = new MiLocationListener();//actualiza posición (cada que cambie la ubicación) del marcador
         if ( Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -196,7 +202,6 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         }
         LocationHelper.updateLastLocation(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()));
         String coordenadas = "Mis coordenadas son: " + "Latitud = " + l.getLatitude() + "Longitud = " + l.getLongitude();
-        //Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
         GeoPoint p= new GeoPoint(l);
         // punto cerca Isla Bolaños 10.9523,-85.713
         //punto en la ECCI 9.937939, -84.051966
@@ -216,7 +221,10 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         marcadores = new ArrayList<Marker>();
     }
 
-
+    /*
+    *asigna a los marcadores un xml infowindow , un nombre , una posición , un clicklistener y un icono.(según corresponda con la lista de puntos)
+    * muestra el titulo del marcador cuando es seleccionado(o lo oculta) y cambia de color
+    * */
     private Marker addMarker(MapView m, String name, double lat,double lon, int pto  ){
         marcadores.add(new Marker(m));
         GeoPoint gp = new GeoPoint(lat, lon);
@@ -249,12 +257,16 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         marcadores.get(pto).setOnMarkerClickListener(mrkeListnr);
         return marcadores.get(pto);
     }
-
+/*recibe de passPOItoMarker un marcador, el cual lo dibuja en el mapa
+*/
     private void drawMarker(Marker marcador){
         mMapView.getOverlays().add(marcador);
         mMapView.invalidate();
     }
 
+    /*
+    * envía a addmarker el geopoint y titulo del punto
+    * recibe de addmarker el marcador correspondiente y lo envía a drawMarker*/
     private void passPOItoMarker(MapView m){
         createListMarker();
        for(int i =0; i < TourManager.getPoints().size();i++){
@@ -274,7 +286,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         }
     }
 
-    /*Opciones de zoom, touch y limites de area para la vista mapa */
+    /*set a las opciones de zoom, touch y limites de area para el mapa */
     private void setZoom(MapController mapViewController) {
         mMapView.setClickable(true);
         mMapView.setMultiTouchControls(true);
@@ -283,10 +295,10 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         mapViewController.animateTo(routeCenter);
         mMapView.setMinZoomLevel(14);
         mMapView.setMaxZoomLevel(16);
-        mMapView.setScrollableAreaLimitDouble(bBox14);//delimitar el mapa
+        mMapView.setScrollableAreaLimitDouble(bBox14);//delimitar el mapa con la pantalla
     }
 
-    //Check if App Start First Time, return 0 fistTime , 1 not firtTime, 2 newVersion
+    //chequea si el app inicia por primera vez, retorna 0 primera vez , 1 no es primera vez, 2 nueva version
     private int appGetFirstTimeRun() {
         SharedPreferences appPreferences = getSharedPreferences("MyAPP", 0);
         int appCurrentBuildVersion = BuildConfig.VERSION_CODE;
@@ -372,7 +384,6 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                     if (ArchiveFileFactory.isFileExtensionRegistered(name)) {//verifica estension
                         try {
 
-                            //ok found a file we support and have a driver for the format, for this demo, we'll just use the first one
 
                             //crea el offline tile provider, it will only do offline file archives
                             //again using the first file
@@ -382,19 +393,14 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                             //tell osmdroid to use that provider instead of the default rig which is (asserts, cache, files/archives, online
                             mMapView.setTileProvider(tileProvider);
 
-                            //this bit enables us to find out what tiles sources are available. note, that this action may take some time to run
-                            //and should be ran asynchronously. we've put it inline for simplicity
 
                             String source = "";
                             IArchiveFile[] archives = tileProvider.getArchives();
                             if (archives.length > 0) {
-                                //cheating a bit here, get the first archive file and ask for the tile sources names it contains
+
                                 Set<String> tileSources = archives[0].getTileSources();
-                                //presumably, this would be a great place to tell your users which tiles sources are available
+
                                 if (!tileSources.isEmpty()) {
-                                    //ok good, we found at least one tile source, create a basic file based tile source using that name
-                                    //and set it. If we don't set it, osmdroid will attempt to use the default source, which is "MAPNIK",
-                                    //which probably won't match your offline tile source, unless it's MAPNIK
                                     source = tileSources.iterator().next();
                                     mMapView.setTileSource(FileBasedTileSource.getSource(source));
                                 } else {
@@ -453,6 +459,8 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
     }
     /*-----------------------------------------------------------------------------------------------------------------------------------------*/
+    /*Clase que escucha si el gps esta activo o no.
+    si la ubiación cambia, es ese caso vuelve a dibujar el marcador en el mapa*/
     public class MiLocationListener implements LocationListener
     {
         @Override
@@ -489,6 +497,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         public void onStatusChanged(String provider, int status, Bundle extras){}
     }
     /*-----------------------------------------------------------------------------------------------------------------------------------------*/
+    /*clase de info window para marcadores, escucha cuando la ventana es abierta y asigna el titulo correspondiente*/
     private class MyInfoWindow extends InfoWindow{
         String nameMarker;
         public MyInfoWindow(int layoutResId, MapView mapView,String namMrker) {
@@ -507,7 +516,8 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
 
     }
-
+    /*-----------------------------------------------------------------------------------------------------------------------------------------*/
+    /*clase de geofences*/
     private class GeofenceReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
