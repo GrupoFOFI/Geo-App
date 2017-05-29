@@ -559,7 +559,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             }
             Log.i("Trigger",trigger + "");
         }
-        
+
 
         /**
          * Manda una notificación a la hora de entrar a un geofence.
