@@ -3,7 +3,6 @@ package com.ucr.fofis.geoapp;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -18,8 +17,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.model.LatLng;
-import com.ucr.fofis.businesslogic.GeofenceManager;
-import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
 import com.ucr.fofis.businesslogic.Listener.OnLookAtTargetListener;
 import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.Math.MathUtils;
@@ -38,18 +35,20 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
     LocationRequest locationRequest;
 
     Punto point;
-
+/*asigna el sensorhelper , la imagen para la brujula , el punto de interes(target) */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
+        //Setea el punto de interes que hizo que la camara pudiera ser abierta. El punto viene desde el Map Activity
         point = (Punto)getIntent().getSerializableExtra(POINT_TAG);
 
+        //Sensor para la flecha de la camara para indicar la direccion del punto
         sensorHelper = new SensorHelper(this);
         sensorHelper.setOnLookAtBuildingListener(this);
         sensorHelper.setTarget(point);
 
+        //trata de adquirir la camara ( el recurso )
         mCamera = Camera.open(0);
         arrow = (ImageView)findViewById(R.id.arrow);
         int width = getApplicationContext().getResources().getDisplayMetrics().widthPixels;
@@ -60,6 +59,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
 
         arrow.setRotation(90); // set arrow's rotation in degrees
 
+        //Si la camara fue adquirida, desplegarla
         if(mCamera != null){
             mCameraView = new CameraView(this, mCamera);
             FrameLayout camera_view = (FrameLayout)findViewById(R.id.camera_view);
@@ -78,16 +78,6 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public void onStartLookingAtTarget(Punto targetObject) {
         arrow.setVisibility(View.INVISIBLE);
     }
@@ -97,6 +87,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         arrow.setVisibility(View.VISIBLE);
     }
 
+    /*actualiza rotaciones del la imagen de la brujula para encontrar el punto de interes*/
     @Override
     public void onRotationUpdate(float[] rotationVector) {
         //arrow.setRotation(rotationVector[0] * (float)(180.0 / Math.PI));

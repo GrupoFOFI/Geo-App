@@ -18,6 +18,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Setea la actividad a la que se va a avanzar una vez desplegado el Splash y que haya cargado.
         Class activity = MainActivity.class;
         Intent intent = new Intent(SplashActivity.this, activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

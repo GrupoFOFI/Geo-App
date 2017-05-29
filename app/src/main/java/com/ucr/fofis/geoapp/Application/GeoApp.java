@@ -19,6 +19,8 @@ import com.ucr.fofis.geoapp.R;
 
 /**
  * Created by enrico on 4/27/17.
+ * Clase que inicializa el manejador de recursos y controlador de geofences
+ * habilita la recomendación visual y el audio introductorio
  */
 
 public class GeoApp extends MultiDexApplication {
