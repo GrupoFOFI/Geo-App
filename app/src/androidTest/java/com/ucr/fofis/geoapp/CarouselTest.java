@@ -1,6 +1,7 @@
 package com.ucr.fofis.geoapp;
 
 
+import android.os.SystemClock;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -22,6 +23,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
+import static com.ucr.fofis.geoapp.R.id.imageView;
 import static org.hamcrest.Matchers.allOf;
 
 
@@ -39,13 +41,18 @@ public class CarouselTest {
     @Test
     public void mainActivity_carrouselTest() {
 
+        ViewInteraction Title = onView(allOf(withId(R.id.introText)));
+        Title.check(matches(isDisplayed()));
+
         ViewInteraction imageView = onView(
                 allOf(withParent(allOf(withId(R.id.containerViewPager),
-                        childAtPosition(
-                                withId(R.id.carouselView),
-                                0))),
-                        isDisplayed()));
+                childAtPosition(
+                        withId(R.id.carouselView),
+                        0))),
+        isDisplayed()));
         imageView.check(matches(isDisplayed()));
+
+        SystemClock.sleep(3000);
 
         ViewInteraction carouselViewPager = onView(
                 allOf(withId(R.id.containerViewPager),
@@ -61,6 +68,8 @@ public class CarouselTest {
                                 0))),
                         isDisplayed()));
         imageView2.check(matches(isDisplayed()));
+
+        SystemClock.sleep(3000);
     }
 
     private static Matcher<View> childAtPosition(

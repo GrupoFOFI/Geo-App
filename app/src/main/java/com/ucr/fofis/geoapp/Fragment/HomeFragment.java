@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
                 startActivityForResult(intent, 0);
             }
         });
-        sampleImages = ResourceManager.getInstance().getCarouselImages(4);
+        sampleImages = ResourceManager.getInstance().getCarouselImages(4);//Recibido de imagenes
 
         carouselView = (CarouselView) rootView.findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);

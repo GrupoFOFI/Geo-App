@@ -94,7 +94,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         String log = "";
         log += rotationVector[0] + ", " + rotationVector[1] + ", " + rotationVector[2];
         Log.i("ROTATION_UPDATE", log);
-        LatLng last = LocationHelper.getLastLocation();
+        LatLng last = LocationHelper.getLastLocation();//Recibe posicion
         if (last != null) {
             double x = point.getGeoPoint().getLatitude() - last.latitude;
             double y = point.getGeoPoint().getLongitude() - last.longitude;
@@ -131,13 +131,13 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
 
             //Log.i("ROTATION_UPDATE", "Angle is: " + realangle * (180.0 / Math.PI));
 
-            if (angle < 30.0) {
+            if (angle < 30.0) {//Se reconocio el punto
                 if (arrow.getVisibility() == View.VISIBLE) {
                     Toast.makeText(this, "¿Vieron el punto?", Toast.LENGTH_SHORT);
                 }
                 arrow.setVisibility(View.INVISIBLE);
                 showNotification("Punto Detectado", "Punto " + point.getNombre() + " detectado");
-            } else {
+            } else {//Se dejo de visualizar el punto
                 arrow.setVisibility(View.VISIBLE);
                 NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 manager.cancel(6);

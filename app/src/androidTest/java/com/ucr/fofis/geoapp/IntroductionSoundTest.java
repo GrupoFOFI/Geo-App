@@ -1,6 +1,7 @@
 package com.ucr.fofis.geoapp;
 
 
+import android.os.SystemClock;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -34,8 +35,9 @@ public class IntroductionSoundTest {
     public void mainActivity_soundTest() {
         try {
 
+            SystemClock.sleep(3000);
+
             assertTrue(mActivityTestRule.getActivity().introMediaPlayer.isPlaying());
-            Thread.sleep(21000);
             ViewInteraction appCompatImageButton = onView(
                     allOf(withContentDescription("Open navigation drawer"),
                             withParent(withId(R.id.toolbar)),
@@ -43,11 +45,14 @@ public class IntroductionSoundTest {
             appCompatImageButton.perform(click());
             Thread.sleep(1000);
 
+            SystemClock.sleep(3000);
+
             ViewInteraction appCompatCheckedTextView = onView(
                     allOf(withId(R.id.design_menu_item_text), withText("Escuchar audio introductorio"), isDisplayed()));
             appCompatCheckedTextView.perform(click());
-            Thread.sleep(2000);
             assertTrue(mActivityTestRule.getActivity().introMediaPlayer.isPlaying());
+
+            SystemClock.sleep(3000);
         }catch(InterruptedException e){
 
         }

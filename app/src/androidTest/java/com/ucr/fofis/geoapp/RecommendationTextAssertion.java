@@ -1,6 +1,7 @@
 package com.ucr.fofis.geoapp;
 
 
+import android.os.SystemClock;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -41,6 +42,7 @@ public class RecommendationTextAssertion {
 
         int index = 0;
 
+        SystemClock.sleep(3000);
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btnStart), withText("Iniciar Viaje"),
@@ -71,6 +73,9 @@ public class RecommendationTextAssertion {
             viewPager.perform(swipeLeft());
         }
 
+        SystemClock.sleep(3000);
+
+
         for(index = Datos.RECOMENDACIONES.size()-1;index >= 0; index--) {
             textView =onView(
                     allOf(withId(R.id.recommendation_fragment_text),withText(Datos.RECOMENDACIONES.get(index).getTexto()),
@@ -80,6 +85,8 @@ public class RecommendationTextAssertion {
                             isDisplayed()));
             textView.check(matches(withText(Datos.RECOMENDACIONES.get(index).getTexto())));
             viewPager.perform(swipeRight());
+            SystemClock.sleep(3000);
+
         }
 
 
@@ -89,6 +96,8 @@ public class RecommendationTextAssertion {
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         relativeLayout.perform(click());
+        SystemClock.sleep(3000);
+
 
     }
 

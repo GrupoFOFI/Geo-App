@@ -144,14 +144,14 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             @Override
             public boolean onMenuItemSelected(MenuItem menuItem) {
                 //Aqui se selecciona que accion tomar dependiendo de cual subboton se escogio
-                if(menuItem.getTitle().equals("Cámara")){
+                if(menuItem.getTitle().equals("Cámara")){//Ir a camara
                     if (camaraHabilitada) {
                         Intent i = new Intent(getApplicationContext(), CameraActivity.class);
                         i.putExtra(CameraActivity.POINT_TAG, point);
                         startActivity(i);
                         selected =  "Cámara";
                     }
-                }else if(menuItem.getTitle().equals("Ubicación")){//boton de gps
+                }else if(menuItem.getTitle().equals("Ubicación")){//Ir a ubicacion
                     mapViewController.setZoom(16);
                     mMapView.setScrollableAreaLimitDouble(bBox16);
                     mapViewController.animateTo(myLocation);
@@ -201,7 +201,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
     }
 
-    /*obtener posicion del usuario en la clase MiLocationListener y cargar un marcador en el mapa. animación del marcador en conjutno con la ubicación*/
+    /*obtener posicion del usuario en la clase MiLocationListener y cargar un marcador en el mapa. animación del marcador en conjunto con la ubicación*/
     private void initMyPoistion(MapView m){
         myPosition= new Marker(m);
         LocationManager milocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);

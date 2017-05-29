@@ -2,6 +2,7 @@ package com.ucr.fofis.geoapp;
 
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -41,6 +42,8 @@ public class WebLinkTest {
     @Test
     public void mainActivity_webLinkTest() {
         try {
+            SystemClock.sleep(3000);
+
             ViewInteraction fab = onView(
                     allOf(withId(R.id.fab),
                             isDisplayed()));

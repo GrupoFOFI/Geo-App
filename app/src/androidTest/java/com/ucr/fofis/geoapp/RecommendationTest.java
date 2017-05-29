@@ -1,6 +1,7 @@
 package com.ucr.fofis.geoapp;
 
 
+import android.os.SystemClock;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -38,11 +39,15 @@ public class RecommendationTest {
     @Test
     public void mainActivityTest() {
 
+        SystemClock.sleep(3000);
+
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         withParent(withId(R.id.toolbar)),
                         isDisplayed()));
         appCompatImageButton.perform(click());
+
+        SystemClock.sleep(3000);
 
         ViewInteraction appCompatCheckedTextView = onView(
                 allOf(withId(R.id.design_menu_item_text), withText("Ver recomendaciones"), isDisplayed()));
@@ -73,15 +78,9 @@ public class RecommendationTest {
                         withParent(allOf(withId(R.id.fofi),
                                 withParent(withId(R.id.recommendation_dialog)))),
                         isDisplayed()));
-        viewPager2.perform(swipeLeft());
 
-        ViewInteraction imageView2 = onView(
-                allOf(withId(R.id.recommendation_fragment_image),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                1),
-                        isDisplayed()));
-        imageView2.check(matches(isDisplayed()));
+        SystemClock.sleep(3000);
+        viewPager2.perform(swipeLeft());
 
         ViewInteraction relativeLayout2 = onView(
                 allOf(withId(R.id.exit),
@@ -116,14 +115,6 @@ public class RecommendationTest {
                                 withParent(withId(R.id.recommendation_dialog)))),
                         isDisplayed()));
         viewPager8.perform(swipeLeft());
-
-        ViewInteraction imageView4 = onView(
-                allOf(withId(R.id.recommendation_fragment_image),
-                        childAtPosition(
-                                withParent(withId(R.id.recommendation_dialog_viewpager)),
-                                1),
-                        isDisplayed()));
-        imageView4.check(matches(isDisplayed()));
 
         ViewInteraction relativeLayout3 = onView(
                 allOf(withId(R.id.exit),
