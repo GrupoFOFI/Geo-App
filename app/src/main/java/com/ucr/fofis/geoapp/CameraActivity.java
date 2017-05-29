@@ -35,7 +35,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
     LocationRequest locationRequest;
 
     Punto point;
-
+/*asigna el sensorhelper , la imagen para la brujula , el punto de interes(target) */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +84,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         arrow.setVisibility(View.VISIBLE);
     }
 
+    /*actualiza rotaciones del la imagen de la brujula para encontrar el punto de interes*/
     @Override
     public void onRotationUpdate(float[] rotationVector) {
         //arrow.setRotation(rotationVector[0] * (float)(180.0 / Math.PI));
