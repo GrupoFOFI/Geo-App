@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/action_call"
-        android:icon="@mipmap/ic_camera"
-        android:title="Cámara" />
-    <item
-        android:id="@+id/action_text"
-        android:icon="@mipmap/ic_gps"
-        android:title="Ubicación"/>
-    <!--<item
-        android:id="@+id/action_email"
-        android:icon="@mipmap/ic_compass"
-        android:title="Zoom" />-->
+xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:id="@+id/action_call"
+    android:icon="@mipmap/ic_camera"
+    android:title="Cámara" />
+<item
+    android:id="@+id/action_text"
+    android:icon="@mipmap/ic_gps"
+    android:title="Ubicación"/>
+<!--<item
+    android:id="@+id/action_email"
+    android:icon="@mipmap/ic_compass"
+    android:title="Zoom" />-->
 </menu>

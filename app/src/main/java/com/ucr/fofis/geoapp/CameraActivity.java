@@ -40,13 +40,15 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
+        //Setea el punto de interes que hizo que la camara pudiera ser abierta. El punto viene desde el Map Activity
         point = (Punto)getIntent().getSerializableExtra(POINT_TAG);
 
+        //Sensor para la flecha de la camara para indicar la direccion del punto
         sensorHelper = new SensorHelper(this);
         sensorHelper.setOnLookAtBuildingListener(this);
         sensorHelper.setTarget(point);
 
+        //trata de adquirir la camara ( el recurso )
         mCamera = Camera.open(0);
         arrow = (ImageView)findViewById(R.id.arrow);
         int width = getApplicationContext().getResources().getDisplayMetrics().widthPixels;
@@ -57,6 +59,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
 
         arrow.setRotation(90); // set arrow's rotation in degrees
 
+        //Si la camara fue adquirida, desplegarla
         if(mCamera != null){
             mCameraView = new CameraView(this, mCamera);
             FrameLayout camera_view = (FrameLayout)findViewById(R.id.camera_view);

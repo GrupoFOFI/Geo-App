@@ -64,6 +64,7 @@ import java.util.Set;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
+
 /*
 * Activity del mapa, contiene almacena y carga el mapa offline, incluye xml de infowindow de marcadores.
 * Contiene botones de ubicación gps y boton hacia el camera activity
@@ -129,18 +130,20 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
 
         FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
-        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
-            @Override
-            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
-                // TODO: Do something with yout menu items, or return false if you don't want to show them
-                return true;
-            }
-        });
+        FabSpeedDial fabSpeedDial2 = (FabSpeedDial) findViewById(R.id.fab_speed_dial2);
+        fabSpeedDial.setEnabled(false);
+        fabSpeedDial.setVisibility(View.GONE);
 
         fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
+            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
+                return true;
+            }
+        });
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
             public boolean onMenuItemSelected(MenuItem menuItem) {
-                //TODO: Start some activity
+                //Aqui se selecciona que accion tomar dependiendo de cual subboton se escogio
                 if(menuItem.getTitle().equals("Cámara")){
                     if (camaraHabilitada) {
                         Intent i = new Intent(getApplicationContext(), CameraActivity.class);
@@ -153,6 +156,24 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                     mMapView.setScrollableAreaLimitDouble(bBox16);
                     mapViewController.animateTo(myLocation);
                     selected = "Ubicación";
+                }
+                return false;
+            }
+        });
+        fabSpeedDial2.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
+            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
+                return true;
+            }
+        });
+        fabSpeedDial2.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                //Aqui se selecciona que accion tomar dependiendo de cual subboton se escogio
+                if(menuItem.getTitle().equals("Ubicación")){
+                    mapViewController.setZoom(16);
+                    mMapView.setScrollableAreaLimitDouble(bBox16);
+                    mapViewController.animateTo(myLocation);
                 }
                 return false;
             }
@@ -523,21 +544,32 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         public void onReceive(Context context, Intent intent) {
             int id = intent.getIntExtra(GeofenceService.GEOFENCE_ID, -1); // point id
             int trigger = intent.getIntExtra(GeofenceService.GEOFENCE_TRIGGER, 0);
+            FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
+            FabSpeedDial fabSpeedDial2 = (FabSpeedDial) findViewById(R.id.fab_speed_dial2);
             if (trigger == Geofence.GEOFENCE_TRANSITION_ENTER) { // entered region
 
                 Log.i("Enter","Entrada2");
                 point = TourManager.getPoints().get(id);
                 showNotification("Atención","Se esta acercando al punto " + TourManager.getPoints().get(id).getNombre(), point);
                 camaraHabilitada = true;
+                fabSpeedDial.setEnabled(true);
+                fabSpeedDial.setVisibility(View.VISIBLE);
+                fabSpeedDial2.setEnabled(false);
+                fabSpeedDial2.setVisibility(View.GONE);
             }
             else if (trigger == 2) { // left region
                 Log.i("Exit","Salida");
                 NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 manager.cancel(5);
                 camaraHabilitada = false;
+                fabSpeedDial2.setEnabled(true);
+                fabSpeedDial2.setVisibility(View.VISIBLE);
+                fabSpeedDial.setEnabled(false);
+                fabSpeedDial.setVisibility(View.GONE);
             }
             Log.i("Trigger",trigger + "");
         }
+
 
         /**
          * Manda una notificación a la hora de entrar a un geofence.
