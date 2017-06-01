@@ -593,6 +593,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             builder.setContentIntent(resultPendingIntent);
             builder.setAutoCancel(true);
             builder.setColor(getResources().getColor(R.color.colorPrimaryDark));
+            builder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             manager.notify(5, builder.build());
         }
