@@ -9,6 +9,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,6 +23,8 @@ import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.Math.MathUtils;
 import com.ucr.fofis.businesslogic.SensorHelper;
 import com.ucr.fofis.dataaccess.entity.Punto;
+
+import static com.ucr.fofis.geoapp.R.id.btnStart;
 
 public class CameraActivity extends AppCompatActivity implements OnLookAtTargetListener {
     public static final String POINT_TAG = "POINT_TAG";
@@ -42,6 +45,12 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         setContentView(R.layout.activity_camera);
         //Setea el punto de interes que hizo que la camara pudiera ser abierta. El punto viene desde el Map Activity
         point = (Punto)getIntent().getSerializableExtra(POINT_TAG);
+
+        //Esconde el boton de abrir geopunto
+        Button openGP = (Button) findViewById(btnStart);
+        openGP.setEnabled(false);
+        openGP.setVisibility(View.GONE);
+
 
         //Sensor para la flecha de la camara para indicar la direccion del punto
         sensorHelper = new SensorHelper(this);
@@ -130,17 +139,30 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
             //double realangle = MathUtils.angle(K, proj1);
 
             //Log.i("ROTATION_UPDATE", "Angle is: " + realangle * (180.0 / Math.PI));
-
+            Button openGP = (Button) findViewById(btnStart);
             if (angle < 30.0) {//Se reconocio el punto
+
                 if (arrow.getVisibility() == View.VISIBLE) {
                     Toast.makeText(this, "¿Vieron el punto?", Toast.LENGTH_SHORT);
                 }
                 arrow.setVisibility(View.INVISIBLE);
                 showNotification("Punto Detectado", "Punto " + point.getNombre() + " detectado");
+                openGP.setEnabled(true);
+                openGP.setVisibility(View.VISIBLE);
+                openGP.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent();
+                        //i.putExtra();
+                        startActivity(i);
+                    }
+                });
             } else {//Se dejo de visualizar el punto
                 arrow.setVisibility(View.VISIBLE);
                 NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 manager.cancel(6);
+                openGP.setEnabled(false);
+                openGP.setVisibility(View.GONE);
             }
         }
     }

@@ -17,6 +17,7 @@ public class Datos {
 
     public final static ArrayList<Punto> PUNTOS = new ArrayList<Punto>() {
         {
+<<<<<<< Updated upstream
             add(new Punto(1,"Punto 1",null, new GeoPoint(10.9514833333333,-85.7151),300.0d,new int[]{R.drawable.punto_01_1,R.drawable.punto_01_2,R.drawable.punto_01_3},0,new int[]{R.raw.audio1b},R.drawable.anim01_6));
             add(new Punto(2,"Bajo Rojo",null, new GeoPoint(10.9570833333333,-85.7336333333333),500.0d,new int[]{R.drawable.punto_02_1},0,new int[]{R.raw.audio2b},R.drawable.anim02_5));
             add(new Punto(3,"Bahia Junquillal",null, new GeoPoint(10.9698798844808,-85.7271389630961),600.0d,new int[]{R.drawable.punto_03_1},0,new int[]{R.raw.audio3b},R.drawable.anim3_4));
