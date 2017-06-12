@@ -18,13 +18,13 @@ public class Punto implements Serializable {
     private Double geofenceRadio;
     private int[] imagenes;
     private Integer videoId;
-    private Integer audioId;
+    private int[] audios;
     private Integer animationId;
 
     public Punto() {
     }
 
-    public Punto(int idntfcdr, String nombre, String descripcion, GeoPoint geoPoint, Double geofenceRadio, int[] imagenes, Integer videoId, Integer audioId, Integer animationId) {
+    public Punto(int idntfcdr, String nombre, String descripcion, GeoPoint geoPoint, Double geofenceRadio, int[] imagenes, Integer videoId, int[] audios, Integer animationId) {
         this.idntfcdr = idntfcdr;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -32,7 +32,7 @@ public class Punto implements Serializable {
         this.geofenceRadio = geofenceRadio;
         this.imagenes = imagenes;
         this.videoId = videoId;
-        this.audioId = audioId;
+        this.audios = audios;
         this.animationId = animationId;
     }
 
@@ -92,12 +92,12 @@ public class Punto implements Serializable {
         this.videoId = videoId;
     }
 
-    public int getAudioId() {
-        return audioId;
+    public int[] getAudios() {
+        return audios;
     }
 
-    public void setAudioId(int audioId) {
-        this.audioId = audioId;
+    public void setAudios(int[] audios) {
+        this.audios = audios;
     }
 
     public int getAnimationId() {

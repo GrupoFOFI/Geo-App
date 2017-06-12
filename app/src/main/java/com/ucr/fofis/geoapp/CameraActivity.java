@@ -111,7 +111,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
             double angle = MathUtils.angle(viewdir, dir) * (180.0 / Math.PI);
             double up_angle = MathUtils.angle(J, viewdir) * (180.0 / Math.PI);
 
-           double[] up = J;
+            double[] up = J;
             double[] right = MathUtils.cross(dir, up);
 
             double proj1 = MathUtils.scalar_proj(viewdir, right);
