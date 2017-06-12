@@ -31,12 +31,10 @@ public class VideoDialog extends Dialog {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_dialog);
-        //setTitle(p.getNombre());
-        setTitle("Video");
+        setTitle(p.getNombre());
 
         VideoView vidVw = (VideoView) findViewById(R.id.video_view);
-        //vidVw.setVideoPath("android.resource://com.ucr.fofis.geoapp/"+p.getVideoId());
-        vidVw.setVideoPath("android.resource://com.ucr.fofis.geoapp/"+R.raw.video06_3);
+        vidVw.setVideoPath("android.resource://com.ucr.fofis.geoapp/"+p.getVideoId());
         vidVw.requestFocus();
         vidVw.setZOrderOnTop(true);
 
