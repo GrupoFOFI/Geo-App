@@ -21,6 +21,8 @@
                 android:layout_height="match_parent"
                 android:text="INFO EXTRA FOFI"
                 android:gravity="center"
+                android:textColor="@color/colorPrimaryWhite"
+                android:textSize="25sp"
                 />
 
         </LinearLayout>
@@ -35,16 +37,37 @@
             android:padding="10dp">
 
             <LinearLayout
+                android:id="@+id/gif_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:background="@android:color/holo_red_dark"></LinearLayout>
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_dark">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Ver video"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:textColor="@color/colorPrimaryWhite"/>
+            </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/image_carousel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
+
                 android:layout_weight="0.5"
-                android:background="@android:color/holo_red_light"></LinearLayout>
+                android:background="@android:color/holo_red_light">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Ver imagenes"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:textColor="@color/colorPrimaryWhite"/>
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -63,13 +86,32 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:background="@android:color/holo_red_dark"></LinearLayout>
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_dark">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Ver pelos"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:textColor="@color/colorPrimaryWhite"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:background="@android:color/holo_red_light"></LinearLayout>
+                android:layout_margin="10dp"
+
+                android:background="@android:color/holo_red_light">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Ver a Apu teniendo sexo scout con Sanders"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:textColor="@color/colorPrimaryWhite"/>
+            </LinearLayout>
 
 
         </LinearLayout>
