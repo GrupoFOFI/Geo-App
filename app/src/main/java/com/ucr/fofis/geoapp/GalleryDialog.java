@@ -30,7 +30,7 @@ public class GalleryDialog  extends DialogFragment {
     CarouselView carouselView;
     int index;
     int[] sampleImagesPlace;
-    private RecommendationDialog.DialogDismissInterface dialogDismissInterface;
+    private GalleryDialog.DialogDismissInterface dialogDismissInterface;
 
 
     @NonNull
@@ -79,12 +79,16 @@ public class GalleryDialog  extends DialogFragment {
         }
     };
 
-    public void setDialogDismissInterface(RecommendationDialog.DialogDismissInterface dialogDismissInterface){
+    public void setDialogDismissInterface(GalleryDialog.DialogDismissInterface dialogDismissInterface){
         this.dialogDismissInterface = dialogDismissInterface;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE,android.R.style.Theme_Holo_Light);
+    }
+
+    public interface DialogDismissInterface {
+        void onDialogDismiss();
     }
 }
