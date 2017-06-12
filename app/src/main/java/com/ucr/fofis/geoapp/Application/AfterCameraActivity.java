@@ -21,12 +21,13 @@ public class AfterCameraActivity extends AppCompatActivity {
     Activity activity = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.after_camera_activity);
         gifLayout = (LinearLayout) findViewById(R.id.gif_dialog);
         gifLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GifDialog gifDialog = new GifDialog(getApplicationContext());
+                GifDialog gifDialog = new GifDialog(AfterCameraActivity.this);
                 gifDialog.show();
             }
         });

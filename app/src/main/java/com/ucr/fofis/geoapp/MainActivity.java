@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ucr.fofis.dataaccess.database.Ruta;
+import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
 import com.ucr.fofis.geoapp.Application.GeoApp;
 import com.ucr.fofis.geoapp.Fragment.HomeFragment;
 
@@ -165,7 +166,9 @@ public class MainActivity extends AppCompatActivity
             }
             //Mostrar recomendaciones
         } else if (id == R.id.nav_recomendaciones) {
-            this.showRecommentdationDialog();
+            //this.showRecommentdationDialog();
+            Intent intent = new Intent(this, AfterCameraActivity.class);
+            startActivity(intent);
             //Reproducir audio
         } else if (id == R.id.nav_audio) {
             autoplayIntro();

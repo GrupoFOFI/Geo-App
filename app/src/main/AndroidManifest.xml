@@ -41,6 +41,8 @@
 
         <activity android:name=".WalkthroughActivity">
         </activity>
+        <activity android:name=".Application.AfterCameraActivity">
+        </activity>
     </application>
 
 </manifest>
