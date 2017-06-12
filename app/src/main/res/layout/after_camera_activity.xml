@@ -46,7 +46,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Ver video"
+                    android:text="Ver gif"
                     android:gravity="center"
                     android:textSize="25sp"
                     android:textColor="@color/colorPrimaryWhite"/>
@@ -91,7 +91,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Ver pelos"
+                    android:text="Ver algo"
                     android:gravity="center"
                     android:textSize="25sp"
                     android:textColor="@color/colorPrimaryWhite"/>
@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Ver a Apu teniendo sexo scout con Sanders"
+                    android:text="Ver a Apu"
                     android:gravity="center"
                     android:textSize="25sp"
                     android:textColor="@color/colorPrimaryWhite"/>
