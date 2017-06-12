@@ -202,9 +202,11 @@ public class MainActivity extends AppCompatActivity
      * Carga el diálogo de recomendaciones cargadas desde Datos.RECOMENDACIONES
      */
     public void showRecommentdationDialog() {
-        RecommendationDialog rd = new RecommendationDialog();
+        /*RecommendationDialog rd = new RecommendationDialog();
         rd.setDialogDismissInterface(this);
-        rd.show(getSupportFragmentManager(), "\r\n  \r\n \r\n");
+        rd.show(getSupportFragmentManager(), "\r\n  \r\n \r\n");*/
+        VideoDialog vidDialog = new VideoDialog(this);
+        vidDialog.show();
     }
 
     /**
