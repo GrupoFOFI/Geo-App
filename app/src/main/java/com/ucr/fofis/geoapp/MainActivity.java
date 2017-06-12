@@ -166,9 +166,7 @@ public class MainActivity extends AppCompatActivity
             }
             //Mostrar recomendaciones
         } else if (id == R.id.nav_recomendaciones) {
-            //this.showRecommentdationDialog();
-            Intent intent = new Intent(this, AfterCameraActivity.class);
-            startActivity(intent);
+            this.showRecommentdationDialog();
             //Reproducir audio
         } else if (id == R.id.nav_audio) {
             autoplayIntro();
