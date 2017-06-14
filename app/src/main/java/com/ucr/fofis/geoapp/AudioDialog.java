@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,10 +37,13 @@ public class AudioDialog extends Dialog {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.audioRecyclerView);
         punto = (Punto) AfterCameraActivity.getInstance().getIntent().getSerializableExtra("punto");
         recyclerView.setAdapter(new AudioAdapter(punto.getAudios()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.getAdapter().notifyDataSetChanged();
 
         mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0]);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setLooping(false);
+        mediaPlayer.start();
 
         setOnDismissListener(new OnDismissListener() {
             @Override
@@ -63,6 +67,13 @@ public class AudioDialog extends Dialog {
         public AudioHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.audio_view, parent, false);
             AudioHolder holder = new AudioHolder(itemView);
+
+            return new AudioHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(AudioHolder holder, final int position) {
+            holder.audioText.setText("Audio " + (position + 1));
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,16 +83,10 @@ public class AudioDialog extends Dialog {
                     }
                     mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0]);
                     mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    mediaPlayer.setLooping(false);
                     mediaPlayer.start();
                 }
             });
-
-            return new AudioHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(AudioHolder holder, int position) {
-            holder.audioText.setText("Audio " + (position + 1));
         }
 
         @Override
