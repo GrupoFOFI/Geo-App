@@ -2,7 +2,6 @@ package com.ucr.fofis.geoapp;
 
 import android.app.Activity;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -156,7 +155,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                     @Override
                     public void onClick(View view) {
                         Intent i = new Intent(activity, AfterCameraActivity.class);
-                        i.putExtra("FofiPoint", point);
+                        i.putExtra("punto", point);
                         startActivity(i);
                     }
                 });
