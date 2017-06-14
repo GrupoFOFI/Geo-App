@@ -1,72 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:id="@+id/gallery_dialog"
+    android:orientation="vertical">
     <LinearLayout
-        android:id="@+id/PageP"
+        android:id="@+id/pagetop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/colorSecondaryOrange2"
+        android:orientation="vertical">
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/displayed_page"
+        android:layout_width="400dp"
+        android:layout_height="270dp"
         android:layout_gravity="center"
+        android:background="@drawable/rounded_rectangle"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:foregroundGravity="center"
         android:orientation="vertical">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:id="@+id/foreback"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"
-            android:orientation="vertical"
-            android:background="@color/cardview_dark_background">
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutcarousel"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:orientation="vertical">
-
-            <com.synnapps.carouselview.CarouselView
-                android:id="@+id/carouselGalleryView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:fillColor="#FFFFFFFF"
-                app:pageColor="#00000000"
-                app:radius="5dp"
-                app:slideInterval="3000"
-                app:strokeColor="#FF777777"
-                app:strokeWidth="1dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"
-            android:orientation="vertical"
-            android:background="@color/cardview_dark_background">
-        </LinearLayout>
-
-
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/carouselGalleryView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_exitGallery"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginRight="25dp"
-        android:clickable="true"
-        android:src="@mipmap/ic_back"
-        android:tint="@color/colorPrimaryWhite"
-        app:backgroundTint="@android:color/transparent"
-        app:layout_anchor="@id/foreback"
-        app:layout_anchorGravity="center_vertical"
-        app:srcCompat="@mipmap/ic_back" />
-
-</android.support.design.widget.CoordinatorLayout>
+    <LinearLayout
+        android:id="@+id/pagebottom"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/colorSecondaryOrange2"
+        android:orientation="vertical">
+    </LinearLayout>
+</LinearLayout>
