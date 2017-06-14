@@ -1,41 +1,28 @@
 package com.ucr.fofis.geoapp;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.CirclePageIndicator;
 import com.synnapps.carouselview.ImageListener;
-import com.ucr.fofis.businesslogic.ResourceManager;
-import com.ucr.fofis.dataaccess.database.Datos;
-import com.ucr.fofis.dataaccess.database.Ruta;
+import com.ucr.fofis.dataaccess.entity.Punto;
+import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
 
 
 public class GalleryDialog  extends DialogFragment {
     public FloatingActionButton fab;
     CarouselView carouselView;
-    int index;
-    int[] sampleImagesPlace;
+    Punto punto;
     private GalleryDialog.DialogDismissInterface dialogDismissInterface;
-
 
     @NonNull
     @Override
@@ -43,19 +30,15 @@ public class GalleryDialog  extends DialogFragment {
         return super.onCreateDialog(savedInstanceState);
     }
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.gallery_dialog, container);
         android.support.v4.app.FragmentManager fm = getChildFragmentManager();
         /*tomar punto del lugar que esta cerca*/
-        index=0;
-        sampleImagesPlace = Datos.PUNTOS.get(index).getImagenes();
+        punto = (Punto) AfterCameraActivity.getInstance().getIntent().getSerializableExtra("punto");
         carouselView = (CarouselView) view.findViewById(R.id.carouselGalleryView);
-        carouselView.setPageCount(sampleImagesPlace.length);
+        carouselView.setPageCount(punto.getImagenes().length);
 
         carouselView.setImageListener(imageListener);
         carouselView.setSlideInterval(Integer.MAX_VALUE);
@@ -80,7 +63,7 @@ public class GalleryDialog  extends DialogFragment {
     ImageListener imageListener = new ImageListener() {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(sampleImagesPlace[position]);
+            imageView.setImageResource(punto.getImagenes()[position]);
         }
     };
 
