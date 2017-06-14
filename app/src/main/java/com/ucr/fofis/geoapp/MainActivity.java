@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ucr.fofis.dataaccess.database.Ruta;
+import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
 import com.ucr.fofis.geoapp.Application.GeoApp;
 import com.ucr.fofis.geoapp.Fragment.HomeFragment;
 

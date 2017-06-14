@@ -1,5 +1,7 @@
 package com.ucr.fofis.geoapp;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,9 +11,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -30,7 +34,7 @@ public class GalleryDialog  extends DialogFragment {
     CarouselView carouselView;
     int index;
     int[] sampleImagesPlace;
-    private RecommendationDialog.DialogDismissInterface dialogDismissInterface;
+    private GalleryDialog.DialogDismissInterface dialogDismissInterface;
 
 
     @NonNull
@@ -55,10 +59,10 @@ public class GalleryDialog  extends DialogFragment {
 
         carouselView.setImageListener(imageListener);
         carouselView.setSlideInterval(Integer.MAX_VALUE);
-
-
+        WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
+        wmlp.gravity = Gravity.FILL_HORIZONTAL;
         //Funcionalidad de botón para cerrar dialogFragment
-        fab = (FloatingActionButton) view.findViewById(R.id.fab_exitGallery);
+        /*fab = (FloatingActionButton) view.findViewById(R.id.fab_exitGallery);
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -68,6 +72,7 @@ public class GalleryDialog  extends DialogFragment {
                 getDialog().dismiss();
             }
         });
+*/
 
         return view;
     }
@@ -79,12 +84,17 @@ public class GalleryDialog  extends DialogFragment {
         }
     };
 
-    public void setDialogDismissInterface(RecommendationDialog.DialogDismissInterface dialogDismissInterface){
+    public void setDialogDismissInterface(GalleryDialog.DialogDismissInterface dialogDismissInterface){
         this.dialogDismissInterface = dialogDismissInterface;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NO_TITLE,android.R.style.Theme_Holo_Light);
+        //setStyle(DialogFragment.STYLE_NO_TITLE,android.R.style.Theme_Holo_Light);
+    }
+
+    public interface DialogDismissInterface {
+        void onDialogDismiss();
     }
 }
+
