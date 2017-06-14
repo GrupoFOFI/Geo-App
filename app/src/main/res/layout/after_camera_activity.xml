@@ -83,18 +83,20 @@
 
 
             <LinearLayout
+                android:id="@+id/video_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:layout_margin="10dp"
                 android:background="@android:color/holo_red_dark">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Ver algo"
                     android:gravity="center"
-                    android:textSize="25sp"
-                    android:textColor="@color/colorPrimaryWhite"/>
+                    android:text="Ver video"
+                    android:textColor="@color/colorPrimaryWhite"
+                    android:textSize="25sp" />
             </LinearLayout>
 
             <LinearLayout
