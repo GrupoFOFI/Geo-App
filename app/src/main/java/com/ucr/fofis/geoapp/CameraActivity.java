@@ -1,5 +1,6 @@
 package com.ucr.fofis.geoapp;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.Math.MathUtils;
 import com.ucr.fofis.businesslogic.SensorHelper;
 import com.ucr.fofis.dataaccess.entity.Punto;
+import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
 
 import static com.ucr.fofis.geoapp.R.id.btnStart;
 
@@ -149,11 +151,12 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                 showNotification("Punto Detectado", "Punto " + point.getNombre() + " detectado");
                 openGP.setEnabled(true);
                 openGP.setVisibility(View.VISIBLE);
+                final Activity activity = this;
                 openGP.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent i = new Intent();
-                        //i.putExtra();
+                        Intent i = new Intent(activity, AfterCameraActivity.class);
+                        i.putExtra("FofiPoint", point);
                         startActivity(i);
                     }
                 });
