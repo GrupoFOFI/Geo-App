@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ucr.fofis.dataaccess.entity.Punto;
+import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
 
 /**
  * Dialogo que permite escuchar audios de un punto.
@@ -33,7 +34,7 @@ public class AudioDialog extends Dialog {
         setContentView(R.layout.audio_dialog);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.audioRecyclerView);
-        punto = (Punto) getOwnerActivity().getIntent().getSerializableExtra("punto");
+        punto = (Punto) AfterCameraActivity.getInstance().getIntent().getSerializableExtra("punto");
         recyclerView.setAdapter(new AudioAdapter(punto.getAudios()));
 
         mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0]);

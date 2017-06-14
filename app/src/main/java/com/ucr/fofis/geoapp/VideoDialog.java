@@ -2,13 +2,12 @@ package com.ucr.fofis.geoapp;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.ucr.fofis.dataaccess.entity.Punto;
+import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
 
 /**
  * Created by william on 08/06/17.
@@ -27,7 +26,7 @@ public class VideoDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Punto p =  (Punto) getOwnerActivity().getIntent().getSerializableExtra("punto");
+        Punto p =  (Punto) AfterCameraActivity.getInstance().getIntent().getSerializableExtra("punto");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_dialog);
