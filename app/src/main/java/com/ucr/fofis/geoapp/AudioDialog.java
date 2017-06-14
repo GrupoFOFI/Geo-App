@@ -36,6 +36,7 @@ public class AudioDialog extends Dialog {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.audioRecyclerView);
         punto = (Punto) AfterCameraActivity.getInstance().getIntent().getSerializableExtra("punto");
         recyclerView.setAdapter(new AudioAdapter(punto.getAudios()));
+        recyclerView.getAdapter().notifyDataSetChanged();
 
         mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0]);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);

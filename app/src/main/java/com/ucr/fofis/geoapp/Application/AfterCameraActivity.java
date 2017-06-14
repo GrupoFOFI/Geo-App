@@ -81,7 +81,7 @@ public class AfterCameraActivity extends AppCompatActivity {
         audioLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (punto.getAudios() == null) {
+                if (punto.getAudios() == null || punto.getAudios().length == 0) {
                     Toast.makeText(AfterCameraActivity.this, "No existen audios asociados a este punto", Toast.LENGTH_SHORT).show();
                 } else {
                     AudioDialog audioDialog = new AudioDialog(AfterCameraActivity.this);
