@@ -88,6 +88,18 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mCamera = Camera.open(0);
+        if(mCamera != null){
+            mCameraView = new CameraView(this, mCamera);
+            FrameLayout camera_view = (FrameLayout)findViewById(R.id.camera_view);
+            camera_view.removeAllViews();
+            camera_view.addView(mCameraView);
+        }
+    }
+
+    @Override
     public void onStartLookingAtTarget(Punto targetObject) {
         arrow.setVisibility(View.INVISIBLE);
     }
