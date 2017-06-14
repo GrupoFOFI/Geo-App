@@ -7,7 +7,6 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -115,7 +114,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         //arrow.setRotation(rotationVector[0] * (float)(180.0 / Math.PI));
         String log = "";
         log += rotationVector[0] + ", " + rotationVector[1] + ", " + rotationVector[2];
-        Log.i("ROTATION_UPDATE", log);
+        //Log.i("ROTATION_UPDATE", log);
         LatLng last = LocationHelper.getLastLocation();//Recibe posicion
         if (last != null) {
             double x = point.getGeoPoint().getLatitude() - last.latitude;
@@ -146,7 +145,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                 base_angle = 90;
                 base_angle += up_angle + 90;
             }
-            Log.i("ROTATION_UPDATE", "angle is: " + up_angle);
+            //Log.i("ROTATION_UPDATE", "angle is: " + up_angle);
             arrow.setRotation((float)base_angle);
 
             //double realangle = MathUtils.angle(K, proj1);
