@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import com.ucr.fofis.geoapp.GalleryDialog;
 import com.ucr.fofis.geoapp.GifDialog;
 import com.ucr.fofis.geoapp.R;
-import com.ucr.fofis.geoapp.RecommendationDialog;
+import com.ucr.fofis.geoapp.VideoDialog;
 
 /**
  * Created by b32080 on 05/06/2017.
@@ -17,7 +17,7 @@ import com.ucr.fofis.geoapp.RecommendationDialog;
 
 public class AfterCameraActivity extends AppCompatActivity {
 
-    LinearLayout gifLayout, carouselDialog;
+    LinearLayout gifLayout, carouselDialog, videoLayout;
     Activity activity = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,13 @@ public class AfterCameraActivity extends AppCompatActivity {
                 galleryDialog.show(getSupportFragmentManager(), "\r\n  \r\n \r\n");
             }
         });
-
+        videoLayout = (LinearLayout) findViewById(R.id.video_dialog);
+        videoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VideoDialog videoDialog = new VideoDialog(AfterCameraActivity.this);
+                videoDialog.show();
+            }
+        });
     }
 }
