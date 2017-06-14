@@ -2,9 +2,12 @@ package com.ucr.fofis.businesslogic.Geofences.Service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.location.Location;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
+import com.google.android.gms.maps.model.LatLng;
+import com.ucr.fofis.businesslogic.LocationHelper;
 
 import java.util.List;
 
@@ -26,6 +29,8 @@ public class GeofenceService extends IntentService {
         if (geofencingEvent.hasError()) {
             return;
         }
+        Location l = geofencingEvent.getTriggeringLocation();
+        LocationHelper.updateLastLocation(new LatLng(l.getLatitude(), l.getLongitude()));
 
         // Get the transition type.
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
