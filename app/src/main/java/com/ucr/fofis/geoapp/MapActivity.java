@@ -92,6 +92,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     GeofenceReceiver geofenceReceiver = new GeofenceReceiver();
     private Punto point;
     public boolean camaraHabilitada;
+    private String puntoActual = "";
 
     private LocationHelper locationHelper;
 
@@ -550,12 +551,15 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
                 Log.i("Enter","Entrada2");
                 point = TourManager.getPoints().get(id);
-                showNotification("Atención","Se esta acercando al punto " + TourManager.getPoints().get(id).getNombre(), point);
+                Log.d("Punto Actual",puntoActual + " " + TourManager.getPoints().get(id).getNombre());
+                if(!puntoActual.equals(TourManager.getPoints().get(id).getNombre()))
+                    showNotification("Atención","Se esta acercando al punto " + TourManager.getPoints().get(id).getNombre(), point);
                 camaraHabilitada = true;
                 fabSpeedDial.setEnabled(true);
                 fabSpeedDial.setVisibility(View.VISIBLE);
                 fabSpeedDial2.setEnabled(false);
                 fabSpeedDial2.setVisibility(View.GONE);
+                puntoActual = TourManager.getPoints().get(id).getNombre();
             }
             else if (trigger == 2) { // left region
                 Log.i("Exit","Salida");
@@ -566,6 +570,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                 fabSpeedDial2.setVisibility(View.VISIBLE);
                 fabSpeedDial.setEnabled(false);
                 fabSpeedDial.setVisibility(View.GONE);
+                puntoActual = "";
             }
             Log.i("Trigger",trigger + "");
         }
