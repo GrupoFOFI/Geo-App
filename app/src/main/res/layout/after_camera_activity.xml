@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"
-            android:background="@android:color/holo_green_dark"
+            android:background="@color/colorSecondaryOrange2"
             android:weightSum="1"
             android:orientation="horizontal">
 
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:background="@android:color/holo_blue_bright"
+            android:background="@color/colorSecondaryOrange1"
             android:weightSum="1"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -42,7 +42,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:layout_margin="10dp"
-                android:background="@android:color/holo_red_dark">
+                android:background="@color/colorSecondaryOrange3">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -59,7 +59,7 @@
                 android:layout_margin="10dp"
 
                 android:layout_weight="0.5"
-                android:background="@android:color/holo_red_light">
+                android:background="@color/colorSecondaryOrange3">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/colorSecondaryOrange1"
             android:weightSum="1"
             android:orientation="horizontal">
 
@@ -88,7 +88,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:layout_margin="10dp"
-                android:background="@android:color/holo_red_dark">
+                android:background="@color/colorSecondaryOrange3">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -105,14 +105,16 @@
                 android:layout_weight="0.5"
                 android:layout_margin="10dp"
 
-                android:background="@android:color/holo_red_light">
+                android:background="@color/colorSecondaryOrange3">
+
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Ver a Apu"
                     android:gravity="center"
-                    android:textSize="25sp"
-                    android:textColor="@color/colorPrimaryWhite"/>
+                    android:text="Ver a Apu"
+                    android:textColor="@color/colorPrimaryWhite"
+                    android:textSize="25sp" />
             </LinearLayout>
 
 
