@@ -158,7 +158,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                     Toast.makeText(this, "¿Vieron el punto?", Toast.LENGTH_SHORT);
                 }
                 arrow.setVisibility(View.INVISIBLE);
-                showNotification("Punto Detectado", "Punto " + point.getNombre() + " detectado");
+                //showNotification("Punto Detectado", "Punto " + point.getNombre() + " detectado");
                 openGP.setEnabled(true);
                 openGP.setVisibility(View.VISIBLE);
                 final Activity activity = this;
@@ -172,8 +172,8 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                 });
             } else {//Se dejo de visualizar el punto
                 arrow.setVisibility(View.VISIBLE);
-                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                manager.cancel(6);
+                //NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                //manager.cancel(6);
                 openGP.setEnabled(false);
                 openGP.setVisibility(View.GONE);
             }

@@ -4,7 +4,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.VideoView;
+import android.widget.MediaController;
 
 import com.ucr.fofis.dataaccess.entity.Punto;
 import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
@@ -16,7 +20,8 @@ import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
 public class VideoDialog extends Dialog {
 
     Context cntx = null;
-
+    private int posicion;
+    VideoView vidVw;
 
     public VideoDialog(@NonNull Context context) {
         super(context);
@@ -32,11 +37,10 @@ public class VideoDialog extends Dialog {
         setContentView(R.layout.video_dialog);
         setTitle(p.getNombre());
 
-        VideoView vidVw = (VideoView) findViewById(R.id.video_view);
+        vidVw = (VideoView) findViewById(R.id.video_view);
         vidVw.setVideoPath("android.resource://com.ucr.fofis.geoapp/"+p.getVideoId());
         vidVw.requestFocus();
         vidVw.setZOrderOnTop(true);
-
         vidVw.start();
     }
 
