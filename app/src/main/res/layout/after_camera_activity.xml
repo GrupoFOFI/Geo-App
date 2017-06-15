@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"
-            android:background="@color/colorSecondaryOrange2"
+            android:background="#AFf37021"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:background="@color/colorSecondaryOrange2"
+            android:background="#AFf37021"
             android:orientation="horizontal"
             android:padding="10dp"
             android:weightSum="1">
@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:background="@color/colorSecondaryOrange2"
+            android:background="#AFf37021"
             android:orientation="horizontal"
             android:padding="10dp"
             android:weightSum="1">

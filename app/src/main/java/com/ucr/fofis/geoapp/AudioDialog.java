@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ucr.fofis.dataaccess.entity.Punto;
@@ -39,11 +40,12 @@ public class AudioDialog extends Dialog {
         recyclerView.setAdapter(new AudioAdapter(punto.getAudios()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
 
         mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0]);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setLooping(false);
-        mediaPlayer.start();
 
         setOnDismissListener(new OnDismissListener() {
             @Override
@@ -58,6 +60,7 @@ public class AudioDialog extends Dialog {
 
     protected class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioHolder> {
         int[] audioResouceArray;
+        int lastAudio = 0;
 
         public AudioAdapter(int[] resourceArray) {
             audioResouceArray = resourceArray;
@@ -72,19 +75,33 @@ public class AudioDialog extends Dialog {
         }
 
         @Override
-        public void onBindViewHolder(AudioHolder holder, final int position) {
+        public void onBindViewHolder(final AudioHolder holder, final int position) {
             holder.audioText.setText("Audio " + (position + 1));
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mediaPlayer != null) {
-                        if (mediaPlayer.isPlaying()) mediaPlayer.stop();
-                        mediaPlayer.release();
+                        if(position != lastAudio){
+                            lastAudio=position;
+                            mediaPlayer.release();
+                            mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[position]);
+                            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                            mediaPlayer.setLooping(false);
+                            mediaPlayer.start();
+                            holder.icon.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+                        }else {
+                            if (mediaPlayer.isPlaying()) {
+                                mediaPlayer.pause();
+                                holder.icon.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
+                            } else {
+                                mediaPlayer.start();
+                                holder.icon.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+                            }
+                            if (mediaPlayer.getCurrentPosition() == mediaPlayer.getDuration()) {
+                                mediaPlayer.seekTo(0);
+                            }
+                        }
                     }
-                    mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0]);
-                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mediaPlayer.setLooping(false);
-                    mediaPlayer.start();
                 }
             });
         }
@@ -97,11 +114,13 @@ public class AudioDialog extends Dialog {
         public class AudioHolder extends RecyclerView.ViewHolder {
             final View mView;
             final TextView audioText;
+            final ImageView icon;
 
             public AudioHolder(View view) {
                 super(view);
                 mView = view;
                 audioText = (TextView)view.findViewById(R.id.audioName);
+                icon = (ImageView)view.findViewById(R.id.status_audio);
             }
         }
     }

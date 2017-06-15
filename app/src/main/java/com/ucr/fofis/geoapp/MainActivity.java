@@ -1,9 +1,8 @@
 package com.ucr.fofis.geoapp;
 
-import android.app.Activity;
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,14 +19,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ucr.fofis.dataaccess.database.Ruta;
-import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
 import com.ucr.fofis.geoapp.Application.GeoApp;
 import com.ucr.fofis.geoapp.Fragment.HomeFragment;
 
@@ -174,6 +171,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.web) {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
+            if (introMediaPlayer != null) {
+                if (introMediaPlayer.isPlaying()) introMediaPlayer.stop();
+                introMediaPlayer.release();
+            }
             startActivity(i);
 
         }
@@ -196,6 +197,7 @@ public class MainActivity extends AppCompatActivity
         if (fragmentManager.getBackStackEntryCount() == 0 && fragment.getClass() != HomeFragment.class) {
             fragmentTransaction.addToBackStack(fragment.getTag());
         }
+
         fragmentTransaction.commit();
     }
 
@@ -234,6 +236,18 @@ public class MainActivity extends AppCompatActivity
         if (ContextCompat.checkSelfPermission(currentActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.CAMERA}, 1);
         }
+    }
+
+
+    @Override
+    protected void onPause() {
+        if (introMediaPlayer != null) {
+            if (introMediaPlayer.isPlaying())
+                introMediaPlayer.stop();
+            introMediaPlayer.release();
+            introMediaPlayer = null;
+        }
+        super.onPause();
     }
 
     @Override
