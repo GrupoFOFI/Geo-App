@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ucr.fofis.dataaccess.entity.Punto;
@@ -32,6 +33,8 @@ public class AfterCameraActivity extends AppCompatActivity {
         setContentView(R.layout.after_camera_activity);
         instance = this;
         punto = (Punto)getIntent().getSerializableExtra("punto");
+        TextView title = (TextView) findViewById(R.id.title_point);
+        title.setText(punto.getNombre());
         gifLayout = (LinearLayout) findViewById(R.id.gif_dialog);
         gifLayout.setOnClickListener(new View.OnClickListener() {
             @Override

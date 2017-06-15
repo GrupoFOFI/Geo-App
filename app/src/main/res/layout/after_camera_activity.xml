@@ -2,28 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"
             android:background="@color/colorSecondaryOrange2"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <TextView
+                android:id="@+id/title_point"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="INFO EXTRA FOFI"
                 android:gravity="center"
+                android:text="titulo"
                 android:textColor="@color/colorPrimaryWhite"
-                android:textSize="25sp"
-                />
+                android:textSize="25sp" />
 
         </LinearLayout>
 
@@ -32,24 +33,25 @@
             android:layout_height="0dp"
             android:layout_weight="0.4"
             android:background="@color/colorSecondaryOrange1"
-            android:weightSum="1"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:weightSum="1">
 
             <LinearLayout
                 android:id="@+id/gif_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
                 android:layout_margin="10dp"
+                android:layout_weight="0.5"
                 android:background="@color/colorSecondaryOrange3">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Ver gif"
                     android:gravity="center"
-                    android:textSize="25sp"
-                    android:textColor="@color/colorPrimaryWhite"/>
+                    android:text="Ver gif"
+                    android:textColor="@color/colorPrimaryWhite"
+                    android:textSize="25sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -60,34 +62,35 @@
 
                 android:layout_weight="0.5"
                 android:background="@color/colorSecondaryOrange3">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Ver imagenes"
                     android:gravity="center"
-                    android:textSize="25sp"
-                    android:textColor="@color/colorPrimaryWhite"/>
+                    android:text="Ver imagenes"
+                    android:textColor="@color/colorPrimaryWhite"
+                    android:textSize="25sp" />
             </LinearLayout>
 
 
         </LinearLayout>
 
         <LinearLayout
-            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
             android:background="@color/colorSecondaryOrange1"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="1">
 
 
             <LinearLayout
                 android:id="@+id/video_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
                 android:layout_margin="10dp"
+                android:layout_weight="0.5"
                 android:background="@color/colorSecondaryOrange3">
 
                 <TextView
@@ -103,8 +106,8 @@
                 android:id="@+id/audio_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
                 android:layout_margin="10dp"
+                android:layout_weight="0.5"
 
                 android:background="@color/colorSecondaryOrange3">
 
@@ -112,8 +115,8 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Escuchar audio"
                     android:gravity="center"
+                    android:text="Escuchar audio"
                     android:textColor="@color/colorPrimaryWhite"
                     android:textSize="25sp" />
             </LinearLayout>
