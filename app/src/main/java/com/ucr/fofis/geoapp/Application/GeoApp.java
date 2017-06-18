@@ -18,7 +18,7 @@ import com.ucr.fofis.geoapp.CameraActivity;
 import com.ucr.fofis.geoapp.R;
 
 /**
- * Created by enrico on 4/27/17.
+ * Creado por enrico 4/27/17.
  * Clase que inicializa el manejador de recursos y controlador de geofences
  * habilita la recomendación visual y el audio introductorio
  */
@@ -58,10 +58,10 @@ public class GeoApp extends MultiDexApplication {
         }
 
         /**
-         * Sends a notification.
+         * Manda una notificaciǿn nativa
          *
-         * @param title the notification's title.
-         * @param description the notification's description.
+         * @param title el título.
+         * @param description la decripción.
          */
         private void showNotification(String title, String description, Punto point) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());

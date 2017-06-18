@@ -22,8 +22,8 @@ import com.ucr.fofis.geoapp.MapActivity;
 import com.ucr.fofis.geoapp.R;
 
 /**
- * Created by omcor on 4/19/2017.
- * Fragmento de la página principal del app con el carrusel, l introduciǿn y botones de acción
+ * Creado por Óscar el 4/19/2017.
+ * Fragmento de la página principal del app con el carrusel, la introduciǿn y botones de acción
  */
 public class HomeFragment extends Fragment {
     public FloatingActionButton fab;
@@ -48,7 +48,8 @@ public class HomeFragment extends Fragment {
                 startActivityForResult(intent, 0);
             }
         });
-        sampleImages = ResourceManager.getInstance().getCarouselImages(4);//Recibido de imagenes
+        //Recibido de imagenes
+        sampleImages = ResourceManager.getInstance().getCarouselImages(6);
 
         carouselView = (CarouselView) rootView.findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);

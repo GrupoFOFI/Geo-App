@@ -35,6 +35,7 @@ import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.TourManager;
 import com.ucr.fofis.dataaccess.entity.Punto;
 import com.ucr.fofis.geoapp.Application.GeoApp;
+import com.ucr.fofis.geoapp.Dialog.RecommendationDialog;
 
 import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.events.MapListener;
@@ -65,7 +66,7 @@ import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
 
-/*
+/**
 * Activity del mapa, contiene almacena y carga el mapa offline, incluye xml de infowindow de marcadores.
 * Contiene botones de ubicación gps y boton hacia el camera activity
 * presenta las recomendaciones visuales
@@ -98,7 +99,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
     //Variable usada para revisar la selección de elementos no reconocibles en expresso
     public String selected;
-    /*
+    /**
     *llama a todos los metodos de carga de mapa, asinación de marcadores, ajustes de zoom, listener de gps , botones y zoom
     */
     @Override
@@ -181,8 +182,9 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         });
 
     }
-/*
-* incio de geofence*/
+    /**
+    * incio de geofence
+     * */
     @Override
     protected void onStart() {
         super.onStart();
@@ -202,7 +204,10 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
     }
 
-    /*obtener posicion del usuario en la clase MiLocationListener y cargar un marcador en el mapa. animación del marcador en conjunto con la ubicación*/
+    /**
+     * obtener posicion del usuario en la clase MiLocationListener y cargar un marcador en el mapa.
+     * animación del marcador en conjunto con la ubicación
+     * */
     private void initMyPoistion(MapView m){
         myPosition= new Marker(m);
         LocationManager milocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -243,8 +248,8 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         marcadores = new ArrayList<Marker>();
     }
 
-    /*
-    *asigna a los marcadores un xml infowindow , un nombre , una posición , un clicklistener y un icono.(según corresponda con la lista de puntos)
+    /**
+    * asigna a los marcadores un xml infowindow , un nombre , una posición , un clicklistener y un icono.(según corresponda con la lista de puntos)
     * muestra el titulo del marcador cuando es seleccionado(o lo oculta) y cambia de color
     * */
     private Marker addMarker(MapView m, String name, double lat,double lon, int pto  ){
@@ -279,16 +284,18 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         marcadores.get(pto).setOnMarkerClickListener(mrkeListnr);
         return marcadores.get(pto);
     }
-/*recibe de passPOItoMarker un marcador, el cual lo dibuja en el mapa
-*/
+    /**
+     * recibe de passPOItoMarker un marcador, el cual lo dibuja en el mapa
+    */
     private void drawMarker(Marker marcador){
         mMapView.getOverlays().add(marcador);
         mMapView.invalidate();
     }
 
-    /*
+    /**
     * envía a addmarker el geopoint y titulo del punto
-    * recibe de addmarker el marcador correspondiente y lo envía a drawMarker*/
+    * recibe de addmarker el marcador correspondiente y lo envía a drawMarker
+     * */
     private void passPOItoMarker(MapView m){
         createListMarker();
        for(int i =0; i < TourManager.getPoints().size();i++){
@@ -297,7 +304,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         }
     }
 
-    /* recibe el archivo tiles de assets(in) y el archivo generado tiles en la memoria de android(out)
+    /** recibe el archivo tiles de assets(in) y el archivo generado tiles en la memoria de android(out)
     * mueve lo que contiene in hacia out
     */
     private void copyFile(InputStream in, OutputStream out) throws IOException {
@@ -308,7 +315,9 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         }
     }
 
-    /*set a las opciones de zoom, touch y limites de area para el mapa */
+    /**
+     * set a las opciones de zoom, touch y limites de area para el mapa
+     * */
     private void setZoom(MapController mapViewController) {
         mMapView.setClickable(true);
         mMapView.setMultiTouchControls(true);
@@ -320,7 +329,9 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         mMapView.setScrollableAreaLimitDouble(bBox14);//delimitar el mapa con la pantalla
     }
 
-    //chequea si el app inicia por primera vez, retorna 0 primera vez , 1 no es primera vez, 2 nueva version
+    /**
+     *     chequea si el app inicia por primera vez, retorna 0 primera vez , 1 no es primera vez, 2 nueva version
+     */
     private int appGetFirstTimeRun() {
         SharedPreferences appPreferences = getSharedPreferences("MyAPP", 0);
         int appCurrentBuildVersion = BuildConfig.VERSION_CODE;
@@ -340,7 +351,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         }
     }
 
-    /* Accede a la carpeta tiles de assets,
+    /** Accede a la carpeta tiles de assets,
      * Crea la carpeta mapGeoIslaB en la memoria interna  y crea un archivo del mismo tipo de tiles (si es que no existen)
      * llama a la funcion copyFile
      */
@@ -383,7 +394,8 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         }
     }
 
-    /* carga el mapa desde la memoria interna
+    /**
+     *  carga el mapa desde la memoria interna
     */
     private void addOverlays(MapView mMapView) {
         File f = new File(Environment.getExternalStorageDirectory() + "/mapGeoIslaB/");
@@ -452,7 +464,9 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     }
 
     /*-----------------------------------------------------------------------------------------------------------------------------------------*/
-    /*clase que escucha la interacción con el zoom del mapa*/
+    /**
+     * Clase que escucha la interacción con el zoom del mapa
+     * */
     public class miZoomListener implements MapListener {
         @Override
         public boolean onScroll(final ScrollEvent event) {
@@ -481,8 +495,10 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
     }
     /*-----------------------------------------------------------------------------------------------------------------------------------------*/
-    /*Clase que escucha si el gps esta activo o no.
-    si la ubiación cambia, es ese caso vuelve a dibujar el marcador en el mapa*/
+    /**
+     * Clase que escucha si el gps esta activo o no.
+     * si la ubiación cambia, es ese caso vuelve a dibujar el marcador en el mapa
+     */
     public class MiLocationListener implements LocationListener
     {
         @Override
@@ -490,16 +506,16 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         {
             loc.getLatitude();
             loc.getLongitude();
-           String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
-           // Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
+            String coordenadas = "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude();
+            // Toast.makeText( getApplicationContext(),coordenadas,Toast.LENGTH_LONG).show();
             Log.d("location",coordenadas);
-           // if(11.0680 >= loc.getLatitude() && -85.7100 >= loc.getLongitude() && 10.9222 <= loc.getLatitude() && -85.7420 <= loc.getLongitude()) {
-              //  GeoPoint p = new GeoPoint(loc.getLatitude(), loc.getLongitude());
-                myLocation.setCoords(loc.getLatitude(), loc.getLongitude());
-                myPosition.setPosition(myLocation);
-               // myPosition.setPosition(p);
-                drawMarker(myPosition);
-                Log.d("location","locationUpdated");
+            // if(11.0680 >= loc.getLatitude() && -85.7100 >= loc.getLongitude() && 10.9222 <= loc.getLatitude() && -85.7420 <= loc.getLongitude()) {
+            //  GeoPoint p = new GeoPoint(loc.getLatitude(), loc.getLongitude());
+            myLocation.setCoords(loc.getLatitude(), loc.getLongitude());
+            myPosition.setPosition(myLocation);
+            // myPosition.setPosition(p);
+            drawMarker(myPosition);
+            Log.d("location","locationUpdated");
             //}
             LatLng position = new LatLng(loc.getLatitude(),loc.getLongitude());
             LocationHelper.updateLastLocation(position);
@@ -510,7 +526,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         {
             //String s = "esto :"+TourManager.getPoints().get(1);
             //Toast.makeText( getApplicationContext(),s,Toast.LENGTH_LONG).show();
-          //  Toast.makeText( getApplicationContext(),"Gps Desactivado",Toast.LENGTH_SHORT ).show();
+            //  Toast.makeText( getApplicationContext(),"Gps Desactivado",Toast.LENGTH_SHORT ).show();
         }
         public void onProviderEnabled(String provider)
         {
@@ -518,8 +534,11 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         }
         public void onStatusChanged(String provider, int status, Bundle extras){}
     }
+
     /*-----------------------------------------------------------------------------------------------------------------------------------------*/
-    /*clase de info window para marcadores, escucha cuando la ventana es abierta y asigna el titulo correspondiente*/
+    /**
+     * Clase de info window para marcadores, escucha cuando la ventana es abierta y asigna el titulo correspondiente
+     * */
     private class MyInfoWindow extends InfoWindow{
         String nameMarker;
         public MyInfoWindow(int layoutResId, MapView mapView,String namMrker) {
@@ -539,7 +558,9 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
 
     }
     /*-----------------------------------------------------------------------------------------------------------------------------------------*/
-    /*clase de geofences*/
+    /**
+     * Clase de GeoFence, deonde se encuentra la lógica de entrar y salir en la región de un punto
+     */
     private class GeofenceReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -602,5 +623,6 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             manager.notify(5, builder.build());
         }
-   }
+    }
+
 }

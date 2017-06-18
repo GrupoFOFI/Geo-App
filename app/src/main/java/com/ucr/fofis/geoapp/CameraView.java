@@ -9,9 +9,8 @@ import android.view.SurfaceView;
 import java.io.IOException;
 
 /**
- * Created by b36886 on 10/05/2017.
+ * Clase usada en CameraActivity para controlar cómo se ve la cámara.
  */
-
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
 
     private SurfaceHolder mHolder;

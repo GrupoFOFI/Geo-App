@@ -1,4 +1,4 @@
-package com.ucr.fofis.geoapp;
+package com.ucr.fofis.geoapp.Dialog;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.synnapps.carouselview.CirclePageIndicator;
 import com.ucr.fofis.dataaccess.database.Datos;
 import com.ucr.fofis.dataaccess.entity.Recomendacion;
+import com.ucr.fofis.geoapp.R;
+import com.ucr.fofis.geoapp.RecommendationFragment;
 
 /**
  * Clase para mostrar el diálogo de las Recomendaciones de seguridad.

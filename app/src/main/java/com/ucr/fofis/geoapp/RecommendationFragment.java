@@ -44,14 +44,6 @@ public class RecommendationFragment extends Fragment {
     }
 
 
-    /**
-     *     Inflate the view for the fragment based on layout XML
-     *     a partir de los ids mandados en el Bundle y obtenidos en el setArguments
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

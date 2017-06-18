@@ -1,4 +1,4 @@
-package com.ucr.fofis.geoapp;
+package com.ucr.fofis.geoapp.Dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;

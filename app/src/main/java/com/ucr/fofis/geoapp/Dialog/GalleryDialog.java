@@ -1,4 +1,4 @@
-package com.ucr.fofis.geoapp;
+package com.ucr.fofis.geoapp.Dialog;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +15,8 @@ import android.widget.ImageView;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 import com.ucr.fofis.dataaccess.entity.Punto;
-import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
+import com.ucr.fofis.geoapp.AfterCameraActivity;
+import com.ucr.fofis.geoapp.R;
 
 
 public class GalleryDialog  extends DialogFragment {

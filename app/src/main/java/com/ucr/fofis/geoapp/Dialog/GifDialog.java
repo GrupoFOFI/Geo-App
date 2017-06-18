@@ -1,4 +1,4 @@
-package com.ucr.fofis.geoapp;
+package com.ucr.fofis.geoapp.Dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.ucr.fofis.dataaccess.entity.Punto;
-import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
+import com.ucr.fofis.geoapp.AfterCameraActivity;
+import com.ucr.fofis.geoapp.R;
 
 import pl.droidsonroids.gif.GifImageView;
 

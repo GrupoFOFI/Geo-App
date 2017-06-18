@@ -6,14 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by oscar on 22/05/17.
+ * Clase para mostrar el arte al inicio de la aplicaciǿn
  */
 
 public class SplashActivity extends AppCompatActivity {
-    /**
-     * Method that prepares all the components displayed this activity
-     *
-     * @param savedInstanceState
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

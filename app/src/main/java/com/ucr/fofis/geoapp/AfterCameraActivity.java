@@ -1,4 +1,4 @@
-package com.ucr.fofis.geoapp.Application;
+package com.ucr.fofis.geoapp;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,14 +9,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ucr.fofis.dataaccess.entity.Punto;
-import com.ucr.fofis.geoapp.AudioDialog;
-import com.ucr.fofis.geoapp.GalleryDialog;
-import com.ucr.fofis.geoapp.GifDialog;
-import com.ucr.fofis.geoapp.R;
-import com.ucr.fofis.geoapp.VideoDialog;
+import com.ucr.fofis.geoapp.Dialog.AudioDialog;
+import com.ucr.fofis.geoapp.Dialog.GalleryDialog;
+import com.ucr.fofis.geoapp.Dialog.GifDialog;
+import com.ucr.fofis.geoapp.Dialog.VideoDialog;
 
 /**
- * Created by b32080 on 05/06/2017.
+ * Actividad usada después de la cámara y después de que se ha detectado y apuntado un Punto.
+ * Contiene los botones de la información extra de cada punto.
+ *
  */
 
 public class AfterCameraActivity extends AppCompatActivity {

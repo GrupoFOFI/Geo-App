@@ -1,11 +1,9 @@
 package com.ucr.fofis.geoapp;
 
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +20,6 @@ import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.Math.MathUtils;
 import com.ucr.fofis.businesslogic.SensorHelper;
 import com.ucr.fofis.dataaccess.entity.Punto;
-import com.ucr.fofis.geoapp.Application.AfterCameraActivity;
 
 import static com.ucr.fofis.geoapp.R.id.btnStart;
 
@@ -180,19 +177,4 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         }
     }
 
-    /**
-     * Manda una notificación a la hora de entrar a un geofence.
-     *
-     * @param title the notification's title.
-     * @param description the notification's description.
-     */
-    private void showNotification(String title, String description) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
-        builder.setContentTitle(title).setContentText(description);
-        builder.setSmallIcon(R.drawable.ic_launcher);
-        builder.setAutoCancel(true);
-        builder.setColor(getResources().getColor(R.color.colorPrimaryDark));
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(6, builder.build());
-    }
 }

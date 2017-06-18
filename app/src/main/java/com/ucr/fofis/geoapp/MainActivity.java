@@ -26,10 +26,13 @@ import android.view.MenuItem;
 
 import com.ucr.fofis.dataaccess.database.Ruta;
 import com.ucr.fofis.geoapp.Application.GeoApp;
+import com.ucr.fofis.geoapp.Dialog.RecommendationDialog;
 import com.ucr.fofis.geoapp.Fragment.HomeFragment;
 
 /**
- * Actividad principal del App, controla menú de navegacíon, Diálogo de recomendaciones y audio introductorio
+ *
+ * Actividad principal del App, controla menú de navegación, Diálogo de recomendaciones y audio introductorio
+ *
  */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, RecommendationDialog.DialogDismissInterface {
@@ -72,7 +75,9 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    //Metodo que realiza el pedido de permisos.
+    /**
+     * Realiza el pedido de permisos: escritura de dsico (WRITE_EXTERNAL_STORAGE), posición precisa(ACCESS_FINE_LOCATION) y cámara (CAMERA)
+     */
     private void requestPermission() {
 
         //Permiso de External Storage
@@ -86,13 +91,19 @@ public class MainActivity extends AppCompatActivity
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CODE_RE);
-            //this.showRecommentdationDialog();
 
             SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
         }
 
-        checkCameraPermission();
+        //Permiso de Cámara
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CODE_RE);
+        }
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -109,7 +120,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //Menu lateral
+    /**
+     * Cierra el menú lateral si está abierto cuando se apreta atrás
+     *
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,7 +132,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             currentFragmentType = HomeFragment.class;
             super.onBackPressed();
-            setTitle("Isla Bolanhos Experience PAs");
         }
     }
 
@@ -147,7 +160,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * navegacion del menu, define lo que se hace para cada item del menu
      * @param item
-     * @return
+     * @return boolean - si fue exitoso o no
      */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -171,10 +184,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.web) {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
-            if (introMediaPlayer != null) {
-                if (introMediaPlayer.isPlaying()) introMediaPlayer.stop();
-                introMediaPlayer.release();
-            }
             startActivity(i);
 
         }
@@ -185,7 +194,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     *     setea el fragment seleccionado
+     *     Coloca el fragment seleccionado en la pantalla
      * @param fragment
      */
     private void setFragment(Fragment fragment) {
@@ -219,7 +228,7 @@ public class MainActivity extends AppCompatActivity
         if(!(manager.isMusicActive()))
         {
             introMediaPlayer = new MediaPlayer();
-            introMediaPlayer = MediaPlayer.create(this, com.ucr.fofis.dataaccess.R.raw.intro);
+            introMediaPlayer = MediaPlayer.create(this, Ruta.AUDIO_INTRO);
             introMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             introMediaPlayer.setLooping(false);
             introMediaPlayer.start();
