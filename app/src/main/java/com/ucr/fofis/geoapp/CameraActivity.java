@@ -23,6 +23,10 @@ import com.ucr.fofis.dataaccess.entity.Punto;
 
 import static com.ucr.fofis.geoapp.R.id.btnStart;
 
+/*
+    Actividad que muestra la camara y todos los elementos relacionados a la misma.
+ */
+
 public class CameraActivity extends AppCompatActivity implements OnLookAtTargetListener {
     public static final String POINT_TAG = "POINT_TAG";
     double[] J = new double[]{0, 1, 0};

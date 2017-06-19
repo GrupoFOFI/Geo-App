@@ -44,9 +44,9 @@ public class AudioDialog extends Dialog {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
-        mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0]);
+        mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0]);//Obtencion de audios
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.setLooping(false);
+        mediaPlayer.setLooping(false);//Solo se desea escuchar una vez
 
         setOnDismissListener(new OnDismissListener() {
             @Override
@@ -80,7 +80,7 @@ public class AudioDialog extends Dialog {
             holder.audioText.setText("Audio " + (position + 1));
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v) {//Si se hace click
                     if (mediaPlayer != null) {
                         if(position != lastAudio){
                             lastAudio=position;
@@ -91,10 +91,10 @@ public class AudioDialog extends Dialog {
                             mediaPlayer.start();
                             holder.icon.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
                         }else {
-                            if (mediaPlayer.isPlaying()) {
+                            if (mediaPlayer.isPlaying()) {//Si esta sonando se detiene
                                 mediaPlayer.pause();
                                 holder.icon.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
-                            } else {
+                            } else {//Si no se inicia
                                 mediaPlayer.start();
                                 holder.icon.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
                             }
