@@ -10,7 +10,7 @@ import java.util.List;
  */
 public final class TourManager {
     /**
-     * Returns the tour points
+     * Retorna los putnos del tour
      * @return
      */
     public static List<Punto> getPoints() {

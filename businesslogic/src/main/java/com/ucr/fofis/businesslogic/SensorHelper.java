@@ -13,7 +13,7 @@ import com.ucr.fofis.dataaccess.entity.Punto;
  * <h1> Sensor Helper </h1>
  *
  * <p>
- *     Helper class for calculating the device's rotation.
+ *     Clase de apoyo para calcular la rotación del dispositivo.
  * </p>
  *
  *
@@ -33,12 +33,12 @@ public class SensorHelper implements SensorEventListener {
     float[] rotationVector = new float[3];
     float[] iMat = new float[9];
     float[] rMat = new float[9];
-    private int mAzimuth = 0; // degree
+    private int mAzimuth = 0; // grados
 
 //    LocationHelper locationHelper = new LocationHelper();
 
     public SensorHelper(Context context) {
-        // start sensor
+        // comeinza sensor
         snsrmngr = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
         accl = snsrmngr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mgnt = snsrmngr.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -49,16 +49,16 @@ public class SensorHelper implements SensorEventListener {
     }
 
     /**
-     * Sets the rotation update listener to receive rotation updates
+     * Settea el listener de la rotación del dispositivo para recibir actulizaciones de rotaciones.
      *
-     * @param listener the class implenenting OnDeviceRotationListener interface
+     * @param listener la clase impelementando la interface OnDeviceRotationListener
      */
     public void setOnLookAtBuildingListener(OnLookAtTargetListener listener) {
         mListener = listener;
     }
 
     /**
-     * Starts checking for sensor updates
+     * Comeinza a checkear actualizaciones del sensor
      */
     public void start() {
         if (sensorsSupported()) {
@@ -70,7 +70,7 @@ public class SensorHelper implements SensorEventListener {
     }
 
     /**
-     * Stops checking for sensor updates
+     * Detiene el checkeo de actualizaciones del sensor
      */
     public void stop() {
         if (sensorsSupported()) {
@@ -80,16 +80,16 @@ public class SensorHelper implements SensorEventListener {
     }
 
     /**
-     * Checks if device has accelerometer and magnetic field sensors
+     * Revisa si el dispositivo tiene acelerómetro y sensor de campo magnético.
      *
-     * @return true if device has accelerometer and magnetic field sensors, otherwise false
+     * @return verdadero si el dispositivo tiene acelerómetro y sensor de campo magnético, de lo contrario falso.
      */
     public boolean sensorsSupported() {
         return (accl != null && mgnt != null);
     }
 
     /**
-     * Method that creates the logic when a sensor changes
+     * Método que crea la lógica cuando el sensor cambia.
      *
      * @param sensorEvent
      */
@@ -100,7 +100,7 @@ public class SensorHelper implements SensorEventListener {
         } else if (sensorEvent.sensor.getType() == mgnt.getType()) {
             mgntReading = sensorEvent.values;
         }
-        // Rotation matrix based on current readings from accelerometer and magnetometer.
+        // Matriz de rotación basao en los valores del acelerómetro y el magnetometro
         final float[] rotationMatrix = new float[9];
         SensorManager.getRotationMatrix(rotationMatrix, null, acclReading, mgntReading);
 
@@ -136,7 +136,7 @@ public class SensorHelper implements SensorEventListener {
     }
 
     /**
-     * Method used to notify when a sensor changes its accuracy
+     * Método para notificar cuando un sensor cambió su precisión.
      * @param sensor
      * @param accuracy
      */

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Direct communication with the Android Geofence API.
+ * Comunicación directa con el Android Geofence API.
  *
  * Created by enrico on 3/31/17.
  */
@@ -21,9 +21,9 @@ public class GeofenceUtils {
 
 
     /**
-     * Initializes the geofences list.
+     * Inicializa la lista de Geofences.
      *
-     * @param geofences the stored geofences.
+     * @param geofences Los geofences almacenados.
      */
     public static void init(List<Punto> geofences) {
         createGeofenceList(geofences);
@@ -46,13 +46,13 @@ public class GeofenceUtils {
     }
 
     /**
-     * Starts monitoring for the specified geofences.
-     * The limit is 100 geofences per device.
+     * Comienza a monitorear los Geofences específicos.
+     * El límite son 100 Geofences por dispositivo.
      *
-     * @param geofences the geofences to monitor.
-     * @param pendingIntent the pending intent that expects the event triggers from the geofence api.
-     * @param googleApiClient the google api client.
-     * @return true if geofence monitoring starts successfully, otherwise false.
+     * @param geofences los Geofences a monitorear.
+     * @param pendingIntent el intent pendiente que espera el evento que se activa desde el Geofence API.
+     * @param googleApiClient El cliente del Google API.
+     * @return verdadero si el monitoreo se comienza exitosamente, de otra manera falso.
      */
     public static boolean startGeofences(List<Punto> geofences, PendingIntent pendingIntent, GoogleApiClient googleApiClient) {
         if (GeofenceManager.getInstance().hasLocationPermission()) {
@@ -66,10 +66,10 @@ public class GeofenceUtils {
     }
 
     /**
-     * Stops monitoring for geofences.
+     * Detiene el monitoreo de Geofences.
      *
-     * @param pendingIntent the pending intent that expects the event triggers from the geofence api.
-     * @param googleApiClient the google api client.
+     * @param pendingIntent el intent pendiente que espera el evento que se activa desde el Geofence API..
+     * @param googleApiClient El cliente del Google API.
      */
     public static void stopGeofences(PendingIntent pendingIntent, GoogleApiClient googleApiClient) {
         if (GeofenceManager.getInstance().hasLocationPermission()) {

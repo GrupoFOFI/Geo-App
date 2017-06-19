@@ -24,6 +24,10 @@ import com.ucr.fofis.dataaccess.entity.Punto;
 
 import java.util.List;
 
+/**
+ *  Clase para el manejo general de los Geofecnes
+ *
+ * */
 public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
     private GeofenceService geofenceService;
@@ -48,10 +52,10 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks, Goo
     }
 
     /**
-     * Initializes the GeofenceManager.
-     * Requires an activity (?????).
+     * Inicializa el GeofenceManager.
+     * Requiere una actividad.
      *
-     * @param activity required for google api client.
+     * @param activity requirida para el cliente de Goggle API.
      */
     public void init(Activity activity) {
         buildGoogleApiClient(activity);
@@ -74,13 +78,13 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks, Goo
     }
 
     private PendingIntent getGeofencePendingIntent() {
-        // Reuse the PendingIntent if we already have it.
+        // Reutiliza el PendingIntent si ya se tiene.
         if (mGeofencePendingIntent != null) {
             return mGeofencePendingIntent;
         }
         Intent intent = new Intent(mContext, GeofenceService.class);
-        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
-        // calling addGeofences() and removeGeofences().
+        // Se utiliza FLAG_UPDATE_CURRENT para obtener el intent pendiente de vuelta cuando
+        // se llama addGeofences() y removeGeofences().
         return PendingIntent.getService(mContext, 0, intent, PendingIntent.
                 FLAG_UPDATE_CURRENT);
     }
@@ -102,7 +106,7 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks, Goo
                 //geofencePreferences.setGeofenceReady(true);
             }
         }
-        // start location updates
+        // comience las actualizason de ubicación
         locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(POLLING_FREQ)

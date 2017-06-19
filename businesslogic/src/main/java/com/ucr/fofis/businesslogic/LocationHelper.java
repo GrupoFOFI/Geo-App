@@ -9,7 +9,7 @@ import com.ucr.fofis.dataaccess.entity.Punto;
 /**
  * <h1> Location Helper </h1>
  * <p>
- * Class used to handle the location methods
+ * Clase utilizada para menejar los métodos de ubicación.
  * </p>
  *
  * @author Fofis
@@ -22,17 +22,17 @@ public class LocationHelper {
     public int topidx[];
     public double mindist[];
     /**
-     *
+     * Última ubicación
      */
     private static LatLng mLastLocation;
     /**
-     * Represents a geographical location.
+     * Representa una ubiación geográfica.
      */
     protected Location latestLocation;
 
 
     /**
-     * Method that updates the last location
+     * Método que actualiza la última ubicación.
      *
      * @param location
      */
@@ -41,7 +41,7 @@ public class LocationHelper {
     }
 
     /**
-     * Getter for the last location
+     * Getter para la útlima ubicación.
      *
      * @return
      */
@@ -59,7 +59,7 @@ public class LocationHelper {
     }
 
     /**
-     * Method that retrieves the distance
+     * Método que consigue la distancia
      *
      * @param lat1
      * @param lat2
@@ -88,7 +88,7 @@ public class LocationHelper {
     }
 
     /**
-     * Method that retrieves the error angle
+     * Método que consigue el error del ángulo.
      *
      * @param loc
      * @param xBuild
