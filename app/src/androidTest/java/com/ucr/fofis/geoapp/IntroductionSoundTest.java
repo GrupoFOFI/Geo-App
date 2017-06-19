@@ -33,7 +33,6 @@ public class IntroductionSoundTest {
 
     @Test
     public void mainActivity_soundTest() {
-        try {
 
             SystemClock.sleep(3000);
 
@@ -43,7 +42,6 @@ public class IntroductionSoundTest {
                             withParent(withId(R.id.toolbar)),
                             isDisplayed()));
             appCompatImageButton.perform(click());
-            Thread.sleep(1000);
 
             SystemClock.sleep(3000);
 
@@ -53,9 +51,6 @@ public class IntroductionSoundTest {
             assertTrue(mActivityTestRule.getActivity().introMediaPlayer.isPlaying());
 
             SystemClock.sleep(3000);
-        }catch(InterruptedException e){
-
-        }
     }
 
 }

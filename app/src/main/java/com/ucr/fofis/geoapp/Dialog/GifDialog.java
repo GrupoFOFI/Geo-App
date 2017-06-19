@@ -13,6 +13,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 /**
  * Created by oscar on 04/06/17.
+ * Dialogo que permite mostrar animaciones de un punto.
  */
 
 public class GifDialog extends Dialog {
@@ -30,6 +31,7 @@ public class GifDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gif_dialog);
+        //Se obtiene la animacion y se reproduce
         punto = (Punto) AfterCameraActivity.getInstance().getIntent().getSerializableExtra("punto");
         gifImageView = (GifImageView) findViewById(R.id.gif_image_view);
         gifImageView.setImageResource(punto.getAnimationId());

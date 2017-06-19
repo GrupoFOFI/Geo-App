@@ -18,6 +18,10 @@ import com.ucr.fofis.dataaccess.entity.Punto;
 import com.ucr.fofis.geoapp.AfterCameraActivity;
 import com.ucr.fofis.geoapp.R;
 
+/**
+ * Dialogo que permite mostrar imagenes de un punto.
+ *
+ */
 
 public class GalleryDialog  extends DialogFragment {
     public FloatingActionButton fab;

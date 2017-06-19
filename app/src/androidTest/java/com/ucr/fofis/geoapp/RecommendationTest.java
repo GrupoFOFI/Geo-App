@@ -81,6 +81,7 @@ public class RecommendationTest {
 
         SystemClock.sleep(3000);
         viewPager2.perform(swipeLeft());
+        SystemClock.sleep(3000);
 
         ViewInteraction relativeLayout2 = onView(
                 allOf(withId(R.id.exit),
@@ -95,11 +96,7 @@ public class RecommendationTest {
                         isDisplayed()));
         appCompatButton2.perform(click());
 
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        SystemClock.sleep(3000);
 
         ViewInteraction imageView3 = onView(
                 allOf(withId(R.id.recommendation_fragment_image),
@@ -115,6 +112,7 @@ public class RecommendationTest {
                                 withParent(withId(R.id.recommendation_dialog)))),
                         isDisplayed()));
         viewPager8.perform(swipeLeft());
+        SystemClock.sleep(3000);
 
         ViewInteraction relativeLayout3 = onView(
                 allOf(withId(R.id.exit),
