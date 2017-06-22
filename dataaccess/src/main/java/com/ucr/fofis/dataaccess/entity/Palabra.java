@@ -6,9 +6,9 @@ package com.ucr.fofis.dataaccess.entity;
 
 public class Palabra {
 
-    int audioId;
-    String palabra;
-    String significado;
+    private int audioId;
+    private String palabra;
+    private String significado;
 
     public Palabra(int audioId, String palabra, String significado) {
         this.audioId = audioId;
