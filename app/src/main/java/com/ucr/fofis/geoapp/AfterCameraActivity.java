@@ -1,6 +1,7 @@
 package com.ucr.fofis.geoapp;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -41,7 +42,8 @@ public class AfterCameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (punto.getAnimation().getId() == 0) {
-                    Toast.makeText(AfterCameraActivity.this, "No existen animaciones asociadas a este punto", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(AfterCameraActivity.this, "No existen animaciones asociadas a este punto", Toast.LENGTH_SHORT).show();
+                    gifLayout.setBackgroundColor(Color.GRAY);
                 } else {
                     GifDialog gifDialog = new GifDialog(AfterCameraActivity.this);
                     gifDialog.show();
@@ -53,6 +55,7 @@ public class AfterCameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 if (punto.getImagenes() == null) {
+                    carouselDialog.setBackgroundColor(Color.GRAY);
                     Toast.makeText(AfterCameraActivity.this, "No existen imágenes asociadas a este punto", Toast.LENGTH_SHORT).show();
                 } else {
                     final GalleryDialog galleryDialog = new GalleryDialog();
@@ -71,6 +74,7 @@ public class AfterCameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (punto.getVideo().getId() == 0) {
+                    videoLayout.setBackgroundColor(Color.GRAY);
                     Toast.makeText(AfterCameraActivity.this, "No existen videos asociados a este punto", Toast.LENGTH_SHORT).show();
                 } else {
                     VideoDialog videoDialog = new VideoDialog(AfterCameraActivity.this);
@@ -83,6 +87,7 @@ public class AfterCameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (punto.getAudios() == null || punto.getAudios().length == 0) {
+                    audioLayout.setBackgroundColor(Color.GRAY);
                     Toast.makeText(AfterCameraActivity.this, "No existen audios asociados a este punto", Toast.LENGTH_SHORT).show();
                 } else {
                     AudioDialog audioDialog = new AudioDialog(AfterCameraActivity.this);
