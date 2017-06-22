@@ -37,7 +37,7 @@ public class VideoDialog extends Dialog {
 
         //Se obtiene el video y se reproduce
         vidVw = (VideoView) findViewById(R.id.video_view);
-        vidVw.setVideoPath("android.resource://com.ucr.fofis.geoapp/"+p.getVideoId());
+        vidVw.setVideoPath("android.resource://com.ucr.fofis.geoapp/"+p.getVideo().getId());
         vidVw.requestFocus();
         vidVw.setZOrderOnTop(true);
         vidVw.start();

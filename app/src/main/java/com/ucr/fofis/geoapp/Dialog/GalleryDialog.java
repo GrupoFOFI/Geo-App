@@ -68,7 +68,7 @@ public class GalleryDialog  extends DialogFragment {
     ImageListener imageListener = new ImageListener() {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(punto.getImagenes()[position]);
+            imageView.setImageResource(punto.getImagenes()[position].getId());
         }
     };
 

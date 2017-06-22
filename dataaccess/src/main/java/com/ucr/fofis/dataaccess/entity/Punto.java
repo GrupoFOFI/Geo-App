@@ -16,24 +16,24 @@ public class Punto implements Serializable {
     private String descripcion;
     private GeoPoint geoPoint;
     private Double geofenceRadio;
-    private int[] imagenes;
-    private Integer videoId;
-    private int[] audios;
-    private Integer animationId;
+    private Resource[] imagenes;
+    private Resource video;
+    private Resource[] audios;
+    private Resource animation;
 
     public Punto() {
     }
 
-    public Punto(int idntfcdr, String nombre, String descripcion, GeoPoint geoPoint, Double geofenceRadio, int[] imagenes, Integer videoId, int[] audios, Integer animationId) {
+    public Punto(int idntfcdr, String nombre, String descripcion, GeoPoint geoPoint, Double geofenceRadio, Resource[] imagenes, Resource video, Resource[] audios, Resource animation) {
         this.idntfcdr = idntfcdr;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.geoPoint = geoPoint;
         this.geofenceRadio = geofenceRadio;
         this.imagenes = imagenes;
-        this.videoId = videoId;
+        this.video = video;
         this.audios = audios;
-        this.animationId = animationId;
+        this.animation = animation;
     }
 
     public int getIdntfcdr() {
@@ -68,43 +68,43 @@ public class Punto implements Serializable {
         this.geoPoint = geoPoint;
     }
 
-    public double getGeofenceRadio() {
+    public Double getGeofenceRadio() {
         return geofenceRadio;
     }
 
-    public void setGeofenceRadio(double geofenceRadio) {
+    public void setGeofenceRadio(Double geofenceRadio) {
         this.geofenceRadio = geofenceRadio;
     }
 
-    public int[] getImagenes() {
+    public Resource[] getImagenes() {
         return imagenes;
     }
 
-    public void setImagenes(int[] imagenes) {
+    public void setImagenes(Resource[] imagenes) {
         this.imagenes = imagenes;
     }
 
-    public int getVideoId() {
-        return videoId;
+    public Resource getVideo() {
+        return video;
     }
 
-    public void setVideoId(int videoId) {
-        this.videoId = videoId;
+    public void setVideo(Resource video) {
+        this.video = video;
     }
 
-    public int[] getAudios() {
+    public Resource[] getAudios() {
         return audios;
     }
 
-    public void setAudios(int[] audios) {
+    public void setAudios(Resource[] audios) {
         this.audios = audios;
     }
 
-    public int getAnimationId() {
-        return animationId;
+    public Resource getAnimation() {
+        return animation;
     }
 
-    public void setAnimationId(int animationId) {
-        this.animationId = animationId;
+    public void setAnimation(Resource animation) {
+        this.animation = animation;
     }
 }

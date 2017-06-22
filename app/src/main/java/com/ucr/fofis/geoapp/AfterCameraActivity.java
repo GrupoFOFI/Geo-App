@@ -40,7 +40,7 @@ public class AfterCameraActivity extends AppCompatActivity {
         gifLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (punto.getAnimationId() == 0) {
+                if (punto.getAnimation().getId() == 0) {
                     Toast.makeText(AfterCameraActivity.this, "No existen animaciones asociadas a este punto", Toast.LENGTH_SHORT).show();
                 } else {
                     GifDialog gifDialog = new GifDialog(AfterCameraActivity.this);
@@ -70,7 +70,7 @@ public class AfterCameraActivity extends AppCompatActivity {
         videoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (punto.getVideoId() == 0) {
+                if (punto.getVideo().getId() == 0) {
                     Toast.makeText(AfterCameraActivity.this, "No existen videos asociados a este punto", Toast.LENGTH_SHORT).show();
                 } else {
                     VideoDialog videoDialog = new VideoDialog(AfterCameraActivity.this);

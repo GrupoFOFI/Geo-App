@@ -34,7 +34,7 @@ public class GifDialog extends Dialog {
         //Se obtiene la animacion y se reproduce
         punto = (Punto) AfterCameraActivity.getInstance().getIntent().getSerializableExtra("punto");
         gifImageView = (GifImageView) findViewById(R.id.gif_image_view);
-        gifImageView.setImageResource(punto.getAnimationId());
+        gifImageView.setImageResource(punto.getAnimation().getId());
 
     }
 

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ucr.fofis.dataaccess.entity.Punto;
+import com.ucr.fofis.dataaccess.entity.Resource;
 import com.ucr.fofis.geoapp.AfterCameraActivity;
 import com.ucr.fofis.geoapp.R;
 
@@ -44,7 +45,7 @@ public class AudioDialog extends Dialog {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
-        mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0]);//Obtencion de audios
+        mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[0].getId());//Obtencion de audios
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setLooping(false);//Solo se desea escuchar una vez
 
@@ -60,10 +61,10 @@ public class AudioDialog extends Dialog {
     }
 
     protected class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioHolder> {
-        int[] audioResouceArray;
+        Resource[] audioResouceArray;
         int lastAudio = 0;
 
-        public AudioAdapter(int[] resourceArray) {
+        public AudioAdapter(Resource[] resourceArray) {
             audioResouceArray = resourceArray;
         }
 
@@ -85,7 +86,7 @@ public class AudioDialog extends Dialog {
                         if(position != lastAudio){
                             lastAudio=position;
                             mediaPlayer.release();
-                            mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[position]);
+                            mediaPlayer = MediaPlayer.create(getContext(), punto.getAudios()[position].getId());
                             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                             mediaPlayer.setLooping(false);
                             mediaPlayer.start();
