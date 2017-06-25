@@ -9,4 +9,33 @@
     <string name="btn_start">Iniciar Viaje</string>
 
     <string name="btn_recognized_geopoint">Abrir GeoPunto</string>
+
+    <string name="creditos">\nEste  producto  ha  sido  desarrollado  por  medio  de  la  cooperación  del  Centro  de  Investigación  en Ciencias Geológicas, Museo + UCR, Escuela de Ciencias de la Computación e Informática y el Área de Conservación Guanacaste, con el fin de educar sobre el conocimiento geológico del noroeste de Costa Rica, que constituye uno de los sitios más emblemáticos y enmarca la historia geológica de la parte Sur de América Central. Es así como la Universidad de Costa Rica y el Ministerio de Ambiente y Energía se unen para promover la cultura científica a través de paisajes geológicos de una belleza y geodiversidad magnificente.\n
+        \n
+        <b><big>Créditos</big></b>\n
+        \n
+        <b><big>Centro de Investigación en Ciencias Geológicas(CICG)</big></b>\n
+        Percy Denyer Chavarría\n
+        Juan Pablo Solano Monge\n
+        \n
+        <b><big>Museo + UCR</big></b>\n
+        Eugenia Zavaleta Ochoa\n
+        Mariano Chinchilla Chavarría\n
+        Marco Díaz Segura\n
+        \n
+        <b><big>Área de Conservación Guanacaste (ACG)</big></b>\n
+        Alejandro Masís Cuevillas\n
+        Róger Blanco Segura\n
+        María Marta Chavarría Díaz\n
+        Felipe Chavarría Díaz\n
+        \n
+        <b><big>Escuela de Ciencias de la Computación e Informática (ECCI)</big></b>\n
+        Alan Calderón Castro\n
+        Esteban Quirós Aguilar\n
+        Ricardo Apú Chinchilla\n
+        Alonso Mondal Durán\n
+        Enrico Barbieri Cavallini\n
+        William Eduardo Soto Martínez\n
+        Anthony Javier Víquez Duarte\n
+        Oscar Corella</string>
 </resources>

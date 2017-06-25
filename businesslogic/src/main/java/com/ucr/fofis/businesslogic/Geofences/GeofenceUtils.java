@@ -34,7 +34,7 @@ public class GeofenceUtils {
         int i = 0;
         for (Punto geofence : geofences) {
             com.google.android.gms.location.Geofence.Builder builder = new com.google.android.gms.location.Geofence.Builder();
-            float radius = (float)geofence.getGeofenceRadio();
+            float radius = geofence.getGeofenceRadio().floatValue();
             builder.setRequestId("" + i)
                     .setCircularRegion(geofence.getGeoPoint().getLatitude(), geofence.getGeoPoint().getLongitude(), radius)
                     .setExpirationDuration(com.google.android.gms.location.Geofence.NEVER_EXPIRE)
