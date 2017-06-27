@@ -3,7 +3,11 @@
     package="com.ucr.fofis.geoapp">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,11 +18,11 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
-
-        <service android:name="com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService"
+        android:theme="@style/AppTheme">
+        <service
+            android:name="com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService"
             android:enabled="true"
             android:exported="false" />
 
@@ -33,16 +37,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MapActivity">
-        </activity>
-
-        <activity android:name=".CameraActivity"
+        <activity android:name=".MapActivity" />
+        <activity
+            android:name=".CameraActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".WalkthroughActivity">
-        </activity>
-        <activity android:name=".AfterCameraActivity">
-        </activity>
+        <activity android:name=".WalkthroughActivity" />
+        <activity android:name=".AfterCameraActivity" />
+        <activity android:name=".GlossaryCativity" />
+        <activity android:name=".Dialog.GlossaryActivity"></activity>
     </application>
 
 </manifest>

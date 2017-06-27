@@ -3,6 +3,7 @@ package com.ucr.fofis.geoapp.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -84,4 +85,6 @@ public abstract class Dialog implements DialogInterface.OnDismissListener {
         layout.getLayoutParams().width = (int) displaySize;
         layout.requestLayout();
     }
+
+    public abstract void onCreate(Bundle savedInstanceState);
 }

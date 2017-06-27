@@ -8,11 +8,20 @@
     <LinearLayout
         android:id="@+id/pagetop"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="80dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="#AFf37021"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/texttitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="50dp"
+            android:textColor="@color/colorPrimaryWhite"
+            android:gravity="center"
+            android:text="abcdef" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/displayed_page"

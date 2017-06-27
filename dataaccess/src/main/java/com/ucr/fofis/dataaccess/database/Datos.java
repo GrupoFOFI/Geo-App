@@ -57,7 +57,7 @@ public class Datos {
             add(new Palabra(R.raw.corales,"Corales","Son animales que comúnmente forman colonias, conformadas a su vez por cientos de zooides."));
             add(new Palabra(R.raw.erosion,"Erosión","Desgaste y modelación de la corteza terrestre causados por la acción del viento, la lluvia, los procesos fluviales, marítimos, glaciales y por la acción de los seres vivos."));
             add(new Palabra(R.raw.estrato,"Estrato","Es cada una de las capas en que se presentan divididos los sedimentos."));
-            add(new Palabra(R.raw.Lutita,"Lutita","Roca sedimentaria constituida por granos muy finos, de menos de 0,062 mm."));
+            add(new Palabra(R.raw.lutita,"Lutita","Roca sedimentaria constituida por granos muy finos, de menos de 0,062 mm."));
             add(new Palabra(R.raw.meteorizacion,"Meteorización","Conjunto de procesos físicos, químicos y biológicos de alteración, que provocan la descomposición de una roca superficial."));
             add(new Palabra(R.raw.sedimento,"Sedimento","Partículas móviles depositadas por agua, viento y otros agentes de erosión."));
             add(new Palabra(R.raw.zooide,"Zooide","Individuo de una comunidad colonial que funciona como un organismo y cuya estructura difiere de la de otros organismos de su misma especie, según el papel fisiológico que desempeñe dentro del conjunto."));

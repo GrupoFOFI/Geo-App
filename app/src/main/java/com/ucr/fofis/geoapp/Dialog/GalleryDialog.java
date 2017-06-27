@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -27,6 +28,7 @@ public class GalleryDialog  extends DialogFragment {
     public FloatingActionButton fab;
     CarouselView carouselView;
     Punto punto;
+    TextView Titulo;
     private GalleryDialog.DialogDismissInterface dialogDismissInterface;
 
     @NonNull
@@ -40,27 +42,16 @@ public class GalleryDialog  extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.gallery_dialog, container);
         android.support.v4.app.FragmentManager fm = getChildFragmentManager();
-        /*tomar punto del lugar que esta cerca*/
+        Titulo = (TextView) view.findViewById(R.id.textTitle);
+                /*tomar punto del lugar que esta cerca*/
         punto = (Punto) AfterCameraActivity.getInstance().getIntent().getSerializableExtra("punto");
         carouselView = (CarouselView) view.findViewById(R.id.carouselGalleryView);
         carouselView.setPageCount(punto.getImagenes().length);
-
         carouselView.setImageListener(imageListener);
         carouselView.setSlideInterval(Integer.MAX_VALUE);
         WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
         wmlp.gravity = Gravity.FILL_HORIZONTAL;
-        //Funcionalidad de botón para cerrar dialogFragment
-        /*fab = (FloatingActionButton) view.findViewById(R.id.fab_exitGallery);
-        fab.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                if(dialogDismissInterface != null) {
-                    dialogDismissInterface.onDialogDismiss();
-                }
-                getDialog().dismiss();
-            }
-        });
-*/
+
 
         return view;
     }
@@ -69,6 +60,7 @@ public class GalleryDialog  extends DialogFragment {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
             imageView.setImageResource(punto.getImagenes()[position].getId());
+            Titulo.setText(punto.getImagenes()[position].getTitle());
         }
     };
 

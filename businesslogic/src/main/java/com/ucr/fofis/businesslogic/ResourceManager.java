@@ -3,6 +3,8 @@ package com.ucr.fofis.businesslogic;
 import android.content.Context;
 
 import com.ucr.fofis.dataaccess.database.DataAccessor;
+import com.ucr.fofis.dataaccess.database.Datos;
+import com.ucr.fofis.dataaccess.entity.Palabra;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,5 +110,9 @@ public class ResourceManager {
 
     public static ResourceManager getInstance() {
         return instance;
+    }
+
+    public static ArrayList<Palabra> getGlossary() {
+        return Datos.GLOSARIO;
     }
 }
