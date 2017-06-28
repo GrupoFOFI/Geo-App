@@ -41,7 +41,11 @@
         <activity
             android:name=".CameraActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".AfterCameraActivity" />
+
+        <activity android:name=".AfterCameraActivity"
+            android:configChanges="orientation|screenSize"
+            />
+
         <activity android:name=".GlossaryActivity"/>
         <activity android:name=".CreditsActivity"/>
     </application>
