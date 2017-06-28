@@ -1,10 +1,12 @@
 package com.ucr.fofis.dataaccess.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by rapuc on 6/22/17.
  */
 
-public class Resource {
+public class Resource implements Serializable {
 
     private int id;
     private String title;

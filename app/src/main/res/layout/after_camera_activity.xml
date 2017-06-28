@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"
-            android:background="#AFf37021"
+            android:background="@color/semiTransparentBlue"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -24,7 +24,7 @@
                 android:gravity="center"
                 android:text="titulo"
                 android:textColor="@color/colorPrimaryWhite"
-                android:textSize="35sp"
+                android:textSize="25sp"
                 android:textStyle="bold"/>
 
         </LinearLayout>
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:background="#AFf37021"
+            android:background="@color/semiTransparentBlue"
             android:orientation="horizontal"
             android:padding="10dp"
             android:weightSum="1">
@@ -44,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@color/colorSecondaryOrange3">
+                android:background="@color/colorPrimaryDark">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                 android:layout_margin="10dp"
 
                 android:layout_weight="0.5"
-                android:background="@color/colorSecondaryOrange3">
+                android:background="@color/colorPrimaryDark">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:background="#AFf37021"
+            android:background="@color/semiTransparentBlue"
             android:orientation="horizontal"
             android:padding="10dp"
             android:weightSum="1">
@@ -92,7 +92,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@color/colorSecondaryOrange3">
+                android:background="@color/colorPrimaryDark">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -110,7 +110,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
 
-                android:background="@color/colorSecondaryOrange3">
+                android:background="@color/colorPrimaryDark">
 
                 <TextView
                     android:id="@+id/textView"

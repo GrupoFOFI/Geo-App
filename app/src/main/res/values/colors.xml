@@ -3,9 +3,10 @@
     <color name="colorPrimaryWhite">#ffffff</color>
     <color name="colorPrimaryYellow">#ffe06a</color>
     <color name="colorPrimary">#00c0f3</color>
-    <color name="colorPrimaryDark">#005da4</color>
     <color name="colorPrimaryGreen">#6dc067</color>
-
+    <color name="colorPrimaryDark">#005da4</color>
+    <color name="semiTransparentBlue">#80005da4</color>
+    <color name="colorPrimaryShaded">#AF005da4</color>
 
     <color name="colorSecondaryYellow2">#FFdd00</color>
     <color name="colorSecondaryYellow3">#e9c31e</color>
@@ -13,10 +14,6 @@
 
     <color name="colorSecondaryOrange1">#e5b365</color>
     <color name="colorSecondaryOrange2">#f99d1c</color>
-
-    <color name="colorSecondaryOrange3">#f37021</color>
-    <color name="colorSecondaryOrange3shaded">#F58C4D</color>
-
 
     <color name="colorSecondaryBrown1">#b7be11</color>
     <color name="colorSecondaryBrown2">#7b3400</color>

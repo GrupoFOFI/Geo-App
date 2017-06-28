@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_gravity="center"
     android:layout_height="190dp"
-    android:background="#80f37021"
+    android:background="@color/semiTransparentBlue"
     android:padding="10dp"
     android:gravity="center">
 

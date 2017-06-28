@@ -1,26 +1,14 @@
-package com.ucr.fofis.geoapp.Dialog;
+package com.ucr.fofis.geoapp;
 
-import android.app.ListActivity;
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.widget.TextView;
 
 import com.ucr.fofis.businesslogic.ResourceManager;
-import com.ucr.fofis.geoapp.R;
-
-import java.util.ArrayList;
+import com.ucr.fofis.geoapp.Dialog.GlossaryDialog;
 
 public class GlossaryActivity extends AppCompatActivity {
 

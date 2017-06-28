@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name="com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService"
+            android:name="com$ucr$fofis$businesslogic$Geofences$Service.GeofenceService"
             android:enabled="true"
             android:exported="false" />
 
@@ -41,10 +41,9 @@
         <activity
             android:name=".CameraActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".WalkthroughActivity" />
         <activity android:name=".AfterCameraActivity" />
-        <activity android:name=".GlossaryCativity" />
-        <activity android:name=".Dialog.GlossaryActivity"></activity>
+        <activity android:name=".GlossaryActivity"/>
+        <activity android:name=".CreditsActivity"/>
     </application>
 
 </manifest>
