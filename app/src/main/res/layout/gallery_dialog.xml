@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/texttitle"
+            android:id="@+id/gallery_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="50dp"

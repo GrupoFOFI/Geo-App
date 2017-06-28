@@ -42,7 +42,7 @@ public class GalleryDialog  extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.gallery_dialog, container);
         android.support.v4.app.FragmentManager fm = getChildFragmentManager();
-        Titulo = (TextView) view.findViewById(R.id.textTitle);
+        Titulo = (TextView) view.findViewById(R.id.gallery_title);
                 /*tomar punto del lugar que esta cerca*/
         punto = (Punto) AfterCameraActivity.getInstance().getIntent().getSerializableExtra("punto");
         carouselView = (CarouselView) view.findViewById(R.id.carouselGalleryView);

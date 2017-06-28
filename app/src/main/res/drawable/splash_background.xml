@@ -6,7 +6,8 @@
     <item>
         <bitmap android:src="@drawable/rsz_splash_new"
             android:gravity="center_horizontal"
-            android:filter="@bool/default_circle_indicator_centered"/>
+            android:filter="@bool/default_circle_indicator_centered"
+            android:tint="@color/colorPrimaryWhite"/>
     </item>
 
 
