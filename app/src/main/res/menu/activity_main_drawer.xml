@@ -18,5 +18,9 @@
             android:id="@+id/web"
             android:icon="@drawable/ic_menu_send"
             android:title="Página Web" />
+        <item
+            android:id="@+id/nav_creditos"
+            android:icon="@mipmap/ic_creditos"
+            android:title="Créditos" />
     </group>
 </menu>
