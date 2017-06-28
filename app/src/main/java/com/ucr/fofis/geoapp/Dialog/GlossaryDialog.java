@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class GlossaryDialog extends Dialog   {
     MediaPlayer mediaPlayer;
     int index;
     private ImageView play;
+    Context ctx;
 
     public GlossaryDialog(@NonNull Context context, int position) {
         super(context);
@@ -47,7 +49,7 @@ public class GlossaryDialog extends Dialog   {
         play = (ImageView)findViewById(R.id.status_audio);
         palabra.setText(ResourceManager.getGlossary().get(index).getPalabra());
         definicion.setText(ResourceManager.getGlossary().get(index).getSignificado());
-        mediaPlayer = MediaPlayer.create(getContext(), ResourceManager.getGlossary().get(index).getAudioId());
+        mediaPlayer = MediaPlayer.create(ctx, ResourceManager.getGlossary().get(index).getAudioId());
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setLooping(false);
         WindowManager.LayoutParams wmlp = this.getWindow().getAttributes();
