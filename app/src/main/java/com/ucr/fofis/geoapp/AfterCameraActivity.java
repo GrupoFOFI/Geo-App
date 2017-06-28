@@ -5,7 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +23,7 @@ import com.ucr.fofis.geoapp.Dialog.VideoDialog;
 
 public class AfterCameraActivity extends AppCompatActivity {
 
-    LinearLayout gifLayout, carouselDialog, videoLayout, audioLayout;
+    Button gifLayout, carouselDialog, videoLayout, audioLayout;
     Activity activity = this;
     Punto punto;
 
@@ -37,7 +37,7 @@ public class AfterCameraActivity extends AppCompatActivity {
         punto = (Punto)getIntent().getSerializableExtra("punto");
         TextView title = (TextView) findViewById(R.id.title_point);
         title.setText(punto.getNombre());
-        gifLayout = (LinearLayout) findViewById(R.id.gif_dialog);
+        gifLayout = (Button) findViewById(R.id.gif_dialog);
         gifLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +49,7 @@ public class AfterCameraActivity extends AppCompatActivity {
                 }
             }
         });
-        carouselDialog = (LinearLayout) findViewById(R.id.image_carousel);
+        carouselDialog = (Button) findViewById(R.id.image_carousel);
         carouselDialog.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -67,7 +67,7 @@ public class AfterCameraActivity extends AppCompatActivity {
                 }
             }
         });
-        videoLayout = (LinearLayout) findViewById(R.id.video_dialog);
+        videoLayout = (Button) findViewById(R.id.video_dialog);
         videoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +79,7 @@ public class AfterCameraActivity extends AppCompatActivity {
                 }
             }
         });
-        audioLayout = (LinearLayout) findViewById(R.id.audio_dialog);
+        audioLayout = (Button) findViewById(R.id.audio_dialog);
         audioLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
