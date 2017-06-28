@@ -46,7 +46,8 @@
             android:configChanges="orientation|screenSize"
             />
 
-        <activity android:name=".GlossaryActivity"/>
+        <activity android:name=".GlossaryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".CreditsActivity"/>
     </application>
 

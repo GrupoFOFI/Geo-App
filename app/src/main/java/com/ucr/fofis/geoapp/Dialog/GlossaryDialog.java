@@ -24,6 +24,8 @@ import com.ucr.fofis.dataaccess.entity.Resource;
 import com.ucr.fofis.geoapp.AfterCameraActivity;
 import com.ucr.fofis.geoapp.R;
 
+import static java.security.AccessController.getContext;
+
 /**
  * Dialogo que permite ver y escuchar definiciones del glosario
  */

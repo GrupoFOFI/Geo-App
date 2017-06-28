@@ -18,7 +18,7 @@ public class GlossaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.glossary_dialog);
+        this.setContentView(R.layout.activity_glossary);
         getSupportActionBar().hide();
 
         listaGlosario = new String[10];

@@ -185,6 +185,12 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(Ruta.WEB_PAGE_URL));
             startActivity(i);
+        } else if (id == R.id.nav_glosario) {
+            Intent i = new Intent(this,GlossaryActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_creditos) {
+            Intent i = new Intent(this,CreditsActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
