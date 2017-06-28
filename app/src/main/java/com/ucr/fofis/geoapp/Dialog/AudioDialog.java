@@ -78,7 +78,7 @@ public class AudioDialog extends Dialog {
 
         @Override
         public void onBindViewHolder(final AudioHolder holder, final int position) {
-            holder.audioText.setText("Audio " + (position + 1));
+            holder.audioText.setText(audioResouceArray[position].getTitle());
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {//Si se hace click
