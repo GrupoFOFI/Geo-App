@@ -52,7 +52,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Ver animación"
+                    android:text="Ver animaciónes"
                     android:textColor="@color/colorPrimaryWhite"
                     android:textSize="25sp" />
             </LinearLayout>
@@ -62,7 +62,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-
                 android:layout_weight="0.5"
                 android:background="@drawable/round_button">
 
@@ -100,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Ver video"
+                    android:text="Ver videos"
                     android:textColor="@color/colorPrimaryWhite"
                     android:textSize="25sp" />
             </LinearLayout>
@@ -118,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Escuchar audio"
+                    android:text="Escuchar audios"
                     android:textColor="@color/colorPrimaryWhite"
                     android:textSize="25sp" />
             </LinearLayout>

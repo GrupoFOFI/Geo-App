@@ -10,6 +10,10 @@ import android.widget.ListView;
 import com.ucr.fofis.businesslogic.ResourceManager;
 import com.ucr.fofis.geoapp.Dialog.GlossaryDialog;
 
+/*
+    Actividad que contiene las palabras del glosario para que el usuario escoja.
+ */
+
 public class GlossaryActivity extends AppCompatActivity {
 
     private ListView listView;
@@ -18,9 +22,10 @@ public class GlossaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.glossary_dialog);
+        this.setContentView(R.layout.activity_glossary);
         getSupportActionBar().hide();
 
+        //Se obtienen las palabas del glosario.
         listaGlosario = new String[10];
         for (int i=0; i < 10 ; i++){
             listaGlosario[i] = ResourceManager.getGlossary().get(i).getPalabra();
@@ -28,6 +33,7 @@ public class GlossaryActivity extends AppCompatActivity {
         this.listView = (ListView) findViewById(R.id.listView);
         ArrayAdapter adapter = new ArrayAdapter(this,R.layout.view_glossary , listaGlosario);
         listView.setAdapter(adapter);
+        //Se activa el onClickListener para cada palabra del glosario.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
