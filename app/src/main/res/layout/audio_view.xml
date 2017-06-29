@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:layout_width="180dp"
-    android:layout_height="210dp"
-    android:background="@color/colorPrimaryGreen"
+    android:layout_width="210dp"
+    android:layout_height="180dp"
+    android:background="#000000"
     android:padding="10dp"
     android:gravity="center">
 
     <TextView
         android:gravity="center"
         android:id="@+id/audioName"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:text="Fofi"
         android:textColor="@color/colorPrimaryWhite"
         android:layout_width="wrap_content"

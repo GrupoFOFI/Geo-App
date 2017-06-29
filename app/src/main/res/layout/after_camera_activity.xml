@@ -39,40 +39,33 @@
             android:padding="10dp"
             android:weightSum="1">
 
-            <LinearLayout
+            <Button
                 android:id="@+id/gif_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@drawable/round_button">
+                android:textColor="@color/colorPrimaryWhite"
+                android:textSize="20sp"
+                android:background="@drawable/round_button"
+                android:text="Ver animaciones"
+                android:textAllCaps="false"
+                android:padding="5dp"
+                />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Ver animaciónes"
-                    android:textColor="@color/colorPrimaryWhite"
-                    android:textSize="25sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <Button
                 android:id="@+id/image_carousel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@drawable/round_button">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Ver imagenes"
-                    android:textColor="@color/colorPrimaryWhite"
-                    android:textSize="25sp" />
-            </LinearLayout>
+                android:textColor="@color/colorPrimaryWhite"
+                android:textSize="20sp"
+                android:background="@drawable/round_button"
+                android:text="Ver imagenes"
+                android:textAllCaps="false"
+                android:padding="5dp"
+                />
 
 
         </LinearLayout>
@@ -87,40 +80,34 @@
             android:weightSum="1">
 
 
-            <LinearLayout
+            <Button
                 android:id="@+id/video_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@drawable/round_button">
+                android:textColor="@color/colorPrimaryWhite"
+                android:textSize="20sp"
+                android:background="@drawable/round_button"
+                android:text="Ver videos"
+                android:textAllCaps="false"
+                android:padding="5dp"
+                />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Ver videos"
-                    android:textColor="@color/colorPrimaryWhite"
-                    android:textSize="25sp" />
-            </LinearLayout>
 
-            <LinearLayout
+            <Button
                 android:id="@+id/audio_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@drawable/round_button">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Escuchar audios"
-                    android:textColor="@color/colorPrimaryWhite"
-                    android:textSize="25sp" />
-            </LinearLayout>
+                android:textColor="@color/colorPrimaryWhite"
+                android:textSize="20sp"
+                android:background="@drawable/round_button"
+                android:text="Escuchar audios"
+                android:textAllCaps="false"
+                android:padding="5dp"
+                />
 
 
         </LinearLayout>

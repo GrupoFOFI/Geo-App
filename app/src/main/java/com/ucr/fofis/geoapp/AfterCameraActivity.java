@@ -24,7 +24,8 @@ import com.ucr.fofis.geoapp.Dialog.VideoDialog;
 
 public class AfterCameraActivity extends AppCompatActivity {
 
-    LinearLayout gifLayout, carouselDialog, videoLayout, audioLayout;
+    LinearLayout carouselDialog, videoLayout, audioLayout;
+    Button gifLayout;
     Activity activity = this;
     Punto punto;
 
@@ -38,7 +39,7 @@ public class AfterCameraActivity extends AppCompatActivity {
         punto = (Punto)getIntent().getSerializableExtra("punto");
         TextView title = (TextView) findViewById(R.id.title_point);
         title.setText(punto.getNombre());
-        gifLayout = (LinearLayout) findViewById(R.id.gif_dialog);
+        gifLayout = (Button) findViewById(R.id.gif_dialog);
         gifLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
