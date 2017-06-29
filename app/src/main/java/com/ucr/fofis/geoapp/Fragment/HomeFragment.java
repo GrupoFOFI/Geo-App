@@ -70,12 +70,12 @@ public class HomeFragment extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(getActivity(),MapActivity.class);
-//                i.putExtra("showRecomendation",true);
-//                startActivity(i);
-                Intent i = new Intent(getActivity(), AfterCameraActivity.class);
-                i.putExtra("punto", Datos.PUNTOS.get(8));
+                Intent i = new Intent(getActivity(),MapActivity.class);
+                i.putExtra("showRecomendation",true);
                 startActivity(i);
+//                Intent i = new Intent(getActivity(), AfterCameraActivity.class);
+//                i.putExtra("punto", Datos.PUNTOS.get(8));
+//                startActivity(i);
 
             }
         });
