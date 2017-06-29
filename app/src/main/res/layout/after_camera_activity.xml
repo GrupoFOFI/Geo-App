@@ -6,6 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryShaded"
         android:orientation="vertical"
         android:weightSum="1">
 
@@ -13,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryShaded"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -25,15 +26,15 @@
                 android:text="titulo"
                 android:textColor="@color/colorPrimaryWhite"
                 android:textSize="25sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/colorPrimaryShaded"
             android:layout_weight="0.4"
-            android:background="@color/colorPrimaryDark"
             android:orientation="horizontal"
             android:padding="10dp"
             android:weightSum="1">
@@ -44,16 +45,16 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@color/colorPrimary">
+                android:background="@drawable/round_button">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:padding="10dp"
                     android:text="Ver animación"
                     android:textColor="@color/colorPrimaryWhite"
-                    android:textSize="25sp"
-                    android:padding="10dp"/>
+                    android:textSize="25sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -63,7 +64,7 @@
                 android:layout_margin="10dp"
 
                 android:layout_weight="0.5"
-                android:background="@color/colorPrimary">
+                android:background="@drawable/round_button">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -81,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryShaded"
             android:orientation="horizontal"
             android:padding="10dp"
             android:weightSum="1">
@@ -93,7 +94,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@color/colorPrimary">
+                android:background="@drawable/round_button">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -110,8 +111,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-
-                android:background="@color/colorPrimary">
+                android:background="@drawable/round_button">
 
                 <TextView
                     android:id="@+id/textView"
