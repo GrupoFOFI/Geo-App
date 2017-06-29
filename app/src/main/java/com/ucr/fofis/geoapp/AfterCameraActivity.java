@@ -24,8 +24,7 @@ import com.ucr.fofis.geoapp.Dialog.VideoDialog;
 
 public class AfterCameraActivity extends AppCompatActivity {
 
-    LinearLayout carouselDialog, videoLayout, audioLayout;
-    Button gifLayout;
+    Button carouselDialog, videoLayout, audioLayout, gifLayout;
     Activity activity = this;
     Punto punto;
 
@@ -51,7 +50,7 @@ public class AfterCameraActivity extends AppCompatActivity {
                 }
             }
         });
-        carouselDialog = (LinearLayout) findViewById(R.id.image_carousel);
+        carouselDialog = (Button) findViewById(R.id.image_carousel);
         carouselDialog.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -69,7 +68,7 @@ public class AfterCameraActivity extends AppCompatActivity {
                 }
             }
         });
-        videoLayout = (LinearLayout) findViewById(R.id.video_dialog);
+        videoLayout = (Button) findViewById(R.id.video_dialog);
         videoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +80,7 @@ public class AfterCameraActivity extends AppCompatActivity {
                 }
             }
         });
-        audioLayout = (LinearLayout) findViewById(R.id.audio_dialog);
+        audioLayout = (Button) findViewById(R.id.audio_dialog);
         audioLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
