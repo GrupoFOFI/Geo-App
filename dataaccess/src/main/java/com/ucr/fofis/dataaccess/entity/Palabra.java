@@ -2,6 +2,7 @@ package com.ucr.fofis.dataaccess.entity;
 
 /**
  * Created by rapuc on 6/22/17.
+ * Representa las palabras del glosario con su significado y audio respectivo.
  */
 
 public class Palabra {
