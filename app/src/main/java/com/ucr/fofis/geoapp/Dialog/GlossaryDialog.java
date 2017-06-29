@@ -47,8 +47,12 @@ public class GlossaryDialog extends Dialog   {
         TextView palabra = (TextView)findViewById(R.id.palabra);
         TextView definicion = (TextView)findViewById(R.id.definicion);
         play = (ImageView)findViewById(R.id.status_audio);
+
+        //Se setean los valores de palabra definicion y el audio.
         palabra.setText(ResourceManager.getGlossary().get(index).getPalabra());
         definicion.setText(ResourceManager.getGlossary().get(index).getSignificado());
+
+        //Se crea el MediaPlayer y se escogen valores.
         mediaPlayer = MediaPlayer.create(getContext(), ResourceManager.getGlossary().get(index).getAudioId());
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setLooping(false);
@@ -64,6 +68,7 @@ public class GlossaryDialog extends Dialog   {
             }
         });
 
+        //Se definen acciones al hacer click en la imagen del audio.
         play.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {//Si se hace click
                 if (mediaPlayer != null) {
