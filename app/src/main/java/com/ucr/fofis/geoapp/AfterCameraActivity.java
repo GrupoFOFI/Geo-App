@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.ucr.fofis.dataaccess.entity.Punto;
 import com.ucr.fofis.geoapp.Dialog.AudioDialog;
 import com.ucr.fofis.geoapp.Dialog.GalleryDialog;
-import com.ucr.fofis.geoapp.Dialog.GifDialog;
 import com.ucr.fofis.geoapp.Dialog.VideoDialog;
 
 /**
@@ -26,7 +25,7 @@ public class AfterCameraActivity extends AppCompatActivity {
     Button gifLayout, carouselDialog, videoLayout, audioLayout;
     Activity activity = this;
     Punto punto;
-
+    private boolean animation;
     private static AfterCameraActivity instance;
 
     @Override
@@ -44,8 +43,9 @@ public class AfterCameraActivity extends AppCompatActivity {
                 if (punto.getAnimation().getId() == 0) {
                     Toast.makeText(AfterCameraActivity.this, "No existen animaciones asociadas a este punto", Toast.LENGTH_SHORT).show();
                 } else {
-                    GifDialog gifDialog = new GifDialog(AfterCameraActivity.this);
-                    gifDialog.show();
+                    animation = true;
+                    VideoDialog videoDialog = new VideoDialog(AfterCameraActivity.this);
+                    videoDialog.show();
                 }
             }
         });
@@ -74,6 +74,7 @@ public class AfterCameraActivity extends AppCompatActivity {
                 if (punto.getVideo().getId() == 0) {
                     Toast.makeText(AfterCameraActivity.this, "No existen videos asociados a este punto", Toast.LENGTH_SHORT).show();
                 } else {
+                    animation = false;
                     VideoDialog videoDialog = new VideoDialog(AfterCameraActivity.this);
                     videoDialog.show();
                 }
@@ -100,5 +101,13 @@ public class AfterCameraActivity extends AppCompatActivity {
 
     public static AfterCameraActivity getInstance() {
         return instance;
+    }
+
+    public boolean isAnimation() {
+        return animation;
+    }
+
+    public void setAnimation(boolean animation) {
+        this.animation = animation;
     }
 }
