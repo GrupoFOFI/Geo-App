@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ import com.ucr.fofis.geoapp.Dialog.VideoDialog;
 
 public class AfterCameraActivity extends AppCompatActivity {
 
-    Button gifLayout, carouselDialog, videoLayout, audioLayout;
+    Button carouselDialog, videoLayout, audioLayout, gifLayout;
     Activity activity = this;
     Punto punto;
     private boolean animation;

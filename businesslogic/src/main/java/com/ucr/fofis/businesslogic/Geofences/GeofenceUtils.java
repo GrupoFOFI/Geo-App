@@ -34,9 +34,9 @@ public class GeofenceUtils {
         int i = 0;
         for (Punto geofence : geofences) {
             com.google.android.gms.location.Geofence.Builder builder = new com.google.android.gms.location.Geofence.Builder();
-           // float radius = (float)geofence.getGeofenceRadio();
+            float radius = (float)geofence.getGeofenceRadio();
             builder.setRequestId("" + i)
-                //    .setCircularRegion(geofence.getGeoPoint().getLatitude(), geofence.getGeoPoint().getLongitude(), radius)
+                    .setCircularRegion(geofence.getGeoPoint().getLatitude(), geofence.getGeoPoint().getLongitude(), radius)
                     .setExpirationDuration(com.google.android.gms.location.Geofence.NEVER_EXPIRE)
                     .setTransitionTypes(com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER | com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT)
                     .setNotificationResponsiveness(0);
@@ -58,7 +58,7 @@ public class GeofenceUtils {
         if (GeofenceManager.getInstance().hasLocationPermission()) {
             createGeofenceList(geofences);
             if (googleApiClient != null && googleApiClient.isConnected()) {
-              //  LocationServices.GeofencingApi.addGeofences(googleApiClient, getGeofencingRequest(), pendingIntent);
+                LocationServices.GeofencingApi.addGeofences(googleApiClient, getGeofencingRequest(), pendingIntent);
             } else return false;
             return true;
         }

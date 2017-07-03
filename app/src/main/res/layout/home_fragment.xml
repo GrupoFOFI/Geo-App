@@ -57,6 +57,7 @@
                 android:gravity="left"
                 android:scrollbars="vertical"
                 android:layout_marginBottom="20dp"
+                android:background="@color/semiTransparentBlue"
                 />
             <LinearLayout
                 android:orientation="vertical"
@@ -71,8 +72,8 @@
                     android:id="@+id/btnStart"
                     android:layout_width="150dp"
                     android:layout_height="40dp"
-                    android:textColor="@color/colorDarkGray"
-                    android:background="@color/colorSecondaryYellow2"
+                    android:textColor="@color/colorPrimaryWhite"
+                    android:background="@drawable/round_button"
                     android:text="@string/btn_start"
                     />
 
@@ -87,9 +88,9 @@
         android:layout_height="55dp"
         android:layout_marginRight="25dp"
         android:clickable="true"
-        app:backgroundTint="@color/colorSecondaryYellow2"
+        app:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_public_black_24dp"
-        android:tint="@color/colorDarkGray"
+        android:tint="@color/colorPrimaryWhite"
         app:layout_anchor="@id/layoutcarousel"
         app:layout_anchorGravity="bottom|right|end"/>
 
