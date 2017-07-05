@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
                 i.putExtra("showRecomendation",true);
 //                Intent i = new Intent(getActivity(), AfterCameraActivity.class);
 //                i.putExtra("punto", Datos.PUNTOS.get(2));
-//                startActivity(i);
+                startActivity(i);
 
             }
         });
