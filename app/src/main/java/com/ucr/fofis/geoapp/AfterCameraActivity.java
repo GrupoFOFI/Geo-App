@@ -54,7 +54,7 @@ public class AfterCameraActivity extends AppCompatActivity {
         carouselDialog.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if (punto.getImagenes() == null) {
+                if (punto.getImagenes() == null || punto.getImagenes().length == 0) {
                     Toast.makeText(AfterCameraActivity.this, "No existen imágenes asociadas a este punto", Toast.LENGTH_SHORT).show();
                 } else {
                     final GalleryDialog galleryDialog = new GalleryDialog();
