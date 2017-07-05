@@ -1,7 +1,9 @@
 package com.ucr.fofis.geoapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +39,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
     ImageView arrow;
     SensorHelper sensorHelper;
     LocationRequest locationRequest;
+    Activity activity = this;
 
     Punto point;
 /*asigna el sensorhelper , la imagen para la brujula , el punto de interes(target) */
@@ -166,6 +169,10 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                 openGP.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        SharedPreferences prefs = activity.getSharedPreferences("ibx", Context.MODE_PRIVATE);
+                        if(!prefs.contains(point.getNombre())) {
+                            prefs.edit().putString(point.getNombre(), "val").apply();
+                        }
                         Intent i = new Intent(activity, AfterCameraActivity.class);
                         i.putExtra("punto", point);
                         startActivity(i);
