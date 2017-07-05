@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -68,12 +69,21 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (GeoApp.audioPlay == true) {
+        SharedPreferences prefs = this.getSharedPreferences("ibx", Context.MODE_PRIVATE);
+        if(!prefs.contains("firsttime")){
+            prefs.edit().putString("firsttime", "val").apply();
             autoplayIntro();
         }
-        GeoApp.audioPlay = false;
+        else{
+
+        }
+
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+    }
 
     /**
      * Realiza el pedido de permisos: escritura de dsico (WRITE_EXTERNAL_STORAGE), posición precisa(ACCESS_FINE_LOCATION) y cámara (CAMERA)
@@ -255,12 +265,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onPause() {
-        if (introMediaPlayer != null) {
-            if (introMediaPlayer.isPlaying())
-                introMediaPlayer.stop();
-            introMediaPlayer.release();
-            introMediaPlayer = null;
-        }
+//        if (introMediaPlayer != null) {
+//            if (introMediaPlayer.isPlaying())
+//                introMediaPlayer.stop();
+//            introMediaPlayer.release();
+//            introMediaPlayer = null;
+//        }
         super.onPause();
     }
 
