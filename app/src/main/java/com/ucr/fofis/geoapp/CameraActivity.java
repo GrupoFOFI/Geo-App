@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -22,6 +22,8 @@ import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.Math.MathUtils;
 import com.ucr.fofis.businesslogic.SensorHelper;
 import com.ucr.fofis.dataaccess.entity.Punto;
+
+import pl.droidsonroids.gif.GifImageView;
 
 import static com.ucr.fofis.geoapp.R.id.btnStart;
 
@@ -36,10 +38,13 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
 
     private Camera mCamera=null;
     private CameraView mCameraView=null;
+    GifImageView gifImageView;
+    MediaPlayer mediaPlayer;
     ImageView arrow;
     SensorHelper sensorHelper;
     LocationRequest locationRequest;
     Activity activity = this;
+    boolean playingAnimation = false;
 
     Punto point;
 /*asigna el sensorhelper , la imagen para la brujula , el punto de interes(target) */
@@ -49,6 +54,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         setContentView(R.layout.activity_camera);
         //Setea el punto de interes que hizo que la camara pudiera ser abierta. El punto viene desde el Map Activity
         point = (Punto)getIntent().getSerializableExtra(POINT_TAG);
+        gifImageView = (GifImageView)findViewById(R.id.gif_image_view);
 
         //Esconde el boton de abrir geopunto
         Button openGP = (Button) findViewById(btnStart);
@@ -79,20 +85,28 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
             camera_view.addView(mCameraView);
         }
 
-        ImageButton imgClose = (ImageButton)findViewById(R.id.imgClose);
+        /*ImageButton imgClose = (ImageButton)findViewById(R.id.imgClose);
         imgClose.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 finish();
             }
-        });
+        });*/
 
         sensorHelper.start();
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (mediaPlayer.isPlaying()) mediaPlayer.stop();
+        mediaPlayer.release();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        mediaPlayer = MediaPlayer.create(this, point.getAudios()[0].getId());
         mCamera = Camera.open(0);
         if(mCamera != null){
             mCameraView = new CameraView(this, mCamera);
@@ -162,6 +176,8 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                     Toast.makeText(this, "¿Vieron el punto?", Toast.LENGTH_SHORT);
                 }
                 arrow.setVisibility(View.INVISIBLE);
+                if (!playingAnimation)
+                    startAnimation();
                 //showNotification("Punto Detectado", "Punto " + point.getNombre() + " detectado");
                 openGP.setEnabled(true);
                 openGP.setVisibility(View.VISIBLE);
@@ -184,8 +200,35 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                 //manager.cancel(6);
                 openGP.setEnabled(false);
                 openGP.setVisibility(View.GONE);
+                if (playingAnimation)
+                    stopAnimation();
+                playingAnimation = false;
             }
         }
     }
 
+    void startAnimation() {
+        //gifImageView.setImageResource(point.getAnimation().getId());
+        gifImageView.setVisibility(View.VISIBLE);
+        playingAnimation = true;
+        mediaPlayer.start();
+        mediaPlayer.setLooping(false);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                stopAnimation();
+                playingAnimation = true;
+            }
+        });
+    }
+
+    void stopAnimation() {
+        gifImageView.setVisibility(View.INVISIBLE);
+        playingAnimation = false;
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+        mediaPlayer.release();
+        mediaPlayer = MediaPlayer.create(this, point.getAudios()[0].getId());
+    }
 }

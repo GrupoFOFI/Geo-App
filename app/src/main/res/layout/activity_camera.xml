@@ -16,6 +16,16 @@
             android:layout_height="match_parent">
         </FrameLayout>
 
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif_image_view"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:scaleType="fitXY"
+            android:src="@drawable/camera_animation"
+            />
+
         <ImageView
             android:id="@+id/arrow"
             android:src="@drawable/arrow2"
@@ -24,7 +34,7 @@
             android:layout_centerInParent="true" />
 
 
-    <ImageButton
+    <!--<ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -32,7 +42,7 @@
         android:id="@+id/imgClose"
         android:visibility="gone"
         android:background="@android:drawable/ic_menu_close_clear_cancel"
-        android:padding="20dp"/>
+        android:padding="20dp"/>-->
 
         <Button
             android:id="@+id/btnStart"
