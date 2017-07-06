@@ -12,6 +12,7 @@ import com.ucr.fofis.geoapp.Fragment.HomeFragment;
 
 /**
  * Created by Esteban on 25/06/2017.
+ * Actividad que muestra los creditos de la aplicacion
  */
 
 public class CreditsActivity extends AppCompatActivity{
