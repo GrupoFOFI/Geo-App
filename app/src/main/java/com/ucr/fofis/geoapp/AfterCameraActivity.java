@@ -2,6 +2,7 @@ package com.ucr.fofis.geoapp;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -93,6 +94,23 @@ public class AfterCameraActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (punto.getAnimation().getId() == 0) {
+            gifLayout.setBackgroundColor(Color.GRAY);
+        }
+
+        if (punto.getImagenes() == null || punto.getImagenes().length == 0) {
+            carouselDialog.setBackgroundColor(Color.GRAY);
+        }
+
+        if (punto.getVideo().getId() == 0) {
+            videoLayout.setBackgroundColor(Color.GRAY);
+        }
+
+        if (punto.getAudios() == null || punto.getAudios().length == 0) {
+            audioLayout.setBackgroundColor(Color.GRAY);
+        }
+
     }
 
     @Override
