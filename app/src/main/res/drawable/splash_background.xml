@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/splash_background_fofi" />
+    <item android:drawable="@drawable/unnamed" />
 
-    <item>
-        <bitmap android:src="@drawable/rsz_splash_new"
-            android:gravity="center_horizontal"
-            android:filter="@bool/default_circle_indicator_centered"
-            android:tint="@color/colorPrimaryWhite"/>
-    </item>
+    <!--<item>-->
+        <!--&lt;!&ndash;<bitmap android:src="@drawable/rsz_splash_new"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:gravity="center_horizontal"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:filter="@bool/default_circle_indicator_centered"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:tint="@color/colorPrimaryWhite"/>&ndash;&gt;-->
+    <!--</item>-->
 
 
 </layer-list>
