@@ -1,10 +1,12 @@
 package com.ucr.fofis.geoapp.Dialog;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -21,10 +24,9 @@ import com.ucr.fofis.geoapp.R;
 
 /**
  * Dialogo que permite mostrar imagenes de un punto.
- *
  */
 
-public class GalleryDialog  extends DialogFragment {
+public class GalleryDialog extends DialogFragment {
     public FloatingActionButton fab;
     CarouselView carouselView;
     Punto punto;
@@ -40,7 +42,7 @@ public class GalleryDialog  extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.gallery_dialog, container);
+        View view = inflater.inflate(R.layout.gallery_dialog, container);
         android.support.v4.app.FragmentManager fm = getChildFragmentManager();
         Titulo = (TextView) view.findViewById(R.id.gallery_title);
                 /*tomar punto del lugar que esta cerca*/
@@ -51,6 +53,25 @@ public class GalleryDialog  extends DialogFragment {
         carouselView.setSlideInterval(Integer.MAX_VALUE);
         WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
         wmlp.gravity = Gravity.FILL_HORIZONTAL;
+        carouselView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Titulo.setText(punto.getImagenes()[position].getTitle());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        ;
+
 
 
         return view;
@@ -60,11 +81,11 @@ public class GalleryDialog  extends DialogFragment {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
             imageView.setImageResource(punto.getImagenes()[position].getId());
-            Titulo.setText(punto.getImagenes()[position].getTitle());
+
         }
     };
 
-    public void setDialogDismissInterface(GalleryDialog.DialogDismissInterface dialogDismissInterface){
+    public void setDialogDismissInterface(GalleryDialog.DialogDismissInterface dialogDismissInterface) {
         this.dialogDismissInterface = dialogDismissInterface;
     }
 
