@@ -1,6 +1,5 @@
 package com.ucr.fofis.geoapp.Dialog;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -53,6 +51,7 @@ public class GalleryDialog extends DialogFragment {
         carouselView.setSlideInterval(Integer.MAX_VALUE);
         WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
         wmlp.gravity = Gravity.FILL_HORIZONTAL;
+        Titulo.setText(punto.getImagenes()[0].getTitle());
         carouselView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override

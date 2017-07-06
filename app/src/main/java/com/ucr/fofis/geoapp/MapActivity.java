@@ -34,7 +34,6 @@ import com.ucr.fofis.businesslogic.GeofenceManager;
 import com.ucr.fofis.businesslogic.Geofences.Service.GeofenceService;
 import com.ucr.fofis.businesslogic.LocationHelper;
 import com.ucr.fofis.businesslogic.TourManager;
-import com.ucr.fofis.dataaccess.database.Datos;
 import com.ucr.fofis.dataaccess.entity.Punto;
 import com.ucr.fofis.dataaccess.entity.Resource;
 import com.ucr.fofis.geoapp.Application.GeoApp;
@@ -281,7 +280,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
     * asigna a los marcadores un xml infowindow , un nombre , una posición , un clicklistener y un icono.(según corresponda con la lista de puntos)
     * muestra el titulo del marcador cuando es seleccionado(o lo oculta) y cambia de color
     * */
-    private Marker addMarker(MapView m, String name, double lat,double lon, int pto  ){
+    private Marker addMarker(MapView m, String name, double lat,double lon, final int pto  ){
         marcadores.add(new Marker(m));
         GeoPoint gp = new GeoPoint(lat, lon);
         marcadores.get(pto).setPosition(gp);
@@ -289,6 +288,11 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
         marcadores.get(pto).setInfoWindow(infoWindow);
         marcadores.get(pto).setTitle(name);
         marcadores.get(pto).setIcon(iconMarker);
+        SharedPreferences prefs = activity.getSharedPreferences("ibx", Context.MODE_PRIVATE);
+        if(prefs.contains(marcadores.get(pto).getTitle())) {
+            marcadores.get(pto).setIcon(markerColor);
+
+        }
         marcadores.get(pto).setAnchor(Marker.ANCHOR_CENTER, 1.0f);
         Marker.OnMarkerClickListener mrkeListnr = new Marker.OnMarkerClickListener() {
             @Override
@@ -296,6 +300,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                     if (marker.isInfoWindowOpen()) {
                         SharedPreferences prefs = activity.getSharedPreferences("ibx", Context.MODE_PRIVATE);
                         if(prefs.contains(marker.getTitle())){
+                            marker.setIcon(markerColor);
                             for(int i = 0; i<PUNTOS.size(); i++){
                                 if(PUNTOS.get(i).getNombre().equals(marker.getTitle())){
                                     Intent intent = new Intent(activity, AfterCameraActivity.class);
@@ -306,16 +311,13 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                         }
                         marker.closeInfoWindow();
                         nmbIfoWndw = null;
-                        marker.setIcon(iconMarker);
                         selected = marker.getTitle();
                         return false;
                     }
                     if (nmbIfoWndw != null) {
                         nmbIfoWndw.closeInfoWindow();
-                        nmbIfoWndw.setIcon(iconMarker);
                     }
                     nmbIfoWndw = marker;
-                    marker.setIcon(markerColor);
                     marker.showInfoWindow();
                     return true;
             }
@@ -620,6 +622,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                 fabSpeedDial2.setEnabled(false);
                 fabSpeedDial2.setVisibility(View.GONE);
                 puntoActual = TourManager.getPoints().get(id).getNombre();
+                marcadores.get(id).setIcon(markerColor);
             }
             else if (trigger == 2) { // left region
                 Log.i("Exit","Salida");

@@ -21,7 +21,7 @@ public class Ruta {
     public static final Integer AUDIO_INTRO = R.raw.intro;
 
     //Link a la página web de la ruta
-    public static final String WEB_PAGE_URL = "http://cicg.ucr.ac.cr/";
+    public static final String WEB_PAGE_URL = "http://rutageologica.ucr.ac.cr/";
 
 
 }
