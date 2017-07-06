@@ -55,6 +55,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         //Setea el punto de interes que hizo que la camara pudiera ser abierta. El punto viene desde el Map Activity
         point = (Punto)getIntent().getSerializableExtra(POINT_TAG);
         gifImageView = (GifImageView)findViewById(R.id.gif_image_view);
+        gifImageView.setVisibility(View.INVISIBLE);
 
         //Esconde el boton de abrir geopunto
         Button openGP = (Button) findViewById(btnStart);
@@ -185,6 +186,7 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
                 openGP.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        stopAnimation();
                         SharedPreferences prefs = activity.getSharedPreferences("ibx", Context.MODE_PRIVATE);
                         if(!prefs.contains(point.getNombre())) {
                             prefs.edit().putString(point.getNombre(), "val").apply();
@@ -211,24 +213,29 @@ public class CameraActivity extends AppCompatActivity implements OnLookAtTargetL
         //gifImageView.setImageResource(point.getAnimation().getId());
         gifImageView.setVisibility(View.VISIBLE);
         playingAnimation = true;
-        mediaPlayer.start();
-        mediaPlayer.setLooping(false);
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                stopAnimation();
-                playingAnimation = true;
-            }
-        });
+        try {
+            mediaPlayer.start();
+            mediaPlayer.setLooping(false);
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    stopAnimation();
+                    playingAnimation = true;
+                }
+            });
+        }catch (Exception e){}
     }
 
     void stopAnimation() {
         gifImageView.setVisibility(View.INVISIBLE);
         playingAnimation = false;
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
+        try {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+            }
+            mediaPlayer.release();
+            mediaPlayer = MediaPlayer.create(this, point.getAudios()[0].getId());
+        }catch (Exception e){
         }
-        mediaPlayer.release();
-        mediaPlayer = MediaPlayer.create(this, point.getAudios()[0].getId());
     }
 }
