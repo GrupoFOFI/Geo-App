@@ -27,7 +27,8 @@ import com.ucr.fofis.geoapp.R;
 import static java.security.AccessController.getContext;
 
 /**
- * Dialogo que permite ver y escuchar definiciones del glosario
+ * Dialogo que permite ver y escuchar definiciones del glosario.
+ * Contiene el titulo de la palabra, la descripcion de la palabra y el boton para reproducir el audio.
  */
 public class GlossaryDialog extends Dialog   {
     MediaPlayer mediaPlayer;
@@ -48,7 +49,7 @@ public class GlossaryDialog extends Dialog   {
         TextView definicion = (TextView)findViewById(R.id.definicion);
         play = (ImageView)findViewById(R.id.status_audio);
 
-        //Se setean los valores de palabra definicion y el audio.
+        //Se obtienen los valores de palabra, definicion y el audio.
         palabra.setText(ResourceManager.getGlossary().get(index).getPalabra());
         definicion.setText(ResourceManager.getGlossary().get(index).getSignificado());
 
@@ -72,10 +73,10 @@ public class GlossaryDialog extends Dialog   {
         play.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {//Si se hace click
                 if (mediaPlayer != null) {
-                    if (mediaPlayer.isPlaying()) {//Si esta sonando se detiene
+                    if (mediaPlayer.isPlaying()) {//Si esta sonando, se detiene
                         mediaPlayer.pause();
                         play.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
-                    } else {//Si no se inicia
+                    } else {//Si no, se inicia
                         mediaPlayer.start();
                         play.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
                     }

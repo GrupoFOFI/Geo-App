@@ -622,6 +622,7 @@ public class MapActivity extends AppCompatActivity  implements View.OnClickListe
                 fabSpeedDial2.setEnabled(false);
                 fabSpeedDial2.setVisibility(View.GONE);
                 puntoActual = TourManager.getPoints().get(id).getNombre();
+                //Se modifica el color del marcador para mostrar que ha sido visitado.
                 marcadores.get(id).setIcon(markerColor);
             }
             else if (trigger == 2) { // left region
